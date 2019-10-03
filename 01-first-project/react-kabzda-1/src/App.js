@@ -1,21 +1,20 @@
 import React from 'react';
 import './App.css';
+import Header from './Header.js'
+import Technologies from './Technologies.js'
 
 const App = () => {
   return (
     <div>
-      <div>One div</div>
-      <div className="App">
-      <ul>
-        <li>Список</li>
-        <li>css</li>
-        <li>html</li>
-        <li>js</li>
-        <li>react</li>
-      </ul>
-    </div> 
+      <Header />
+      <Technologies />
     </div>
   );
 }
+
+
+
+
+
 
 export default App;
