@@ -1,10 +1,11 @@
 import React from 'react';
+import topImg from './../img/topImg.jpg';
 
 const Profile = () => {
     return(
 <div className='content'>
     <div className='top-img'>
-    <img src='https://www.sticky.digital/wp-content/uploads/2013/11/img-6.jpg'></img>
+    <img src = {topImg} alt ={"top-img"}/>
     </div>
     <div>
       ava+description
