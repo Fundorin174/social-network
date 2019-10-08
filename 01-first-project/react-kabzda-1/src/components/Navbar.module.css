@@ -1,0 +1,19 @@
+
+
+.nav{
+  grid-area: n;
+  background-color: var(--main-background-color);
+  color: var(--main-light-color);
+  font-size: 1.2rem;
+  height: 100vh;
+  }
+  
+  .item{
+  margin: 10px 15px;
+  }
+
+  .active {
+    font-style: italic;
+    font-weight: bold;
+  }
+  
