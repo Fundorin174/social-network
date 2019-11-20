@@ -7,7 +7,7 @@ const Messages = (props) => {
 
     
 
-    let massagesElements = props.messages.map( message =>  <MsgItem id={message.id} name='Ivan' date='June, 25, 2019' msg={message.msg} />);
+    let massagesElements = props.messages.map( message =>  <MsgItem id={message.id} name={message.name} date={message.date} msg={message.msg} />);
 
 
     return (

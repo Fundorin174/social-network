@@ -5,9 +5,10 @@ import Messages from './Messages/Messages';
 
 
 const Dialogs = (props) => {
+
     return (
         <div className={classes.dialogs}>
-            <DialogItems />
+            <DialogItems dialogs={props.dialogs} />
             <Messages messages={props.messages}/>
         </div>
     );

@@ -18,7 +18,7 @@ const DialogItem = (props) => {
                     <span className={classes.dialName}>{props.name}</span>
                     <span className={classes.dialDate}>{props.date}</span>
                 </div>
-                <div className={classes.textMsg}>{props.msg}</div>
+                {/* <div className={classes.textMsg}>{props.msg}</div> */}
             </div>
             </div>
             <hr />   

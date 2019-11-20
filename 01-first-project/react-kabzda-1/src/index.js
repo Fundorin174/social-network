@@ -13,13 +13,23 @@ let postData = [
   ]
 
 
+let dialogsData = [
+    {id: '1', name: 'Alex', date: 'June, 25, 2019'},
+    {id: '2', name: 'Dima', date: 'June, 24, 2019'},
+    {id: '3', name: 'Sveta', date: 'June, 23, 2019'},
+    {id: '4', name: 'Vasja', date: 'May, 24, 2019'},
+    {id: '5', name: 'Viktor', date: 'June, 24, 2018'},
+    {id: '6', name: 'Valera', date: 'June, 04, 2017'}
+    ];
+    
+
 let messagesData = [
-    {id: 1, msg: 'Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.'},
-    {id: 2, msg: '2Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.'},
-    {id: 3, msg: '3Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.'},
-    {id: 4, msg: '4Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.'},
-    {id: 5, msg: '5Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.'},
-    {id: 6, msg: '6Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur etDeserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.'}
+    {id: 1, msg: 'Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.', name: 'Alex', date: 'June, 25, 2019'},
+    {id: 2, msg: '2Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.', name: 'Dima', date: 'June, 24, 2019'},
+    {id: 3, msg: '3Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.', name: 'Sveta', date: 'June, 23, 2019'},
+    {id: 4, msg: '4Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.', name: 'Viktor', date: 'June, 24, 2018'},
+    {id: 5, msg: '5Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.', name: 'Valera', date: 'June, 04, 2017'},
+    {id: 6, msg: '6Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur etDeserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.', name: 'Anton', date: 'June, 04, 2017'}
 ]
 //   let idElements = postData.map( post => post.id ),
 //       msgElements = postData.map( msg => msg.msg ),
@@ -27,7 +37,7 @@ let messagesData = [
 
 
 
-ReactDOM.render(<App posts={postData} messages={messagesData}/>, document.getElementById('root'));
+ReactDOM.render(<App posts={postData} dialogs={dialogsData} messages={messagesData}/>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
