@@ -16,6 +16,13 @@ a {
   grid-template-areas: 
   "h h"
   "n c";
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.app-wrapper-content{
+    grid-area: c;
+    background-color: rgb(200, 205, 214);
 }
 
 

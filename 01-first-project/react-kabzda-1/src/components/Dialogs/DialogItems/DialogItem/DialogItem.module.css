@@ -1,0 +1,89 @@
+.dialogContainer{
+    width:100%
+}
+
+.dialogItem {
+    width: 100%;
+    margin: 20px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.dialImg{
+    width: 60px;
+    height: auto;
+}
+
+.dialImg a{
+    display: inline-block;
+    width: 100%;
+    height: auto;
+}
+
+.dialImg img{
+    width: 100%;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    vertical-align: middle;
+}
+
+.dialText{
+    width: fit-content;
+    height: auto;
+    max-width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+}
+
+.textTop{
+    margin-top: 5px;
+    margin-bottom: 15px;
+    display: inline-flex;
+    flex-direction: row;
+}
+
+.dialName{
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.dialDate{
+    display: inline-block;
+    font-size: 11px;
+    line-height: 18px;
+    font-weight: 400;
+    color: #7a8192;;
+}
+
+.textMsg{
+    background: transparent;
+    border: none;
+    padding: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 18px;
+    font-weight: 400;
+    color: #7a8192;
+}
+
+.active {
+    font-weight: bold;
+    color: #000;
+}
+
+hr{
+    border: 0,5px solid #fff;
+    width: 80%;
+    margin: 0 auto;
+
+}

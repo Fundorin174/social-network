@@ -1,0 +1,9 @@
+.messages{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 4;
+    border-left:  1px solid #edeff2;
+   padding-left: 20px;
+}

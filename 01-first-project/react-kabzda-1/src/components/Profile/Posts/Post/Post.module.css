@@ -1,0 +1,42 @@
+/* profile */
+  
+
+  .post{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 20px 0 0 0;
+  }
+
+  .item{
+    color: rgb(18, 4, 87);
+  }
+
+  .ava {
+    width: 50px;
+  }
+
+  .postLikes{
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .like {
+    width: 20px;
+    height: auto;
+    margin-left: 20px;
+    padding-bottom: 10px;
+    cursor: pointer;
+  }
+
+  .likeNum{
+    font-size: 0.7rem;
+    margin-left: 10px;
+  }
+
+  
+  
+  
