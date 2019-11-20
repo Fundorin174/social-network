@@ -14,7 +14,7 @@ const Title = () => {
           <img src={myAva} alt={"my-ava"} />
         </div>
         <div className={classes.description}>
-          <h3>Name</h3>
+          <h3>Dmitry</h3>
           <p>
             <ul>
               <li>Date of Birth: 2 january</li>

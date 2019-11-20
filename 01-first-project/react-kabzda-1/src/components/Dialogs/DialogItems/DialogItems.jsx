@@ -5,14 +5,21 @@ import DialogItem from './DialogItem/DialogItem';
 
 const DialogItems = (props) => {
 
-    return (
-        <div className={classes.dialogItems}>
+let dialogsData = [
+{id: '1', name: 'Alex', date: 'June, 25, 2019'},
+{id: '2', name: 'Dima', date: 'June, 24, 2019'},
+{id: '3', name: 'Sveta', date: 'June, 23, 2019'},
+{id: '4', name: 'Sasha', date: 'May, 24, 2019'},
+{id: '5', name: 'Viktor', date: 'June, 24, 2018'},
+{id: '6', name: 'Valera', date: 'June, 04, 2017'}
+];
 
-            <DialogItem id='1' name='Alex' date='June, 25, 2019' msg='Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.'/>
-            <DialogItem id='2'name='Dima' date='June, 24, 2019' msg='Incididunt aliquip consequat commodo id nulla exercitation deserunt.'/>
-        
-        </div>
-    );
+let dialogElements = dialogsData.map( dialogItem => <DialogItem id={dialogItem.id} name={dialogItem.name} date={dialogItem.date} />);
+return (
+<div className={classes.dialogItems}>
+    { dialogElements }
+</div>
+);
 }
 
 export default DialogItems;

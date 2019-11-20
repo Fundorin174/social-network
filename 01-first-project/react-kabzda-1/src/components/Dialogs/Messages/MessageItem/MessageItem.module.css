@@ -1,8 +1,8 @@
-.dialogContainer{
+.msgContainer{
     width:100%
 }
 
-.dialogItem {
+.msgItem {
     width: 100%;
     margin: 20px 10px;
     display: flex;
@@ -11,18 +11,18 @@
     align-items: center;
 }
 
-.dialImg{
+.msgImg{
     width: 60px;
     height: auto;
 }
 
-.dialImg a{
+.msgImg a{
     display: inline-block;
     width: 100%;
     height: auto;
 }
 
-.dialImg img{
+.msgImg img{
     width: 100%;
     border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -32,7 +32,7 @@
     vertical-align: middle;
 }
 
-.dialText{
+.msgText{
     width: fit-content;
     height: auto;
     max-width: 100%;
@@ -50,12 +50,12 @@
     align-items: baseline;
 }
 
-.dialName{
+.msgName{
     display: inline-block;
     margin-right: 20px;
 }
 
-.dialDate{
+.msgDate{
     display: inline-block;
     font-size: 11px;
     line-height: 18px;
@@ -64,12 +64,12 @@
 }
 
 .textMsg{
-    background: transparent;
+    background: rgba(255, 255, 255, 0.5);
     border: none;
-    padding: 0px;
+    padding: 10px 0;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 100%;
+    max-width: 90%;
     display: inline-block;
     font-size: 12px;
     line-height: 18px;
