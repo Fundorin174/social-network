@@ -6,7 +6,7 @@ import Avatar from './../../../../img/avatar.png';
 const DialogItem = (props) => {
 
     let path = '/dialogs/'+ props.id;
-   
+
     return (
         <div className={classes.dialogContainer}>
             <div className={classes.dialogItem}>

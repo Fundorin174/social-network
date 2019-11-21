@@ -1,11 +1,16 @@
-
-
-.nav{
+.wrapper{
   grid-area: n;
   background-color: var(--main-background-color);
+  height: 100%
+}
+
+.nav{
+  width: 100%;
+  height: auto;
   color: var(--main-light-color);
   font-size: 1.2rem;
-  height: 100vh;
+  margin: 20px 0;
+  
   }
   
   .item{
@@ -16,4 +21,7 @@
     font-style: italic;
     font-weight: bold;
   }
+
+
+
   

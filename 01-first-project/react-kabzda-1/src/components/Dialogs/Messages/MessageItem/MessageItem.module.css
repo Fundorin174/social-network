@@ -66,7 +66,8 @@
 .textMsg{
     background: rgba(255, 255, 255, 0.5);
     border: none;
-    padding: 10px 0;
+    border-radius: 10px;
+    padding: 10px 10px;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 90%;

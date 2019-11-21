@@ -6,35 +6,26 @@ import Post from './Post/Post';
 
 const Posts = (props) => {
 
+let newPostElement = React.createRef();
 
-// console.log(props);
-// let recieveData = [];
-// {for  (let i = 0; i<props.idTag.length; i++ ){
-//   recieveData[i] = {
-//     'id': props.idTag[i],
-//     'msg': props.msgTag[i],
-//     'numOfLikes': props.numOfLikesTag[i]
-//   }
-//   }
-//   console.log(recieveData);
-//   }
-// let postData = [
-  
-//   {id: '1', msg: 'Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.', numOfLikes: '5'},
-//   {id: '2', msg: 'Fuck', numOfLikes: '500'},
-//   {id: '3', msg: 'Ахахахахахахах', numOfLikes: '50'},
-//   {id: '3', msg: 'Ахахахаха', numOfLikes: '100'}
-// ];
+
+let addNewPost = () => {
+  let text = newPostElement.current.value;
+  props.adPost(text);
+  newPostElement.current.value='';
+} 
+
 
 
 
 let postsElements = props.posts.map( (post) => <Post msg = {post.msg} likeNum = {post.numOfLikes}/> );
+
     return(
     <div >
-        <h3>My posts</h3>
+        <h3>Мои сообщения</h3>
         <div className={classes.newsform}>
-          <textarea name={classes.youNews} id={classes.youNews} cols="30" rows="3" value='your news'></textarea>
-          <button className={classes.btn}>Send</button>
+          <textarea ref={newPostElement} name={classes.youNews} id={classes.youNews} cols="30" rows="3"></textarea>
+          <button onClick={ addNewPost } className={classes.btn}>Добавить сообщение</button>
         </div>
         <div>
 

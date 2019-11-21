@@ -1,0 +1,32 @@
+  .frends_item{
+    width: 30%;
+    height: auto;
+    min-width: 40px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .frends_item img{
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    min-width: 40px;
+}
+
+.frends_item p{
+  display: inline-block;
+  margin: 5px auto;
+  font-size: 0.6 rem;
+}
+
+
+
+
+
+  
