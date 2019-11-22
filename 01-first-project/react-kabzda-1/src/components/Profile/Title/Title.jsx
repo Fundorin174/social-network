@@ -15,14 +15,12 @@ const Title = () => {
         </div>
         <div className={classes.description}>
           <h3>Dmitry</h3>
-          <p>
-            <ul>
+          <ul>
               <li>Date of Birth: 2 january</li>
               <li>City: Voronezh</li>
               <li>Education: VVTU'02</li>
               <li>Web Site: https://fundorin.ru</li>
-            </ul>
-          </p>
+          </ul>
         </div>
       </div>
     </div>);

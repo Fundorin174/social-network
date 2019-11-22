@@ -1,4 +1,5 @@
-import {renderEntireTree} from './../render';
+let renderEntireTree = () => {}
+
 
 let state = {
 
@@ -22,7 +23,9 @@ let state = {
         {id: '3', msg: 'Ахахахахахахах', numOfLikes: '50'},
         {id: '4', msg: 'Ахахахаха', numOfLikes: '100'},
         {id: '5', msg: 'Получилось!!!', numOfLikes: '1000'}
-      ]
+      ],
+
+    newPostText: ''
     },
 
     dialogPage: {
@@ -40,16 +43,17 @@ let state = {
             {id: '2', msg: '2Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.', name: 'Dima', date: 'June, 24, 2019'},
             {id: '3', msg: '3Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.', name: 'Sveta', date: 'June, 23, 2019'},
             {id: '4', msg: '4Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.', name: 'Viktor', date: 'June, 24, 2018'},
-            {id: '5', msg: '5Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.', name: 'Valera', date: 'June, 04, 2017'},
-            {id: '6', msg: '6Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur etDeserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.', name: 'Anton', date: 'June, 04, 2017'}
-        ]
+            {id: '5', msg: '5Deserunt dolor aliqua ex elit nostrud labore eu consectetur elit aute laboris consectetur et.', name: 'Valera', date: 'June, 04, 2017'}
+        ],
+
+        newMsgText: ''
     }
 
   
 };
 
 
-export let adPost = (someNewPost) => {
+export const adPost = (someNewPost) => {
 
     let newItem = {
         id: (`${state.profilePage.posts.length+1}`),
@@ -59,10 +63,18 @@ export let adPost = (someNewPost) => {
     
     state.profilePage.posts.push(newItem);
     renderEntireTree(state);
+    state.profilePage.newPostText ='';
 
-}
+};
 
-export let adMsg = (someNewMsg) => {
+
+export const changeNewPostText = (newAddedPost) => {
+
+    state.profilePage.newPostText = newAddedPost;
+    renderEntireTree(state);
+};
+
+export const adMsg = (someNewMsg) => {
 
     let newItem = {
         id: (`${state.dialogPage.messages.length+1}`),
@@ -73,9 +85,19 @@ export let adMsg = (someNewMsg) => {
     
     state.dialogPage.messages.push(newItem);
     renderEntireTree(state);
+    state.dialogPage.newMsgText='';
 
 }
 
+export const changeNewMsgText = (newAddedMsg) => {
 
+    state.dialogPage.newMsgText = newAddedMsg;
+    renderEntireTree(state);
+};
+
+
+export const subscribe = (observer) => {
+    renderEntireTree = observer;
+}
 
 export default state;
