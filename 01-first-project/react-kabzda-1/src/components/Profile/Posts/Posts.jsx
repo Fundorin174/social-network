@@ -11,12 +11,12 @@ let newPostElement = React.createRef();
 
 let addNewPost = () => {
   let text = newPostElement.current.value;
-  props.adPost(text);
+  props.store.adPost(text);
 } 
 
 let addNewText = () => {
   let text = newPostElement.current.value;
-  props.changeNewPostText(text);
+  props.store.changeNewPostText(text);
 
 
 }
