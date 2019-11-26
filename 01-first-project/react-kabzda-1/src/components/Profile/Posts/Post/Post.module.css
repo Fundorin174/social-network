@@ -6,7 +6,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-    margin: 20px 0 0 0;
+    margin: 10px 0 0 20px;
   }
 
   .item{
@@ -22,13 +22,13 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    margin-left: 20px;
   }
 
   .like {
     width: 20px;
     height: auto;
     margin-left: 20px;
-    padding-bottom: 10px;
     cursor: pointer;
   }
 

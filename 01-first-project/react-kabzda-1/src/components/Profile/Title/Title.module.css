@@ -20,6 +20,7 @@
     flex-direction: row;
     justify-content: flex-start;
     margin-top: 10px;
+    margin-left: 20px;
   }
   
   .description li, .description ul{
@@ -51,6 +52,7 @@
   
   .description h3{
     margin-top: 0;
+
   }
   
   .description p{
