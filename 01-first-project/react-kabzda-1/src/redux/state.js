@@ -1,9 +1,25 @@
+    const AD_POST = 'AD-POST',
+          CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT',
+          ADD_MSG = 'ADD-MSG',
+          CHANGE_NEW_MSG_TEXT = 'CHANGE-NEW-MSG-TEXT';
+        
+    export const addPostActionCreator = (text) => 
+    ({type: AD_POST, someNewPost: text});
+    
+    export const changeTextActionCreator = (text) => 
+    ({type: CHANGE_NEW_POST_TEXT, newAddedPost: text});
+
+    export const addNewMsgActionCreator = (newMsg) => 
+    ({type: ADD_MSG, someNewMsg: newMsg});
+
+    export const changeNewMsgActionCreator = (newMsgText) => 
+    ({type: CHANGE_NEW_MSG_TEXT, newAddedMsg: newMsgText});
+
     
     let store = {
     
     _callSubscriber(){},
-    
-    _state: {
+     _state: {
 
         navBar:{
             frends: [
@@ -57,48 +73,56 @@
     getState() {
         return this._state;
     },
-
-    adPost(someNewPost) {
-    let newItem = {
-        id: (`${this._state.profilePage.posts.length+1}`),
-        msg: someNewPost, 
-        numOfLikes: '0'
-    };
-    
-    this._state.profilePage.posts.push(newItem);
-    this._callSubscriber(this._state);
-    this._state.profilePage.newPostText ='';
-
-    },
-
-    changeNewPostText(newAddedPost) {
-    this._state.profilePage.newPostText = newAddedPost;
-    this._callSubscriber(this._state);
-    },
-
-    adMsg(someNewMsg) {
-         let newItem = {
-            id: (`${this._state.dialogPage.messages.length+1}`),
-            msg: someNewMsg, 
-            name: 'Я',
-            date: 'Только что'
-        };
-    
-        this._state.dialogPage.messages.push(newItem);
-    this._callSubscriber(this._state);
-    this._state.dialogPage.newMsgText='';
-
-    },
-
-    changeNewMsgText(newAddedMsg) {
-        this._state.dialogPage.newMsgText = newAddedMsg;
-   this._callSubscriber(this._state);
-    },
-
-
     subscribe(observer) {
         this._callSubscriber = observer;
+    },
+
+    dispatch(action){
+        switch (action.type) {
+        case AD_POST:
+                let newItem = {
+                    id: (`${this._state.profilePage.posts.length+1}`),
+                    msg: action.someNewPost, 
+                    numOfLikes: '0'
+                };
+                
+                this._state.profilePage.posts.push(newItem);
+                this._callSubscriber(this._state);
+                this._state.profilePage.newPostText ='';
+            
+        break;
+
+        case CHANGE_NEW_POST_TEXT:
+                this._state.profilePage.newPostText = action.newAddedPost;
+                this._callSubscriber(this._state);
+        break;
+
+        case ADD_MSG:
+            let newMsg = {
+                id: (`${this._state.dialogPage.messages.length+1}`),
+                msg: action.someNewMsg, 
+                name: 'Я',
+                date: 'Только что'
+            };
+            
+            this._state.dialogPage.messages.push(newMsg);
+            this._callSubscriber(this._state);
+            this._state.dialogPage.newMsgText='';
+        
+        break;
+
+        case CHANGE_NEW_MSG_TEXT:
+                this._state.dialogPage.newMsgText = action.newAddedMsg;
+                this._callSubscriber(this._state);
+        break;
+        
+        }
+
+
+
     }
+
+
 
 
 

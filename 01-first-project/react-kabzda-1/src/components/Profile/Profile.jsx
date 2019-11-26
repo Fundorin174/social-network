@@ -11,7 +11,7 @@ const Profile = (props) => {
 
     <div className={classes.content}>
       <Title />
-      <Posts posts = {props.data.posts} newPostText={props.data.newPostText} store={props.store}/>
+      <Posts posts = {props.data.posts} newPostText={props.data.newPostText} dispatch={props.dispatch} /> 
     </div>);
     }
 

@@ -5,6 +5,7 @@ import NavbarFriends from './NavBarFrends/NavBarFrends';
 
 
 const Navbar = (props) => {
+
     return (
 <div className={classes.wrapper}>
 <nav className={classes.nav}>

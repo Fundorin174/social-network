@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './Posts.module.css';
 import Post from './Post/Post';
+import {addPostActionCreator, changeTextActionCreator} from './../../../redux/state';
 
 
 
@@ -11,13 +12,14 @@ let newPostElement = React.createRef();
 
 let addNewPost = () => {
   let text = newPostElement.current.value;
-  props.store.adPost(text);
+
+  props.dispatch(addPostActionCreator(text));
 } 
 
 let addNewText = () => {
   let text = newPostElement.current.value;
-  props.store.changeNewPostText(text);
 
+  props.dispatch(changeTextActionCreator(text));
 
 }
 
@@ -31,7 +33,7 @@ let postsElements = props.posts.map( post => <Post msg = {post.msg} likeNum = {p
     <div >
         <h3>Мои сообщения</h3>
         <div className={classes.newsform}>
-          <textarea onChange={ addNewText } value={ props.newPostText } ref={newPostElement} name={classes.youNews} id={classes.youNews} cols="30" rows="3" />
+          <textarea onChange={ addNewText } value={ props.newPostText } ref={newPostElement} name={classes.youNews} id={classes.youNews} cols="30" rows="3" placeholder='Введите сообщение' />
           <button onClick={ addNewPost } className={classes.btn}>Добавить сообщение</button>
         </div>
         <div>

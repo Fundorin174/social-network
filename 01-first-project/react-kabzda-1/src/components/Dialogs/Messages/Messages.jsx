@@ -1,20 +1,22 @@
 import React from 'react';
 import classes from './Messages.module.css'; 
 import MsgItem from './MessageItem/MessageItem';
+import {addNewMsgActionCreator, changeNewMsgActionCreator} from './../../../redux/state'
 
 
 const Messages = (props) => {
 
-    let newMsgElement = React.createRef();
+
 
     let addNewMsg = () => {
-        let newMsg = newMsgElement.current.value;
-        props.store.adMsg(newMsg);
+        let newMsg = props.newMsgText;
+        props.dispatch(addNewMsgActionCreator(newMsg));
     };
 
-    let changeNewMsgText = () => {
-        let newMsgText = newMsgElement.current.value;
-        props.store.changeNewMsgText(newMsgText);
+    let changeNewMsgText = (e) => {
+        let newMsgText = e.target.value;
+
+        props.dispatch(changeNewMsgActionCreator(newMsgText));
     }
 
     let massagesElements = props.messages.map(message =>  <MsgItem id={message.id} name={message.name} date={message.date} msg={message.msg} />);
@@ -26,7 +28,8 @@ const Messages = (props) => {
 
             { massagesElements }
 
-            <textarea onChange={changeNewMsgText} value={props.newMsgText} ref={ newMsgElement } col='30' row='3' className={classes.addNewMsg}></textarea>
+            <textarea onChange={changeNewMsgText} value={props.newMsgText}
+            col='30' row='3' className={classes.addNewMsg} placeholder='Введите сообщение'></textarea>
             <button onClick={ addNewMsg } className={classes.msg_btn}>Добавить сообщение</button>
         </div>
     );

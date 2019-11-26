@@ -9,10 +9,9 @@ import {BrowserRouter} from 'react-router-dom';
 
 
 let renderEntireTree = () => {
-    
     ReactDOM.render(
         <BrowserRouter>
-        <App store={store} />
+        <App state={store.getState()} dispatch={store.dispatch.bind(store)} />
         </BrowserRouter>,
          document.getElementById('root'));
 
