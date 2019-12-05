@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Messages.module.css'; 
 import MsgItem from './MessageItem/MessageItem';
-import {addNewMsgActionCreator, changeNewMsgActionCreator} from './../../../redux/dialogsReduser'
+
 
 
 const Messages = (props) => {
@@ -10,13 +10,12 @@ const Messages = (props) => {
 
     let addNewMsg = () => {
         let newMsg = props.newMsgText;
-        props.dispatch(addNewMsgActionCreator(newMsg));
+        props.addNewMsg(newMsg);
     };
 
     let changeNewMsgText = (e) => {
         let newMsgText = e.target.value;
-
-        props.dispatch(changeNewMsgActionCreator(newMsgText));
+        props.changeNewMsgText(newMsgText);
     }
 
     let massagesElements = props.messages.map(message =>  <MsgItem id={message.id} name={message.name} date={message.date} msg={message.msg} />);

@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Frend.module.css';
 import avatar from './../../../../img/avatar.png';
 
-const Friend = (props) => {
+const Frend = (props) => {
     return (
     <div className={classes.frends_item}>
       <img src={avatar} alt="Avatar"/>
@@ -16,4 +16,4 @@ const Friend = (props) => {
 );
 }
 
-export default Friend;
+export default Frend;

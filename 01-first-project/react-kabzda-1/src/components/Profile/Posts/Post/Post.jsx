@@ -1,15 +1,16 @@
 import React from 'react';
-import classes from './Post.module.css';
+import classes from './../Post/Post.module.css';
 import Avatar from './../../../../img/avatar.png';
 import Like from './../../../../img/like.png';
-import {changeNumOfLikeCreator} from './../../../../redux/profileReduser'
+
 
 const Post = (props) => {
 
     let changeNumOfLike = () => {
+
         let num = props.likeNum + 1;
         let postId = props.id;
-        props.dispatch(changeNumOfLikeCreator(num, postId));
+        props.changeNumOfLike(num, postId);
     }
 
     return (

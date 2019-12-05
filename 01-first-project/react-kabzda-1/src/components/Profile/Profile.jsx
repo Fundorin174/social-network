@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Profile.module.css';
 import Title from './Title/Title';
-import Posts from './Posts/Posts';
+import PostsContainer from './Posts/PostsContainer';
 
 const Profile = (props) => {
 
@@ -11,9 +11,12 @@ const Profile = (props) => {
 
     <div className={classes.content}>
       <Title />
-      <Posts posts = {props.data.posts} newPostText={props.data.newPostText} dispatch={props.dispatch} /> 
+      <PostsContainer /> 
     </div>);
     }
 
 
 export default Profile;
+
+
+// posts = {props.data.posts} newPostText={props.data.newPostText} dispatch={props.dispatch}

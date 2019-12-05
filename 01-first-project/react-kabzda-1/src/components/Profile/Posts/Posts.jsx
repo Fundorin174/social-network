@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Posts.module.css';
-import Post from './Post/Post';
-import {addPostActionCreator, changeTextActionCreator} from './../../../redux/profileReduser';
+import PostContainer from './Post/PostContainer';
+import {addPostActionCreator, changeTextActionCreator} from '../../../redux/profileReduser';
 
 const Posts = (props) => {
 
@@ -9,25 +9,26 @@ const Posts = (props) => {
 
     let addNewPost = () => {
         let text = newPostElement.current.value;
-        props.dispatch(addPostActionCreator(text));
+        props.addNewPost(text);
     }
 
     let addNewText = () => {
-        let text = newPostElement.current.value,
-            action = changeTextActionCreator(text);
-            props.dispatch(action);
+        let text = newPostElement.current.value;
+        props.addNewText(text);
 
     }
 
     let postsElements = props
         .posts
         .map(
-            post => <Post
-                msg={post.msg}
-                likeNum={post.numOfLikes}
-                id={post.id}
-                dispatch={props.dispatch}/>
+            post => <PostContainer/>
         );
+
+
+        // msg={post.msg}
+        // likeNum={post.numOfLikes}
+        // id={post.id}
+        // dispatch={props.dispatch}
 
     return (
 

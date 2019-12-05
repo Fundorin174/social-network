@@ -1,33 +1,33 @@
 import React from 'react';
-import classes from './Post.module.css';
-import Avatar from './../../../../img/avatar.png';
-import Like from './../../../../img/like.png';
 import {changeNumOfLikeCreator} from '../../../../redux/profileReduser'
+import Post from './Post';
+import StoreContext from '../../../../storeContext';
 
-const Post = (props) => {
 
-    let changeNumOfLike = () => {
-        let num = props.likeNum + 1;
-        let postId = props.id;
-        props.dispatch(changeNumOfLikeCreator(num, postId));
-    }
+const PostContainer = (props) => {
+
 
     return (
-        <div>
-            <div className={classes.post}>
-                <img className={classes.ava} src={Avatar} alt={"avatar"}/>
-                <p className={classes.item}>{props.msg}</p>
-            </div>
-            <div className={classes.postLikes}>
-                <img
-                    onClick={changeNumOfLike}
-                    className={classes.like}
-                    src={Like}
-                    alt={"Like"}/>
-                <span className={classes.likeNum}>{props.likeNum}</span>
-            </div>
-        </div>
-    );
+
+        <StoreContext.Consumer>
+            {
+                (store) => 
+                {
+                    let state = store.getState();
+                    let changeNumOfLike = (num, postId) => {
+                    let action = changeNumOfLikeCreator(num, postId);
+                    store.dispatch(action);
+                    }
+                
+                
+                    return <Post changeNumOfLike = {changeNumOfLike} msg={state.profilePage.posts.msg}
+                    likeNum={state.profilePage.posts.numOfLikes}
+                    id={state.profilePage.posts.id}/>
+                }
+            }
+
+        </StoreContext.Consumer>
+     );
 }
 
-export default Post;
+export default PostContainer;

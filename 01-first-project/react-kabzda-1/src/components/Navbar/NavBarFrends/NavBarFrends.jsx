@@ -1,10 +1,12 @@
 import React from 'react';
 import classes from './NavBarFrends.module.css';
-import Friend from './frend/Frend';
+import FrendContainer from './frend/FrendContainer';
+
+
 
 
 const NavbarFriends = (props) => {
-  let allFriends = props.data.frends.map( frend => <Friend name={frend.name} />);
+  let allFriends = props.frends.map( frend => <FrendContainer />);
     return (
 <div className={classes.frends_wrapper}>
   <div className={classes.title}>Друзья</div>
