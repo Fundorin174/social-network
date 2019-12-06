@@ -27,8 +27,9 @@ const MessagesContainer = (props) => {
                     return <Messages 
                         addNewMsg = {addNewMsg} 
                         changeNewMsgText = {changeNewMsgText}
-                        messages={state.dialogPage.messages} />;
-                    
+                        messages={state.dialogPage.messages}
+                        newMsgText = {state.dialogPage.newMsgText} />;
+                        
 
                 }
             }

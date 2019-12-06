@@ -14,6 +14,7 @@ const Post = (props) => {
     }
 
     return (
+
         <div>
             <div className={classes.post}>
                 <img className={classes.ava} src={Avatar} alt={"avatar"}/>

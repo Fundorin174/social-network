@@ -1,4 +1,3 @@
-import store from "./reduxStore";
 
 const AD_POST = 'AD-POST',
       CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT',

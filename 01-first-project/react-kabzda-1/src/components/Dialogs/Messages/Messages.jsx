@@ -18,6 +18,7 @@ const Messages = (props) => {
         props.changeNewMsgText(newMsgText);
     }
 
+
     let massagesElements = props.messages.map(message =>  <MsgItem id={message.id} name={message.name} date={message.date} msg={message.msg} />);
 
 

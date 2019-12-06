@@ -1,6 +1,6 @@
 import React from 'react';
 import Posts from './Posts';
-import {addPostActionCreator, changeTextActionCreator} from '../../../redux/profileReduser';
+import {changeNumOfLikeCreator, addPostActionCreator, changeTextActionCreator} from '../../../redux/profileReduser';
 import StoreContext from '../../../storeContext';
 
 
@@ -28,8 +28,18 @@ const PostsContainer = (props) => {
                         store.dispatch(action);
                     }
 
+                    let changeNumOfLike = (num, postId) => {
+                        let action = changeNumOfLikeCreator(num, postId);
+                        store.dispatch(action);
+                        }
 
-                    return <Posts addNewPost = {addNewPost} addNewText = {addNewText} posts = {state.profilePage.posts} newPostText = {state.profilePage.newPostText}/>
+
+                    return <Posts 
+                    changeNumOfLike = {changeNumOfLike}
+                    addNewPost = {addNewPost}
+                    addNewText = {addNewText}
+                    posts = {state.profilePage.posts}
+                    newPostText = {state.profilePage.newPostText}/>
 
 
 

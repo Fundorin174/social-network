@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './Posts.module.css';
-import PostContainer from './Post/PostContainer';
-import {addPostActionCreator, changeTextActionCreator} from '../../../redux/profileReduser';
+import Post from './Post/Post';
+
 
 const Posts = (props) => {
 
@@ -18,11 +18,13 @@ const Posts = (props) => {
 
     }
 
-    let postsElements = props
-        .posts
-        .map(
-            post => <PostContainer/>
-        );
+    
+
+        let postsElements = props.posts.map(postitem => <Post 
+            changeNumOfLike={props.changeNumOfLike} 
+            msg={postitem.msg}
+            likeNum={postitem.numOfLikes}
+            id={postitem.id} />);
 
 
         // msg={post.msg}
@@ -48,7 +50,8 @@ const Posts = (props) => {
             </div>
             <div>
 
-                {postsElements}
+
+            {postsElements}
 
             </div>
         </div>
