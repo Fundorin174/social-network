@@ -44,17 +44,7 @@ let initialState = {
 };
 
 const profileReducer = (state = initialState, action) => {
-    let stateCopy = {
-        ...state
-    };
-    stateCopy.posts = [...state.posts];
-
-    for (let i = 0; i<stateCopy.posts.length; i++ ) {
-        stateCopy.posts[i] = {...state.posts[i]};
-    }
-
-    window.state = state;
-    window.stateCopy = stateCopy;
+    let stateCopy;
 
     switch (action.type) {
         case AD_POST:
@@ -64,20 +54,39 @@ const profileReducer = (state = initialState, action) => {
                 numOfLikes: 0
             };
 
-            stateCopy
-                .posts
-                .push(newItem);
-            stateCopy.newPostText = '';
+            stateCopy = {
+                ...state,
+                posts: [
+                    ...state.posts,
+                    newItem
+                ],
+                newPostText: ''
+            }
+
             return stateCopy;
 
         case CHANGE_NEW_POST_TEXT:
 
-            stateCopy.newPostText = action.newAddedPost;
+            stateCopy = {
+                ...state,
+                newPostText: action.newAddedPost
+            }
+
             return stateCopy;
 
         case CHANGE_NUM_OF_LIKE:
 
-            stateCopy.newNumOfLikes = action.newNumOfLikes;
+            stateCopy = {
+                ...state,
+                posts: [...state.posts],
+                newNumOfLikes: action.newNumOfLikes + 1
+            }
+
+            for (let i = 0; i < stateCopy.posts.length; i++) {
+                stateCopy.posts[i] = {
+                    ...state.posts[i]
+                };
+            }
 
             stateCopy
                 .posts[action.id - 1]

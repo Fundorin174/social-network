@@ -82,10 +82,7 @@ let initialState = {
 }
 
 const dialogsReducer = (state = initialState, action) => {
-    let stateCopy = {
-        ...state
-    };
-    stateCopy.messages = [...state.messages];
+
     switch (action.type) {
         case ADD_MSG:
             let date = new Date(),
@@ -97,22 +94,27 @@ const dialogsReducer = (state = initialState, action) => {
                 sec = date.getSeconds();
 
             let newMsg = {
-                id: (`${stateCopy.messages.length + 1}`),
+                id: (`${state.messages.length + 1}`),
                 msg: action.someNewMsg,
                 name: 'Я',
                 date: (`${year} ${month} ${day}, Время: ${hours}ч ${minutes}м ${sec}с `)
             };
 
-            
-            stateCopy
-                .messages
-                .push(newMsg);
-            stateCopy.newMsgText = '';
-            return stateCopy;
+            return {
+                ...state,
+                messages: [
+                    ...state.messages,
+                    newMsg
+                ],
+                newMsgText: ''
+            };
 
         case CHANGE_NEW_MSG_TEXT:
-            stateCopy.newMsgText = action.newAddedMsg;
-            return stateCopy;
+
+            return {
+                ...state,
+                newMsgText: action.newAddedMsg
+            };
 
         default:
             return state;

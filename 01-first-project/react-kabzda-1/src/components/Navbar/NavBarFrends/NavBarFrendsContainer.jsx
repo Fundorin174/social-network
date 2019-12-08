@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './NavBarFrends.module.css';
 import NavbarFriends from './NavBarFrends';
 // import StoreContext from './../../../storeContext';
 import {connect} from 'react-redux';

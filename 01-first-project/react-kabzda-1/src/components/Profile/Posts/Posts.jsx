@@ -2,7 +2,6 @@ import React from 'react';
 import classes from './Posts.module.css';
 import Post from './Post/Post';
 
-
 const Posts = (props) => {
 
     let newPostElement = React.createRef();
@@ -18,19 +17,19 @@ const Posts = (props) => {
 
     }
 
-    
+    let postsElements = props
+        .posts
+        .map(
+            postitem => <Post
+                key={postitem.id}
+                changeNumOfLike={props.changeNumOfLike}
+                msg={postitem.msg}
+                likeNum={postitem.numOfLikes}
+                id={postitem.id}/>
+        );
 
-        let postsElements = props.posts.map(postitem => <Post 
-            changeNumOfLike={props.changeNumOfLike} 
-            msg={postitem.msg}
-            likeNum={postitem.numOfLikes}
-            id={postitem.id} />);
-
-
-        // msg={post.msg}
-        // likeNum={post.numOfLikes}
-        // id={post.id}
-        // dispatch={props.dispatch}
+    // msg={post.msg} likeNum={post.numOfLikes} id={post.id}
+    // dispatch={props.dispatch}
 
     return (
 
@@ -50,8 +49,7 @@ const Posts = (props) => {
             </div>
             <div>
 
-
-            {postsElements}
+                {postsElements}
 
             </div>
         </div>
