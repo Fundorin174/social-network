@@ -24,7 +24,7 @@ const Messages = (props) => {
 
 
     return (
-        <div className ={classes.messages}>
+        <div className = {classes.messages}>
 
             { massagesElements }
 

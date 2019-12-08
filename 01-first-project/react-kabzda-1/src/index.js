@@ -8,19 +8,15 @@ import {Provider} from 'react-redux'
 // import {adPost, adMsg, changeNewPostText, changeNewMsgText, subscribe} from
 // './redux/state';
 import {BrowserRouter} from 'react-router-dom';
-import StoreContext from './storeContext';
 
-let renderEntireTree = (state) => {
+
     ReactDOM.render(
     <BrowserRouter>
         <Provider store = {store}>
             <App />
          </Provider>
-    </BrowserRouter>, document.getElementById( 'root' ) ); }
-        renderEntireTree(store.getState()); store.subscribe(() => {
-            let state = store.getState();
-            renderEntireTree(state);
-        });
+    </BrowserRouter>, document.getElementById( 'root' ) );
+
 
     
 
