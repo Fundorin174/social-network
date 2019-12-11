@@ -1,4 +1,4 @@
-import {Avatar} from './../img/usersAvatars/alex.jpg';
+
 const FOLLOW = 'FOLLOW',
       UNFOLLOW = 'UNFOLLOW',
       SEARCH_USERS = 'SEARCH_USERS',
@@ -25,41 +25,41 @@ let initialState = {
             id: '1',
             fullName: 'Иванов И',
             follow: true,
-            ava: {Avatar},
-            location: {country: 'Россия', city: 'Воронеж'},            
-            status: 'Я зе бест'
+            residency: {country: 'Россия', city: 'Воронеж'},            
+            status: 'Я зе бест',
+            isFrend: false
         }, 
         {
             id: '2',
             fullName: 'Ивановский И',
             follow: false,
-            ava: {Avatar},
-            location: {country: 'Россия', city: 'Москва'},            
-            status: 'Столица рулит'
+            residency: {country: 'Россия', city: 'Москва'},            
+            status: 'Столица рулит',
+            isFrend: false
         }, 
         {
             id: '3',
             fullName: 'Петров И',
             follow: true,
-            ava: {Avatar},
-            location: {country: 'Россия', city: 'Чита'},
-            status: 'Ебеня рулят'
+            residency: {country: 'Россия', city: 'Чита'},
+            status: 'Ебеня рулят',
+            isFrend: false
         }, 
         {
             id: '4',
             fullName: 'Иванчук В',
             follow: false,
-            ava: {Avatar},
-            location: {country: 'Украина', city: 'Киев'},
-            status: 'Даешь перемогу'
+            residency: {country: 'Украина', city: 'Киев'},
+            status: 'Даешь перемогу',
+            isFrend: true
         }, 
         {
             id: '5',
             fullName: 'Лукашенко А',
             follow: true,
-            ava: {Avatar},
-            location: {country: 'Белоруссия', city: 'Жлобин'},
-            status: 'Мы за батьку'
+            residency: {country: 'Белоруссия', city: 'Жлобин'},
+            status: 'Мы за батьку',
+            isFrend: false
         }, 
     ],
 
