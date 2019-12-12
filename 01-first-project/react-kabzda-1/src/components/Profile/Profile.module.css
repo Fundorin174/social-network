@@ -1,6 +1,12 @@
 /* profile */
 
-  
+  .user_wrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin: 10px 0 0 20px;
+  }
  
 
   

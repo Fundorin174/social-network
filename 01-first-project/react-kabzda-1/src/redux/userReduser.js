@@ -2,7 +2,9 @@
 const FOLLOW = 'FOLLOW',
       UNFOLLOW = 'UNFOLLOW',
       SEARCH_USERS = 'SEARCH_USERS',
-      SET_USERS= 'SET_USERS';
+      SET_USERS = 'SET_USERS',
+      TO_FRIENDS = 'TO_FRIENDS',
+      FROM_FRIENDS = 'FROM_FRIENDS';
 
 export const followUserActionCreator = (userID) => (
     {type: FOLLOW, userID}
@@ -10,6 +12,14 @@ export const followUserActionCreator = (userID) => (
 
 export const unfollowUserActionCreator = (userID) => (
     {type: UNFOLLOW, userID}
+);
+
+export const toFriendsActionCreator = (userID) => (
+    {type: TO_FRIENDS, userID}
+);
+
+export const fromFriendsActionCreator = (userID) => (
+    {type: FROM_FRIENDS, userID}
 );
 
 export const searchUsersActionCreator = (partOfName) => (
@@ -66,11 +76,14 @@ let initialState = {
     searchUsersText: ''
 };
 
+
 const usersReducer = (state = initialState, action) => {
 
 
 switch (action.type) {
     case SET_USERS:
+            console.log(action.users[0].residency);
+            // let stateCopy = ...
         return {...state, users: [...state.users, action.users]}
     
     case FOLLOW:
@@ -105,10 +118,44 @@ switch (action.type) {
                 })
         }
 
+        case TO_FRIENDS:
+                return {
+                    ...state,
+                    users: state
+                        .users
+                        .map((user) => {
+                            if (user.id === action.userID) {
+                                return {
+                                    ...user,
+                                    isFrend: true
+                                }
+                            }
+                            return user;
+                        })
+                }
+
+                case FROM_FRIENDS:
+                        return {
+                            ...state,
+                            users: state
+                                .users
+                                .map((user) => {
+                                    if (user.id === action.userID) {
+                                        return {
+                                            ...user,
+                                            isFrend: false
+                                        }
+                                    }
+                                    return user;
+                                })
+                        }
+
     case SEARCH_USERS:
+
         return {
             ...state,
             searchUsersText: action.partOfName
+
         }
 
 
