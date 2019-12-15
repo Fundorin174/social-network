@@ -6,7 +6,7 @@ const User = (props) => {
     return (
         <div className = {classes.user_wrapper}>
             <div className={classes.left_column}>
-               <img className={classes.img} src={Avatar} alt={"avatar"}/>
+               <img className={classes.img} src={ props.smallPhotoSrc != null ? props.smallPhotoSrc : Avatar} alt={"avatar"}/>
                {
                    props.follow ? 
                    <button onClick = { () => {props.toUnfollow(props.id)}} className={classes.btn}>Отписаться</button> 
@@ -23,11 +23,11 @@ const User = (props) => {
             <div className={classes.right_column}>
                 <div className={classes.row}>
                     <h4>{props.fullName}</h4>
-                    <p>{props.country}</p>
+                    <p>Какая то страна</p>
                 </div>
                 <div className={classes.row}>
                     <p>{props.status}</p>
-                    <p>{props.city}</p>
+                    <p>Какой то город</p>
                 </div>
             </div>
 

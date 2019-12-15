@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './Users.module.css';
 import User from './User/User';
 import Search from './Search/Search';
+import * as axios from 'axios';
 
 
 
@@ -10,68 +11,34 @@ let Users = (props) => {
 
     if (props.users.length === 0) {
 
-        props.setUsers([
-            {
-                id: '1',
-                fullName: 'Иванов И',
-                follow: true,
-                residency: {country: 'Россия', city: 'Воронеж'},            
-                status: 'Я зе бест',
-                isFrend: false
-            }, 
-            {
-                id: '2',
-                fullName: 'Ивановский И',
-                follow: false,
-                residency: {country: 'Россия', city: 'Москва'},            
-                status: 'Столица рулит',
-                isFrend: false
-            }, 
-            {
-                id: '3',
-                fullName: 'Петров И',
-                follow: true,
-                residency: {country: 'Россия', city: 'Чита'},
-                status: 'Ебеня рулят',
-                isFrend: false
-            }, 
-            {
-                id: '4',
-                fullName: 'Иванчук В',
-                follow: false,
-                residency: {country: 'Украина', city: 'Киев'},
-                status: 'Даешь перемогу',
-                isFrend: true
-            }, 
-            {
-                id: '5',
-                fullName: 'Лукашенко А',
-                follow: true,
-                residency: {country: 'Белоруссия', city: 'Жлобин'},
-                status: 'Мы за батьку',
-                isFrend: false
-            }, 
-        ]);
+        axios
+            .get('https://social-network.samuraijs.com/api/1.0/users?page=1&count=5')
+            .then(response => {
+                props.setUsers(response.data.items)
+            });
+
     }
 
 let usersElements = props
     .users
     .map( function (user) {
 
-        if (`${user.fullName}`.toLowerCase().includes(props.searchUsersText.toLowerCase())) {
+        if (`${user.name}`.toLowerCase().includes(props.searchUsersText.toLowerCase())) {
            return <User
                 key={user.id}
                 id={user.id}
-                fullName={user.fullName}
-                follow={user.follow}
-                country={user.residency.country}
-                city={user.residency.city}
+                fullName={user.name}
+                follow={user.followed}
+                smallPhotoSrc = {user.photos.small}
+                // country={user.residency.country}
+                // city={user.residency.city}
                 status={user.status}
                 isFrend={user.isFrend}
                 toFollow={props.toFollow}
                 toUnfollow={props.toUnfollow}
                 toFriends={props.toFriends}
-                fromFriends={props.fromFriends}/>
+                fromFriends={props.fromFriends}
+                />
         }
 
     });

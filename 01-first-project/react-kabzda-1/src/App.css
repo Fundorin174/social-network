@@ -10,7 +10,7 @@ a {
   --main-background-color: #222835;
   --main-light-color: #fff;
 
-  grid-template-rows: 60px 1fr;
+  grid-template-rows: 70px 1fr;
   grid-template-columns: 2fr 10fr;
   grid-gap: 10px;
   grid-template-areas: 
