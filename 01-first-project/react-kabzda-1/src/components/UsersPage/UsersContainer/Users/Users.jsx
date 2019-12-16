@@ -4,55 +4,42 @@ import User from './User/User';
 import Search from './Search/Search';
 import * as axios from 'axios';
 
+class Users extends React.Component {
 
-
-
-let Users = (props) => {
-
-    if (props.users.length === 0) {
-
+    componentDidMount() {
         axios
             .get('https://social-network.samuraijs.com/api/1.0/users?page=1&count=5')
             .then(response => {
-                props.setUsers(response.data.items)
+                this
+                    .props
+                    .setUsers(response.data.items)
             });
-
     }
 
-let usersElements = props
-    .users
-    .map( function (user) {
-
-        if (`${user.name}`.toLowerCase().includes(props.searchUsersText.toLowerCase())) {
-           return <User
-                key={user.id}
-                id={user.id}
-                fullName={user.name}
-                follow={user.followed}
-                smallPhotoSrc = {user.photos.small}
-                // country={user.residency.country}
-                // city={user.residency.city}
-                status={user.status}
-                isFrend={user.isFrend}
-                toFollow={props.toFollow}
-                toUnfollow={props.toUnfollow}
-                toFriends={props.toFriends}
-                fromFriends={props.fromFriends}
-                />
-        }
-
-    });
-
-    return (
-        <div>
+    render() {
+        return <div>
             <div className={classes.search_wrapper}>
-                <Search searchUsers = {props.searchUsers}/>
+                <Search searchUsers={this.props.searchUsers}/>
             </div>
             <div className={classes.users_wrapper}>
-                {usersElements}
+                {
+                    this
+                        .props
+                        .users
+                        .map(user => {
+                            if (`${user.name}`.toLowerCase().includes(this.props.searchUsersText.toLowerCase())) {
+                                return <User key={user.id} id={user.id} fullName={user.name} follow={user.followed} smallPhotoSrc={user.photos.small}
+                                    // country={user.residency.country}
+                                    
+                                    // city={user.residency.city}
+                                    status={user.status} isFrend={user.isFrend} toFollow={this.props.toFollow} toUnfollow={this.props.toUnfollow} toFriends={this.props.toFriends} fromFriends={this.props.fromFriends}/>
+                            }
+                        })
+                }
             </div>
-        </div>  
-    )
+        </div>
+    }
+
 }
 
 export default Users
