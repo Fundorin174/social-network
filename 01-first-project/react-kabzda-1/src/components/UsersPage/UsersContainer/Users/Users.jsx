@@ -48,7 +48,6 @@ class Users extends React.Component {
         let pagesCount = Math.ceil(
             this.props.totalUsersCount / this.props.usersPerPageCount
         )
-        console.log(pagesCount)
         this
             .props
             .lastPage(pagesCount)
