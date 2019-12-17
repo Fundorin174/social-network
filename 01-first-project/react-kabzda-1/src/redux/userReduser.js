@@ -1,22 +1,22 @@
-
 const FOLLOW = 'FOLLOW',
-      UNFOLLOW = 'UNFOLLOW',
-      SEARCH_USERS = 'SEARCH_USERS',
-      SET_USERS = 'SET_USERS',
-      TO_FRIENDS = 'TO_FRIENDS',
-      FROM_FRIENDS = 'FROM_FRIENDS';
+    UNFOLLOW = 'UNFOLLOW',
+    SEARCH_USERS = 'SEARCH_USERS',
+    SET_USERS = 'SET_USERS',
+    TO_FRIENDS = 'TO_FRIENDS',
+    FROM_FRIENDS = 'FROM_FRIENDS',
+    CHANGE_CURRENT_PAGE = 'CHANGE_CURRENT_PAGE',
+    NEXT_PAGE = 'NEXT_PAGE',
+    PREVIOS_PAGE = 'PREVIOS_PAGE',
+    FIRST_PAGE = 'FIRST_PAGE',
+    LAST_PAGE = 'LAST_PAGE',
+    USERS_PER_PAGE = 'USERS_PER_PAGE',
+    SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
 
-export const followUserActionCreator = (userID) => (
-    {type: FOLLOW, userID}
-);
+export const followUserActionCreator = (userID) => ({type: FOLLOW, userID});
 
-export const unfollowUserActionCreator = (userID) => (
-    {type: UNFOLLOW, userID}
-);
+export const unfollowUserActionCreator = (userID) => ({type: UNFOLLOW, userID});
 
-export const toFriendsActionCreator = (userID) => (
-    {type: TO_FRIENDS, userID}
-);
+export const toFriendsActionCreator = (userID) => ({type: TO_FRIENDS, userID});
 
 export const fromFriendsActionCreator = (userID) => (
     {type: FROM_FRIENDS, userID}
@@ -25,140 +25,176 @@ export const fromFriendsActionCreator = (userID) => (
 export const searchUsersActionCreator = (partOfName) => (
     {type: SEARCH_USERS, partOfName: partOfName}
 );
-export const setUsersActionCreator = (users) => (
-    {type: SET_USERS, users}
+export const setUsersActionCreator = (users) => ({type: SET_USERS, users});
+
+export const changeCurrentPageActionCreator = (pageNum) => (
+    {type: CHANGE_CURRENT_PAGE, pageNum}
 );
 
+export const nextPageActionCreator = () => ({type: NEXT_PAGE});
+
+export const previosPageActionCreator = () => ({type: PREVIOS_PAGE});
+
+export const firstPageActionCreator = () => ({type: FIRST_PAGE});
+
+export const lastPageActionCreator = (pagesCount) => ({type: LAST_PAGE, pagesCount});
+
+export const changeUsersPerPageActionCreator = (numOfUsers) => ({type: USERS_PER_PAGE, numOfUsers});
+
+export const setTotalUsersCountActionCreator = (totalCount) => ({type: SET_TOTAL_COUNT, totalCount});
+
 let initialState = {
-    users: [
-    //     {
-    //         id: '1',
-    //         fullName: 'Иванов И',
-    //         follow: true,
-    //         residency: {country: 'Россия', city: 'Воронеж'},            
-    //         status: 'Я зе бест',
-    //         isFrend: false
-    //     }, 
-    //     {
-    //         id: '2',
-    //         fullName: 'Ивановский И',
-    //         follow: false,
-    //         residency: {country: 'Россия', city: 'Москва'},            
-    //         status: 'Столица рулит',
-    //         isFrend: false
-    //     }, 
-    //     {
-    //         id: '3',
-    //         fullName: 'Петров И',
-    //         follow: true,
-    //         residency: {country: 'Россия', city: 'Чита'},
-    //         status: 'Ебеня рулят',
-    //         isFrend: false
-    //     }, 
-    //     {
-    //         id: '4',
-    //         fullName: 'Иванчук В',
-    //         follow: false,
-    //         residency: {country: 'Украина', city: 'Киев'},
-    //         status: 'Даешь перемогу',
-    //         isFrend: true
-    //     }, 
-    //     {
-    //         id: '5',
-    //         fullName: 'Лукашенко А',
-    //         follow: true,
-    //         residency: {country: 'Белоруссия', city: 'Жлобин'},
-    //         status: 'Мы за батьку',
-    //         isFrend: false
-    //     }, 
-    ],
+    users: [],
 
-    searchUsersText: ''
+    searchUsersText: '',
+    totalUsersCount: 0,
+    usersPerPageCount: 5,
+    currentPage: 1,
+    lastPage: 5,
+    pagesCount: 5
+
 };
-
 
 const usersReducer = (state = initialState, action) => {
 
-
-switch (action.type) {
-    case SET_USERS:
+    switch (action.type) {
+        case SET_USERS:
 
             // let stateCopy = ...
-        return {...state, users: action.users}
-        
-    case FOLLOW:
-        return {
-            ...state,
-            users: state
-                .users
-                .map((user) => {
-                    if (user.id === action.userID) {
-                        return {
-                            ...user,
-                            follow: true
-                        }
-                    }
-                    return user;
-                })
-        }
+            return {
+                ...state,
+                users: action.users
+            }
 
-    case UNFOLLOW:
-        return {
-            ...state,
-            users: state
-                .users
-                .map((user) => {
-                    if (user.id === action.userID) {
-                        return {
-                            ...user,
-                            follow: false
+        case FOLLOW:
+            return {
+                ...state,
+                users: state
+                    .users
+                    .map((user) => {
+                        if (user.id === action.userID) {
+                            return {
+                                ...user,
+                                follow: true
+                            }
                         }
-                    }
-                    return user;
-                })
-        }
+                        return user;
+                    })
+            }
+
+        case UNFOLLOW:
+            return {
+                ...state,
+                users: state
+                    .users
+                    .map((user) => {
+                        if (user.id === action.userID) {
+                            return {
+                                ...user,
+                                follow: false
+                            }
+                        }
+                        return user;
+                    })
+            }
 
         case TO_FRIENDS:
+            return {
+                ...state,
+                users: state
+                    .users
+                    .map((user) => {
+                        if (user.id === action.userID) {
+                            return {
+                                ...user,
+                                isFrend: true
+                            }
+                        }
+                        return user;
+                    })
+            }
+
+        case FROM_FRIENDS:
+            return {
+                ...state,
+                users: state
+                    .users
+                    .map((user) => {
+                        if (user.id === action.userID) {
+                            return {
+                                ...user,
+                                isFrend: false
+                            }
+                        }
+                        return user;
+                    })
+            }
+
+        case SEARCH_USERS:
+
+            return {
+                ...state,
+                searchUsersText: action.partOfName
+
+            }
+
+        case CHANGE_CURRENT_PAGE:
+            
+            return {
+                ...state,
+                currentPage: action.pageNum
+            }
+
+        case NEXT_PAGE:
+
+            return {
+                ...state,
+                currentPage: state.currentPage + 1
+            }
+
+        case PREVIOS_PAGE:
+            if (state.currentPage > 1) {
                 return {
                     ...state,
-                    users: state
-                        .users
-                        .map((user) => {
-                            if (user.id === action.userID) {
-                                return {
-                                    ...user,
-                                    isFrend: true
-                                }
-                            }
-                            return user;
-                        })
+                    currentPage: state.currentPage - 1
+                }
+            } else {
+                return {
+                    ...state,
+                    currentPage: state.currentPage
                 }
 
-                case FROM_FRIENDS:
-                        return {
-                            ...state,
-                            users: state
-                                .users
-                                .map((user) => {
-                                    if (user.id === action.userID) {
-                                        return {
-                                            ...user,
-                                            isFrend: false
-                                        }
-                                    }
-                                    return user;
-                                })
-                        }
+            }
 
-    case SEARCH_USERS:
+        case FIRST_PAGE:
 
-        return {
-            ...state,
-            searchUsersText: action.partOfName
+            return {
+                ...state,
+                currentPage: 1
+            }
 
-        }
+        case LAST_PAGE:
 
+              return {
+                  ...state,
+                  pagesCount: action.pagesCount,
+                  currentPage: action.pagesCount
 
+              }
+
+        case USERS_PER_PAGE:
+                return {
+                    ...state,
+                    usersPerPageCount: action.numOfUsers
+                }
+        case SET_TOTAL_COUNT:
+                return {
+                    ...state,
+                    totalUsersCount: action.totalCount
+
+                }
+
+                
         default:
             return state;
 
