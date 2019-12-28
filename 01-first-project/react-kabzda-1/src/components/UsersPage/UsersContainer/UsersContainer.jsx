@@ -1,83 +1,197 @@
 import React from 'react';
 import {
-    followUserActionCreator,
-    unfollowUserActionCreator,
-    searchUsersActionCreator,
-    setUsersActionCreator,
-    toFriendsActionCreator,
-    fromFriendsActionCreator,
-    changeCurrentPageActionCreator,
-    nextPageActionCreator,
-    previosPageActionCreator,
-    firstPageActionCreator,
-    lastPageActionCreator,
-    changeUsersPerPageActionCreator,
-    setTotalUsersCountActionCreator
+    followUser,
+    unfollowUser,
+    searchUsers,
+    setUsers,
+    toFriends,
+    fromFriends,
+    changeCurrentPage,
+    nextPage,
+    previosPage,
+    firstPage,
+    lastPage,
+    changeUsersPerPage,
+    setTotalUsersCount,
+    isloading
 } from '../../../redux/userReduser';
 import {connect} from 'react-redux';
 import Users from './Users/Users';
+import * as axios from 'axios';
+import Preloader from './../../common/Preloader/Preloader'
 
-let mapStateToProps = (state) => {
-    return {users: state.usersPage.users, searchUsersText: state.usersPage.searchUsersText, currentPage: state.usersPage.currentPage, usersPerPageCount: state.usersPage.usersPerPageCount, totalUsersCount: state.usersPage.totalUsersCount}
 
-}
+class UsersContainer extends React.Component {
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        toFollow: (userID) => {
-            dispatch(followUserActionCreator(userID));
-        },
+    componentDidMount() {
+        this.props.isloading(true);
+        axios
+            .get(
+                `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.usersPerPageCount}`
+            )
+            .then(response => {
+                this.props.isloading(false);
+                this
+                    .props
+                    .setUsers(response.data.items);
+                this
+                    .props
+                    .setTotalUsersCount(response.data.totalCount);
 
-        toUnfollow: (userID) => {
-            dispatch(unfollowUserActionCreator(userID));
-        },
+            });
+    }
 
-        toFriends: (userID) => {
-            dispatch(toFriendsActionCreator(userID));
-        },
+    changeUserPerPageCount = (e) => {
 
-        fromFriends: (userID) => {
-            dispatch(fromFriendsActionCreator(userID));
-        },
+        let numOfUsers = e.target.value;
 
-        searchUsers: (partOfName) => {
-            dispatch(searchUsersActionCreator(partOfName));
-        },
+        this
+            .props
+            .changeUsersPerPage(numOfUsers);
+        this.props.isloading(true);
+        axios
+            .get(
+                `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage +
+                1}&count=${this.props.usersPerPageCount}`
+            )
+            .then(response => {
+                this.props.isloading(false);
+                this
+                    .props
+                    .setUsers(response.data.items);
+                this
+                    .props
+                    .setTotalUsersCount(response.data.totalCount);
+            });
+    }
 
-        setUsers: (users) => {
-            dispatch(setUsersActionCreator(users));
-        },
+    lastPage = () => {
+        let pagesCount = Math.ceil(
+            this.props.totalUsersCount / this.props.usersPerPageCount
+        )
+        this
+            .props
+            .lastPage(pagesCount)
+    }
 
-        changeCurrentPage: (pageNum) => {
-            dispatch(changeCurrentPageActionCreator(pageNum));
-        },
+    setFirstPage = () => {
+        this.props.firstPage();
+        this.props.isloading(true);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=1&count=${this.props.usersPerPageCount}`).then(response => {
+            this.props.isloading(false);
+            this.props.setUsers(response.data.items);
+            this.props.setTotalUsersCount(response.data.totalCount);
+        });
+    }
 
-        nextPage: () => {
-            dispatch(nextPageActionCreator());
-        },
+    setPreviosPage = () => {
 
-        previosPage: () => {
-            dispatch(previosPageActionCreator());
-        },
+        this
+            .props
+            .previosPage();
+        this.props.isloading(true);
+        if (this.props.currentPage > 1)
+            axios
+            .get(
+                `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage - 1}&count=${this.props.usersPerPageCount}`
+            )
+            .then(response => {
+                this.props.isloading(false);
+                this
+                    .props
+                    .setUsers(response.data.items);
+                this
+                    .props
+                    .setTotalUsersCount(response.data.totalCount);
+            });
 
-        firstPage: () => {
-            dispatch(firstPageActionCreator());
-        },
+    }
 
-        lastPage: (pagesCount) => {
-            dispatch(lastPageActionCreator(pagesCount));
-        },
+    setNextPage = () => {
+        this
+            .props
+            .nextPage();
+        this.props.isloading(true);
+        axios
+            .get(
+                `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage +
+                    1}&count=${this.props.usersPerPageCount}`
+            )
+            .then(response => {
+                this.props.isloading(false);
+                this
+                    .props
+                    .setUsers(response.data.items);
+                this
+                    .props
+                    .setTotalUsersCount(response.data.totalCount);
+            });
 
-        changeUsersPerPage: (numOfUsers) => {
-          dispatch(changeUsersPerPageActionCreator(numOfUsers));
-      },
-        setTotalUsersCount: (totalCount) => {
-          dispatch(setTotalUsersCountActionCreator(totalCount));
-      }
+    }
+
+    changeActivePage = (p) => {
+        this.props.changeCurrentPage(p);
+        this.props.isloading(true);
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.usersPerPageCount}`).then(response => {
+            this.props.isloading(false);
+            this.props.setUsers(response.data.items);
+            this.props.setTotalUsersCount(response.data.totalCount);
+        });
+    }
+
+
+    render() {
+        
+        return <>
+            {this.props.isLoading ? <Preloader /> : null}
+            <Users currentPage = {this.props.currentPage}
+            searchUsers = {this.props.searchUsers}
+            searchUsersText = {this.props.searchUsersText}
+            setFirstPage = {this.setFirstPage}
+            setPreviosPage = {this.setPreviosPage}
+            setNextPage = {this.setNextPage}
+            lastPage = {this.lastPage}
+            totalUsersCount = {this.props.totalUsersCount}
+            usersPerPageCount = {this.props.usersPerPageCount}
+            changeUserPerPageCount = {this.changeUserPerPageCount}
+            changeActivePage = {this.changeActivePage}
+            users = {this.props.users}
+            toFollow = {this.props.toFollow}
+            toUnfollow = {this.props.toUnfollow}
+            toFriends = {this.props.toFriends}
+            fromFriends = {this.props.fromFriends}
+             />
+        </>
+
     }
 
 }
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users);
+let mapStateToProps = (state) => {
+    return {
+        users: state.usersPage.users,
+        searchUsersText: state.usersPage.searchUsersText,
+        currentPage: state.usersPage.currentPage,
+        usersPerPageCount: state.usersPage.usersPerPageCount,
+        totalUsersCount: state.usersPage.totalUsersCount,
+        isLoading: state.usersPage.isLoading
+    }
 
-export default UsersContainer;
+}
+
+export default connect(mapStateToProps, {
+    followUser,
+    unfollowUser,
+    toFriends,
+    fromFriends,
+    searchUsers,
+    setUsers,
+    changeCurrentPage,
+    nextPage,
+    previosPage,
+    firstPage,
+    lastPage,
+    changeUsersPerPage,
+    setTotalUsersCount,
+    isloading
+})(UsersContainer);

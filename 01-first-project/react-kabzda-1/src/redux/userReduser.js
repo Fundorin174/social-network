@@ -10,38 +10,41 @@ const FOLLOW = 'FOLLOW',
     FIRST_PAGE = 'FIRST_PAGE',
     LAST_PAGE = 'LAST_PAGE',
     USERS_PER_PAGE = 'USERS_PER_PAGE',
-    SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
+    SET_TOTAL_COUNT = 'SET_TOTAL_COUNT',
+    TOGGLE_IS_LOADING = 'TOGGLE_IS_LOADING';
 
-export const followUserActionCreator = (userID) => ({type: FOLLOW, userID});
+export const followUser = (userID) => ({type: FOLLOW, userID});
 
-export const unfollowUserActionCreator = (userID) => ({type: UNFOLLOW, userID});
+export const unfollowUser = (userID) => ({type: UNFOLLOW, userID});
 
-export const toFriendsActionCreator = (userID) => ({type: TO_FRIENDS, userID});
+export const toFriends = (userID) => ({type: TO_FRIENDS, userID});
 
-export const fromFriendsActionCreator = (userID) => (
+export const fromFriends = (userID) => (
     {type: FROM_FRIENDS, userID}
 );
 
-export const searchUsersActionCreator = (partOfName) => (
+export const searchUsers = (partOfName) => (
     {type: SEARCH_USERS, partOfName: partOfName}
 );
-export const setUsersActionCreator = (users) => ({type: SET_USERS, users});
+export const setUsers = (users) => ({type: SET_USERS, users});
 
-export const changeCurrentPageActionCreator = (pageNum) => (
+export const changeCurrentPage = (pageNum) => (
     {type: CHANGE_CURRENT_PAGE, pageNum}
 );
 
-export const nextPageActionCreator = () => ({type: NEXT_PAGE});
+export const nextPage = () => ({type: NEXT_PAGE});
 
-export const previosPageActionCreator = () => ({type: PREVIOS_PAGE});
+export const previosPage = () => ({type: PREVIOS_PAGE});
 
-export const firstPageActionCreator = () => ({type: FIRST_PAGE});
+export const firstPage = () => ({type: FIRST_PAGE});
 
-export const lastPageActionCreator = (pagesCount) => ({type: LAST_PAGE, pagesCount});
+export const isloading = (isLoading) => ({type: TOGGLE_IS_LOADING, isLoading});
 
-export const changeUsersPerPageActionCreator = (numOfUsers) => ({type: USERS_PER_PAGE, numOfUsers});
+export const lastPage = (pagesCount) => ({type: LAST_PAGE, pagesCount});
 
-export const setTotalUsersCountActionCreator = (totalCount) => ({type: SET_TOTAL_COUNT, totalCount});
+export const changeUsersPerPage = (numOfUsers) => ({type: USERS_PER_PAGE, numOfUsers});
+
+export const setTotalUsersCount = (totalCount) => ({type: SET_TOTAL_COUNT, totalCount});
 
 let initialState = {
     users: [],
@@ -51,7 +54,8 @@ let initialState = {
     usersPerPageCount: 5,
     currentPage: 1,
     lastPage: 5,
-    pagesCount: 5
+    pagesCount: 5,
+    isLoading: true
 
 };
 
@@ -192,6 +196,11 @@ const usersReducer = (state = initialState, action) => {
                     ...state,
                     totalUsersCount: action.totalCount
 
+                }
+        case TOGGLE_IS_LOADING:
+                return {
+                    ...state,
+                    isLoading: action.isLoading
                 }
 
                 
