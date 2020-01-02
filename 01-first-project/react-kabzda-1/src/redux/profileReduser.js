@@ -1,17 +1,22 @@
 const AD_POST = 'AD-POST',
     CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT',
-    CHANGE_NUM_OF_LIKE = 'CHANGE_NUM_OF_LIKE';
+    CHANGE_NUM_OF_LIKE = 'CHANGE_NUM_OF_LIKE',
+    SET_USER_PROFILE = 'SET_USER_PROFILE';
 
-export const addPostActionCreator = (text) => (
+export const addPost = (text) => (
     {type: AD_POST, someNewPost: text}
 );
 
-export const changeTextActionCreator = (text) => (
+export const changeText = (text) => (
     {type: CHANGE_NEW_POST_TEXT, newAddedPost: text}
 );
 
-export const changeNumOfLikeCreator = (num, postId) => (
+export const changeNumOfLike = (num, postId) => (
     {type: CHANGE_NUM_OF_LIKE, newNumOfLikes: num, id: postId}
+);
+
+export const setUserProfile = (currentProfile) => (
+    {type: SET_USER_PROFILE, currentProfile}
 );
 
 let initialState = {
@@ -38,13 +43,12 @@ let initialState = {
             numOfLikes: 0
         }
     ],
-
+    currentProfile: null,
     newPostText: '',
     newNumOfLikes: ''
 };
 
 const profileReducer = (state = initialState, action) => {
-    let stateCopy;
 
     switch (action.type) {
         case AD_POST:
@@ -54,7 +58,7 @@ const profileReducer = (state = initialState, action) => {
                 numOfLikes: 0
             };
 
-            stateCopy = {
+            return {
                 ...state,
                 posts: [
                     ...state.posts,
@@ -63,20 +67,19 @@ const profileReducer = (state = initialState, action) => {
                 newPostText: ''
             }
 
-            return stateCopy;
-
+            
         case CHANGE_NEW_POST_TEXT:
 
-            stateCopy = {
+            return {
                 ...state,
                 newPostText: action.newAddedPost
             }
 
-            return stateCopy;
+            
 
         case CHANGE_NUM_OF_LIKE:
 
-            stateCopy = {
+            let stateCopy = {
                 ...state,
                 posts: [...state.posts],
                 newNumOfLikes: action.newNumOfLikes + 1
@@ -92,6 +95,10 @@ const profileReducer = (state = initialState, action) => {
                 .posts[action.id - 1]
                 .numOfLikes = action.newNumOfLikes;
             return stateCopy;
+
+        case SET_USER_PROFILE:
+
+            return {...state, currentProfile: action.currentProfile}
 
         default:
             return state;

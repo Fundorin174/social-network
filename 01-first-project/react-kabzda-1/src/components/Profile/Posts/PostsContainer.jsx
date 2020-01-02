@@ -1,6 +1,6 @@
 import React from 'react';
 import Posts from './Posts';
-import {changeNumOfLikeCreator, addPostActionCreator, changeTextActionCreator} from '../../../redux/profileReduser';
+import {changeNumOfLike, addPost, changeText} from '../../../redux/profileReduser';
 import {connect} from 'react-redux';
 // import StoreContext from '../../../storeContext';
 
@@ -9,26 +9,9 @@ let mapStateToProps = (state) => {
 
 }
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        addNewPost: (text) => {
-            let action = addPostActionCreator(text);
-            dispatch(action);
-        },
 
-        addNewText: (text) => {
-            let action = changeTextActionCreator(text);
-            dispatch(action);
-        },
-
-        changeNumOfLike: (num, postId) => {
-            let action = changeNumOfLikeCreator(num, postId);
-            dispatch(action);
-        }
-    }
-
-}
-
-const PostsContainer = connect(mapStateToProps, mapDispatchToProps)(Posts);
+const PostsContainer = connect(mapStateToProps, {
+    addPost, changeText, changeNumOfLike
+})(Posts);
 
 export default PostsContainer;

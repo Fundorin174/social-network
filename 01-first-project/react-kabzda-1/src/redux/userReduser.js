@@ -19,9 +19,7 @@ export const unfollowUser = (userID) => ({type: UNFOLLOW, userID});
 
 export const toFriends = (userID) => ({type: TO_FRIENDS, userID});
 
-export const fromFriends = (userID) => (
-    {type: FROM_FRIENDS, userID}
-);
+export const fromFriends = (userID) => ({type: FROM_FRIENDS, userID});
 
 export const searchUsers = (partOfName) => (
     {type: SEARCH_USERS, partOfName: partOfName}
@@ -42,9 +40,13 @@ export const isloading = (isLoading) => ({type: TOGGLE_IS_LOADING, isLoading});
 
 export const lastPage = (pagesCount) => ({type: LAST_PAGE, pagesCount});
 
-export const changeUsersPerPage = (numOfUsers) => ({type: USERS_PER_PAGE, numOfUsers});
+export const changeUsersPerPage = (numOfUsers) => (
+    {type: USERS_PER_PAGE, numOfUsers}
+);
 
-export const setTotalUsersCount = (totalCount) => ({type: SET_TOTAL_COUNT, totalCount});
+export const setTotalUsersCount = (totalCount) => (
+    {type: SET_TOTAL_COUNT, totalCount}
+);
 
 let initialState = {
     users: [],
@@ -63,8 +65,6 @@ const usersReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case SET_USERS:
-
-            // let stateCopy = ...
             return {
                 ...state,
                 users: action.users
@@ -143,7 +143,7 @@ const usersReducer = (state = initialState, action) => {
             }
 
         case CHANGE_CURRENT_PAGE:
-            
+
             return {
                 ...state,
                 currentPage: action.pageNum
@@ -179,31 +179,30 @@ const usersReducer = (state = initialState, action) => {
 
         case LAST_PAGE:
 
-              return {
-                  ...state,
-                  pagesCount: action.pagesCount,
-                  currentPage: action.pagesCount
+            return {
+                ...state,
+                pagesCount: action.pagesCount,
+                currentPage: action.pagesCount
 
-              }
+            }
 
         case USERS_PER_PAGE:
-                return {
-                    ...state,
-                    usersPerPageCount: action.numOfUsers
-                }
+            return {
+                ...state,
+                usersPerPageCount: action.numOfUsers
+            }
         case SET_TOTAL_COUNT:
-                return {
-                    ...state,
-                    totalUsersCount: action.totalCount
+            return {
+                ...state,
+                totalUsersCount: action.totalCount
 
-                }
+            }
         case TOGGLE_IS_LOADING:
-                return {
-                    ...state,
-                    isLoading: action.isLoading
-                }
+            return {
+                ...state,
+                isLoading: action.isLoading
+            }
 
-                
         default:
             return state;
 

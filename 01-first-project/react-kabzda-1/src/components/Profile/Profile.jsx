@@ -5,12 +5,11 @@ import PostsContainer from './Posts/PostsContainer';
 
 const Profile = (props) => {
 
-
     return(
 
 
     <div className={classes.content}>
-      <Title />
+      <Title currentProfile = {props.currentProfile}/>
       <PostsContainer /> 
     </div>);
     }
@@ -18,5 +17,3 @@ const Profile = (props) => {
 
 export default Profile;
 
-
-// posts = {props.data.posts} newPostText={props.data.newPostText} dispatch={props.dispatch}

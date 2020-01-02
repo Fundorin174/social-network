@@ -8,12 +8,12 @@ const Posts = (props) => {
 
     let addNewPost = () => {
         let text = newPostElement.current.value;
-        props.addNewPost(text);
+      props.addPost(text);
     }
 
     let addNewText = () => {
         let text = newPostElement.current.value;
-        props.addNewText(text);
+      props.changeText(text);
 
     }
 
@@ -27,9 +27,6 @@ const Posts = (props) => {
                 likeNum={postitem.numOfLikes}
                 id={postitem.id}/>
         );
-
-    // msg={post.msg} likeNum={post.numOfLikes} id={post.id}
-    // dispatch={props.dispatch}
 
     return (
 
