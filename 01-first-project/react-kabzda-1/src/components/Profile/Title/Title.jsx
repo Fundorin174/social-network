@@ -13,7 +13,6 @@ import githubLogo from './../../../img/socialLogo/github.png';
 import {NavLink} from 'react-router-dom';
 
 const Title = (props) => {
-    console.log(props)
     if (!props.currentProfile) {
         return <Preloader/>
     }
