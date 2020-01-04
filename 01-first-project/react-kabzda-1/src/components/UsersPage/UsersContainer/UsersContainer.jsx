@@ -267,5 +267,5 @@ export default connect(mapStateToProps, {
     lastPage,
     changeUsersPerPage,
     setTotalUsersCount,
-    isloading
+    isloading,
 })(UsersContainer);

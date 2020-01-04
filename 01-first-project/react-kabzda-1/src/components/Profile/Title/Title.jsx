@@ -10,7 +10,7 @@ import twitterLogo from './../../../img/socialLogo/twitter.png';
 import instagramLogo from './../../../img/socialLogo/instagram.svg';
 import youtubeLogo from './../../../img/socialLogo/yuotube.png';
 import githubLogo from './../../../img/socialLogo/github.png';
-import {NavLink} from 'react-router-dom';
+
 
 const Title = (props) => {
     if (!props.currentProfile) {

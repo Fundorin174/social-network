@@ -2,7 +2,9 @@
 .header{
   grid-area: h;
   background-color: var(--main-background-color);
-
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   }
   
   .img{
@@ -15,4 +17,12 @@
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     -o-border-radius: 50%;
+}
+
+.login{
+  color: #fff;
+  margin-right: 10px;
+  width: auto;
+ height: 70px;
+ line-height: 70px;
 }
