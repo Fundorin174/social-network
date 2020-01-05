@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-    followUser,
-    unfollowUser,
+    toFollow,
+    toUnfollow,
     searchUsers,
     setUsers,
     toFriends,
@@ -19,6 +19,7 @@ import {connect} from 'react-redux';
 import Users from './Users/Users';
 import * as axios from 'axios';
 import Preloader from './../../common/Preloader/Preloader'
+import {usersAPI} from '../../../DAL/api';
 
 class UsersContainer extends React.Component {
 
@@ -26,20 +27,18 @@ class UsersContainer extends React.Component {
         this
             .props
             .isloading(true);
-        axios
-            .get(
-                `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.usersPerPageCount}`
-            )
-            .then(response => {
+        usersAPI
+            .getUsers(this.props.currentPage, this.props.usersPerPageCount)
+            .then(data => {
                 this
                     .props
                     .isloading(false);
                 this
                     .props
-                    .setUsers(response.data.items);
+                    .setUsers(data.items);
                 this
                     .props
-                    .setTotalUsersCount(response.data.totalCount);
+                    .setTotalUsersCount(data.totalCount);
 
             });
     }
@@ -53,21 +52,18 @@ class UsersContainer extends React.Component {
         this
             .props
             .isloading(true);
-        axios
-            .get(
-                `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage +
-                1}&count=${this.props.usersPerPageCount}`
-            )
-            .then(response => {
+        usersAPI
+            .getUsers(this.props.currentPage, numOfUsers)
+            .then(data => {
                 this
                     .props
                     .isloading(false);
                 this
                     .props
-                    .setUsers(response.data.items);
+                    .setUsers(data.items);
                 this
                     .props
-                    .setTotalUsersCount(response.data.totalCount);
+                    .setTotalUsersCount(data.totalCount);
             });
     }
 
@@ -77,7 +73,26 @@ class UsersContainer extends React.Component {
         )
         this
             .props
-            .lastPage(pagesCount)
+            .lastPage(pagesCount);
+        this
+            .props
+            .changeCurrentPage(pagesCount);
+        this
+            .props
+            .isloading(true);
+        usersAPI
+            .getUsers(pagesCount, this.props.usersPerPageCount)
+            .then(data => {
+                this
+                    .props
+                    .isloading(false);
+                this
+                    .props
+                    .setUsers(data.items);
+                this
+                    .props
+                    .setTotalUsersCount(data.totalCount);
+            });
     }
 
     setFirstPage = () => {
@@ -87,73 +102,74 @@ class UsersContainer extends React.Component {
         this
             .props
             .isloading(true);
-        axios
-            .get(
-                `https://social-network.samuraijs.com/api/1.0/users?page=1&count=${this.props.usersPerPageCount}`
-            )
-            .then(response => {
+        usersAPI
+            .getUsers(1, this.props.usersPerPageCount)
+            .then(data => {
                 this
                     .props
                     .isloading(false);
                 this
                     .props
-                    .setUsers(response.data.items);
+                    .setUsers(data.items);
                 this
                     .props
-                    .setTotalUsersCount(response.data.totalCount);
+                    .setTotalUsersCount(data.totalCount);
             });
     }
 
     setPreviosPage = () => {
+        if (this.props.currentPage > 1) {
+            this
+                .props
+                .previosPage();
+            this
+                .props
+                .isloading(true);
 
-        this
-            .props
-            .previosPage();
-        this
-            .props
-            .isloading(true);
-        if (this.props.currentPage > 1) 
-            axios
-                .get(
-                    `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage - 1}&count=${this.props.usersPerPageCount}`
-                )
-                .then(response => {
+            usersAPI
+                .getUsers(this.props.currentPage - 1, this.props.usersPerPageCount)
+                .then(data => {
                     this
                         .props
                         .isloading(false);
                     this
                         .props
-                        .setUsers(response.data.items);
+                        .setUsers(data.items);
                     this
                         .props
-                        .setTotalUsersCount(response.data.totalCount);
+                        .setTotalUsersCount(data.totalCount);
                 });
 
         }
-    
+
+    }
+
     setNextPage = () => {
-        this
-            .props
-            .nextPage();
-        this
-            .props
-            .isloading(true);
-        axios
-            .get(
-                `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage +
-                1}&count=${this.props.usersPerPageCount}`
-            )
-            .then(response => {
-                this
-                    .props
-                    .isloading(false);
-                this
-                    .props
-                    .setUsers(response.data.items);
-                this
-                    .props
-                    .setTotalUsersCount(response.data.totalCount);
-            });
+        let pagesCount = Math.ceil(
+            this.props.totalUsersCount / this.props.usersPerPageCount
+        )
+        if (this.props.currentPage < pagesCount) {
+            this
+                .props
+                .nextPage();
+            this
+                .props
+                .isloading(true);
+            usersAPI
+                .getUsers(this.props.currentPage + 1, this.props.usersPerPageCount)
+                .then(data => {
+                    this
+                        .props
+                        .isloading(false);
+                    this
+                        .props
+                        .setUsers(data.items);
+                    this
+                        .props
+                        .setTotalUsersCount(data.totalCount);
+                });
+
+        }
 
     }
 
@@ -164,28 +180,27 @@ class UsersContainer extends React.Component {
         this
             .props
             .isloading(true);
-        axios
-            .get(
-                `https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.usersPerPageCount}`
-            )
-            .then(response => {
+      usersAPI
+        .getUsers(p, this.props.usersPerPageCount)
+            .then(data => {
                 this
                     .props
                     .isloading(false);
                 this
                     .props
-                    .setUsers(response.data.items);
+                    .setUsers(data.items);
                 this
                     .props
-                    .setTotalUsersCount(response.data.totalCount);
+                    .setTotalUsersCount(data.totalCount);
             });
     }
 
     render() {
 
         return <> {
-            this.props.isLoading ?
-            < Preloader /> : null
+            this.props.isLoading
+                ? <Preloader />
+                : null
         } < Users currentPage = {
             this.props.currentPage
         }
@@ -235,37 +250,37 @@ class UsersContainer extends React.Component {
             this.props.fromFriends
         }
         /> 
-        </>
+        </ >
 
 }
 
 }
 
 let mapStateToProps = (state) => {
-    return {
-        users: state.usersPage.users,
-        searchUsersText: state.usersPage.searchUsersText,
-        currentPage: state.usersPage.currentPage,
-        usersPerPageCount: state.usersPage.usersPerPageCount,
-        totalUsersCount: state.usersPage.totalUsersCount,
-        isLoading: state.usersPage.isLoading
-    }
+return {
+    users: state.usersPage.users,
+    searchUsersText: state.usersPage.searchUsersText,
+    currentPage: state.usersPage.currentPage,
+    usersPerPageCount: state.usersPage.usersPerPageCount,
+    totalUsersCount: state.usersPage.totalUsersCount,
+    isLoading: state.usersPage.isLoading
+}
 
 }
 
 export default connect(mapStateToProps, {
-    followUser,
-    unfollowUser,
-    toFriends,
-    fromFriends,
-    searchUsers,
-    setUsers,
-    changeCurrentPage,
-    nextPage,
-    previosPage,
-    firstPage,
-    lastPage,
-    changeUsersPerPage,
-    setTotalUsersCount,
-    isloading,
+toFollow,
+toUnfollow,
+toFriends,
+fromFriends,
+searchUsers,
+setUsers,
+changeCurrentPage,
+nextPage,
+previosPage,
+firstPage,
+lastPage,
+changeUsersPerPage,
+setTotalUsersCount,
+isloading
 })(UsersContainer);

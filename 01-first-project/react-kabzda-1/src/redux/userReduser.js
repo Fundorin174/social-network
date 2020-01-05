@@ -13,9 +13,11 @@ const FOLLOW = 'FOLLOW',
     SET_TOTAL_COUNT = 'SET_TOTAL_COUNT',
     TOGGLE_IS_LOADING = 'TOGGLE_IS_LOADING';
 
-export const followUser = (userID) => ({type: FOLLOW, userID});
+export const toFollow = (userID) => ({type: FOLLOW,
+  userID
+});
 
-export const unfollowUser = (userID) => ({type: UNFOLLOW, userID});
+export const toUnfollow = (userID) => ({type: UNFOLLOW, userID});
 
 export const toFriends = (userID) => ({type: TO_FRIENDS, userID});
 
@@ -79,7 +81,7 @@ const usersReducer = (state = initialState, action) => {
                         if (user.id === action.userID) {
                             return {
                                 ...user,
-                                follow: true
+                                followed: true
                             }
                         }
                         return user;
@@ -95,7 +97,7 @@ const usersReducer = (state = initialState, action) => {
                         if (user.id === action.userID) {
                             return {
                                 ...user,
-                                follow: false
+                                followed: false
                             }
                         }
                         return user;

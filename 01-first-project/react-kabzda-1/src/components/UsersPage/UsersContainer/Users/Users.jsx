@@ -55,7 +55,7 @@ const Users = (props) => {
                                     key={user.id}
                                     id={user.id}
                                     fullName={user.name}
-                                    follow={user.followed}
+                                    followed={user.followed}
                                     smallPhotoSrc={user.photos.small}
                                     status={user.status}
                                     isFrend={user.isFrend}
