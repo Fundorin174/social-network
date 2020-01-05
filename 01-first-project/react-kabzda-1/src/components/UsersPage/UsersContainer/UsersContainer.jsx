@@ -13,7 +13,8 @@ import {
     lastPage,
     changeUsersPerPage,
     setTotalUsersCount,
-    isloading
+    isloading,
+    toggleFollowInProgress
 } from '../../../redux/userReduser';
 import {connect} from 'react-redux';
 import Users from './Users/Users';
@@ -249,6 +250,13 @@ class UsersContainer extends React.Component {
         fromFriends = {
             this.props.fromFriends
         }
+            toggleFollowInProgress = {
+              this.props.toggleFollowInProgress
+        }
+        followInProgress = {
+          this.props.followInProgress
+        }
+
         /> 
         </ >
 
@@ -263,7 +271,8 @@ return {
     currentPage: state.usersPage.currentPage,
     usersPerPageCount: state.usersPage.usersPerPageCount,
     totalUsersCount: state.usersPage.totalUsersCount,
-    isLoading: state.usersPage.isLoading
+    isLoading: state.usersPage.isLoading,
+  followInProgress: state.usersPage.followInProgress
 }
 
 }
@@ -282,5 +291,6 @@ firstPage,
 lastPage,
 changeUsersPerPage,
 setTotalUsersCount,
-isloading
+isloading,
+  toggleFollowInProgress
 })(UsersContainer);

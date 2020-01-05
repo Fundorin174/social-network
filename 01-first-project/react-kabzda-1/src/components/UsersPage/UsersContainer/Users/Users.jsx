@@ -62,7 +62,9 @@ const Users = (props) => {
                                     toFollow={props.toFollow}
                                     toUnfollow={props.toUnfollow}
                                     toFriends={props.toFriends}
-                                    fromFriends={props.fromFriends}/>
+                                    fromFriends={props.fromFriends}
+                                  toggleFollowInProgress={props.toggleFollowInProgress}
+                                  followInProgress = {props.followInProgress}/>
                             }
                         })
                 }
