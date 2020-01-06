@@ -59,8 +59,8 @@ const Users = (props) => {
                                     smallPhotoSrc={user.photos.small}
                                     status={user.status}
                                     isFrend={user.isFrend}
-                                    toFollow={props.toFollow}
-                                    toUnfollow={props.toUnfollow}
+                                    follow={props.follow}
+                                    unFollow={props.unFollow}
                                     toFriends={props.toFriends}
                                     fromFriends={props.fromFriends}
                                   toggleFollowInProgress={props.toggleFollowInProgress}

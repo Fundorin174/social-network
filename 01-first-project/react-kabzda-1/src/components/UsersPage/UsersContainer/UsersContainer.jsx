@@ -1,200 +1,104 @@
 import React from 'react';
 import {
-    toFollow,
-    toUnfollow,
-    searchUsers,
-    setUsers,
-    toFriends,
-    fromFriends,
-    changeCurrentPage,
-    nextPage,
-    previosPage,
-    firstPage,
-    lastPage,
-    changeUsersPerPage,
-    setTotalUsersCount,
-    isloading,
-    toggleFollowInProgress
-} from '../../../redux/userReduser';
+  follow,
+  unFollow,
+  searchUsers,
+  toFriends,
+  fromFriends,
+  changeCurrentPage,
+  nextPage,
+  previosPage,
+  firstPage,
+  lastPage,
+  changeUsersPerPage,
+  toggleFollowInProgress,
+  getUsers
+} from "../../../redux/userReduser";
 import {connect} from 'react-redux';
 import Users from './Users/Users';
-import * as axios from 'axios';
 import Preloader from './../../common/Preloader/Preloader'
-import {usersAPI} from '../../../DAL/api';
+
 
 class UsersContainer extends React.Component {
 
-    componentDidMount() {
+componentDidMount() {
+    this
+        .props
+        .getUsers(this.props.currentPage, this.props.usersPerPageCount);
+}
+
+changeUserPerPageCount = (e) => {
+    let numOfUsers = e.target.value;
+
+    this
+        .props
+        .changeUsersPerPage(numOfUsers);
+    this
+        .props
+        .getUsers(this.props.currentPage, numOfUsers);
+}
+
+lastPage = () => {
+    let pagesCount = Math.ceil(
+        this.props.totalUsersCount / this.props.usersPerPageCount
+    )
+
+    this
+        .props
+        .lastPage(pagesCount);
+    this
+        .props
+        .changeCurrentPage(pagesCount);
+    this
+        .props
+        .getUsers(pagesCount, this.props.usersPerPageCount);
+}
+
+setFirstPage = () => {
+    this
+        .props
+        .firstPage();
+    this
+        .props
+        .getUsers(1, this.props.usersPerPageCount);
+}
+
+setPreviosPage = () => {
+    if (this.props.currentPage > 1) {
         this
             .props
-            .isloading(true);
-        usersAPI
-            .getUsers(this.props.currentPage, this.props.usersPerPageCount)
-            .then(data => {
-                this
-                    .props
-                    .isloading(false);
-                this
-                    .props
-                    .setUsers(data.items);
-                this
-                    .props
-                    .setTotalUsersCount(data.totalCount);
-
-            });
+            .previosPage();
+        this
+            .props
+            .getUsers(this.props.currentPage - 1, this.props.usersPerPageCount);
     }
 
-    changeUserPerPageCount = (e) => {
-        let numOfUsers = e.target.value;
+}
 
+setNextPage = () => {
+    let pagesCount = Math.ceil(
+        this.props.totalUsersCount / this.props.usersPerPageCount
+    )
+    if (this.props.currentPage < pagesCount) {
         this
             .props
-            .changeUsersPerPage(numOfUsers);
+            .nextPage();
         this
             .props
-            .isloading(true);
-        usersAPI
-            .getUsers(this.props.currentPage, numOfUsers)
-            .then(data => {
-                this
-                    .props
-                    .isloading(false);
-                this
-                    .props
-                    .setUsers(data.items);
-                this
-                    .props
-                    .setTotalUsersCount(data.totalCount);
-            });
-    }
-
-    lastPage = () => {
-        let pagesCount = Math.ceil(
-            this.props.totalUsersCount / this.props.usersPerPageCount
-        )
-        this
-            .props
-            .lastPage(pagesCount);
-        this
-            .props
-            .changeCurrentPage(pagesCount);
-        this
-            .props
-            .isloading(true);
-        usersAPI
-            .getUsers(pagesCount, this.props.usersPerPageCount)
-            .then(data => {
-                this
-                    .props
-                    .isloading(false);
-                this
-                    .props
-                    .setUsers(data.items);
-                this
-                    .props
-                    .setTotalUsersCount(data.totalCount);
-            });
-    }
-
-    setFirstPage = () => {
-        this
-            .props
-            .firstPage();
-        this
-            .props
-            .isloading(true);
-        usersAPI
-            .getUsers(1, this.props.usersPerPageCount)
-            .then(data => {
-                this
-                    .props
-                    .isloading(false);
-                this
-                    .props
-                    .setUsers(data.items);
-                this
-                    .props
-                    .setTotalUsersCount(data.totalCount);
-            });
-    }
-
-    setPreviosPage = () => {
-        if (this.props.currentPage > 1) {
-            this
-                .props
-                .previosPage();
-            this
-                .props
-                .isloading(true);
-
-            usersAPI
-                .getUsers(this.props.currentPage - 1, this.props.usersPerPageCount)
-                .then(data => {
-                    this
-                        .props
-                        .isloading(false);
-                    this
-                        .props
-                        .setUsers(data.items);
-                    this
-                        .props
-                        .setTotalUsersCount(data.totalCount);
-                });
-
-        }
+            .getUsers(this.props.currentPage + 1, this.props.usersPerPageCount);
 
     }
 
-    setNextPage = () => {
-        let pagesCount = Math.ceil(
-            this.props.totalUsersCount / this.props.usersPerPageCount
-        )
-        if (this.props.currentPage < pagesCount) {
-            this
-                .props
-                .nextPage();
-            this
-                .props
-                .isloading(true);
-            usersAPI
-                .getUsers(this.props.currentPage + 1, this.props.usersPerPageCount)
-                .then(data => {
-                    this
-                        .props
-                        .isloading(false);
-                    this
-                        .props
-                        .setUsers(data.items);
-                    this
-                        .props
-                        .setTotalUsersCount(data.totalCount);
-                });
+}
 
-        }
-
-    }
-
-    changeActivePage = (p) => {
-        this
-            .props
-            .changeCurrentPage(p);
-        this
-            .props
-            .isloading(true);
-      usersAPI
-        .getUsers(p, this.props.usersPerPageCount)
-            .then(data => {
-                this
-                    .props
-                    .isloading(false);
-                this
-                    .props
-                    .setUsers(data.items);
-                this
-                    .props
-                    .setTotalUsersCount(data.totalCount);
-            });
-    }
+changeActivePage = (p) => {
+    this
+        .props
+        .changeCurrentPage(p);
+    this
+        .props
+        .getUsers(p, this.props.usersPerPageCount);
+}
 
     render() {
 
@@ -202,7 +106,7 @@ class UsersContainer extends React.Component {
             this.props.isLoading
                 ? <Preloader />
                 : null
-        } < Users currentPage = {
+        } <Users currentPage = {
             this.props.currentPage
         }
         searchUsers = {
@@ -238,11 +142,11 @@ class UsersContainer extends React.Component {
         users = {
             this.props.users
         }
-        toFollow = {
-            this.props.toFollow
+        follow = {
+            this.props.follow
         }
-        toUnfollow = {
-            this.props.toUnfollow
+        unFollow = {
+            this.props.unFollow
         }
         toFriends = {
             this.props.toFriends
@@ -278,19 +182,17 @@ return {
 }
 
 export default connect(mapStateToProps, {
-toFollow,
-toUnfollow,
-toFriends,
-fromFriends,
-searchUsers,
-setUsers,
-changeCurrentPage,
-nextPage,
-previosPage,
-firstPage,
-lastPage,
-changeUsersPerPage,
-setTotalUsersCount,
-isloading,
-  toggleFollowInProgress
+  toFriends,
+  fromFriends,
+  searchUsers,
+  changeCurrentPage,
+  nextPage,
+  previosPage,
+  firstPage,
+  lastPage,
+  changeUsersPerPage,
+  toggleFollowInProgress,
+  getUsers,
+  unFollow,
+  follow
 })(UsersContainer);

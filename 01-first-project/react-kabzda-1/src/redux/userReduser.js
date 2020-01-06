@@ -1,3 +1,5 @@
+import { usersAPI } from "./../DAL/api";
+
 const FOLLOW = 'FOLLOW',
     UNFOLLOW = 'UNFOLLOW',
     SEARCH_USERS = 'SEARCH_USERS',
@@ -54,6 +56,41 @@ export const setTotalUsersCount = (totalCount) => (
 export const toggleFollowInProgress = (isFetching, userID) => ({
   type: TOGGLE_FOLLOW_IN_PROGRESS, isFetching, userID
   });
+
+
+
+export const getUsers = (currentPage, usersPerPageCount) => dispatch => {
+         dispatch(isloading(true));
+         usersAPI
+           .getUsers(currentPage, usersPerPageCount)
+           .then(data => {
+             dispatch(isloading(false));
+             dispatch(setUsers(data.items));
+             dispatch(setTotalUsersCount(data.totalCount));
+           });
+       };
+
+export const unFollow = (id) => (dispatch) => {
+        dispatch(toggleFollowInProgress(true, id))
+        usersAPI.unFollow(id)
+          .then(data => {
+            if (data.resultCode == 0) {
+              dispatch(toUnfollow(id))
+            }
+            dispatch(toggleFollowInProgress(false, id))
+          });
+      }
+
+export const follow = (id) => (dispatch) => {
+  dispatch(toggleFollowInProgress(true, id));
+  usersAPI.toFollow(id).then(data => {
+    if (data.resultCode == 0) {
+      dispatch(toFollow(id));
+    }
+    dispatch(toggleFollowInProgress(false, id));
+  });
+};
+
 
 let initialState = {
     users: [],

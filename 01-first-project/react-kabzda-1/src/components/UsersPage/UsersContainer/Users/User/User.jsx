@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { usersAPI } from '../../../../../DAL/api';
 import Avatar from './../../../../../../src/img/avatar.png';
 import classes from './User.module.css';
 const User = (props) => {
@@ -15,35 +14,10 @@ const User = (props) => {
               </NavLink>
                {
                    props.followed ? 
-              <button disabled={props.followInProgress.some(id => id === props.id)} onClick = {
-                     () => {
-                       props.toggleFollowInProgress(true, props.id)
-                       usersAPI.unFollow(props.id)
-                         .then(data => {
-                           if (data.resultCode == 0) {
-                             props.toUnfollow(props.id)
-                           }
-                           props.toggleFollowInProgress(false, props.id)
-                         });
-                     }
-                   }
+              <button disabled={props.followInProgress.some(id => id === props.id)} onClick = {() => {props.unFollow(props.id)}}
                    className = {classes.btn}> Отписаться </button> 
                    : 
-              <button disabled={props.followInProgress.some(id => id === props.id)} onClick = {
-                        () => {
-
-                          props.toggleFollowInProgress(true, props.id)
-                          usersAPI
-                            .toFollow(props.id)
-                            .then(data => {
-                              if (data.resultCode == 0) {
-                                props.toFollow(props.id)
-                              }
-                              props.toggleFollowInProgress(false, props.id)
-                            });
-                          console.log(props.followInProgress)
-                        }
-                        } className={classes.btn}>Подписаться</button>
+              <button disabled={props.followInProgress.some(id => id === props.id)} onClick = {() => {props.follow(props.id)}} className={classes.btn}>Подписаться</button>
                }
                {
                     props.isFrend ?
