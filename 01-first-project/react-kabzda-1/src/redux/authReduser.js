@@ -3,7 +3,7 @@ const SET_AUTH_DATA = 'SET_AUTH_DATA';
 
 export const authMe = (data) => ({type: SET_AUTH_DATA, data});
 
-export const letAuth = (currentPage, usersPerPageCount) => dispatch => {
+export const letAuth = () => dispatch => {
   usersAPI.auth()
     .then(data => {
       if (data.resultCode === 0) {

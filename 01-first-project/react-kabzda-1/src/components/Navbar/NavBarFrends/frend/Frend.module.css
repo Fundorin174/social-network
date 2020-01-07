@@ -1,5 +1,6 @@
   .frends_item{
     width: 30%;
+    margin-top: 10px;
     height: auto;
     min-width: 40px;
     display: inline-flex;
@@ -23,6 +24,7 @@
   display: inline-block;
   margin: 5px auto;
   font-size: 0.6 rem;
+  color: #fff;
 }
 
 

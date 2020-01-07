@@ -19,6 +19,14 @@ export const usersAPI = {
     });
   },
 
+  getProfile(userID) {
+
+return instance.get(`profile/${userID}`)
+    .then(response => {
+      return response.data;
+    });
+  },
+
   toFollow(userID) {
     return instance.post(`follow/${userID}`)
       .then(response => {

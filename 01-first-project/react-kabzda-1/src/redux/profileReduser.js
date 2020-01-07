@@ -1,3 +1,6 @@
+import { usersAPI } from './../DAL/api';
+import { isloading } from './userReduser';
+
 const AD_POST = 'AD-POST',
     CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT',
     CHANGE_NUM_OF_LIKE = 'CHANGE_NUM_OF_LIKE',
@@ -47,6 +50,16 @@ let initialState = {
     newPostText: '',
     newNumOfLikes: ''
 };
+
+export const getProfile = (userID = 5585) => (dispatch) => {
+  dispatch(isloading(true));
+  usersAPI.getProfile(userID)
+    .then(data => {
+      dispatch(setUserProfile(data));
+      dispatch(isloading(false));
+    });
+};
+
 
 const profileReducer = (state = initialState, action) => {
 

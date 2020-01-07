@@ -19,7 +19,6 @@ let initialState = {
             id: '6',
             name: 'Vasja'
         }
-
     ]
 };
 
