@@ -1,11 +1,11 @@
 const ADD_MSG = 'ADD-MSG',
     CHANGE_NEW_MSG_TEXT = 'CHANGE-NEW-MSG-TEXT';
 
-export const addNewMsgActionCreator = (newMsg) => (
+export const addNewMsg = (newMsg) => (
     {type: ADD_MSG, someNewMsg: newMsg}
 );
 
-export const changeNewMsgActionCreator = (newMsgText) => (
+export const changeNewMsgText = (newMsgText) => (
     {type: CHANGE_NEW_MSG_TEXT, newAddedMsg: newMsgText}
 );
 
