@@ -10,12 +10,57 @@ import twitterLogo from './../../../img/socialLogo/twitter.png';
 import instagramLogo from './../../../img/socialLogo/instagram.svg';
 import youtubeLogo from './../../../img/socialLogo/yuotube.png';
 import githubLogo from './../../../img/socialLogo/github.png';
-
+import mainLinkLogo from './../../../img/socialLogo/mainLink.png';
 
 const Title = (props) => {
-    if (!props.currentProfile) {
-        return <Preloader/>
+if (!props.currentProfile) {
+    return <Preloader/>
+}
+
+let contactsRender = () => {
+    let socialIcons = [],
+        srcToIcons = [];
+    for (let icon in props.currentProfile.contacts) {
+        socialIcons.push(icon);
     }
+    return (socialIcons.map((item, i) => {
+        if (props.currentProfile.contacts[socialIcons[i]]) {
+            srcToIcons.splice(0, 1, item + 'Logo');
+            if (srcToIcons[0] == 'facebookLogo') {
+                srcToIcons[0] = facebookLogo
+            } else if (srcToIcons[0] == 'instagramLogo') {
+                srcToIcons[0] = instagramLogo
+            } else if (srcToIcons[0] == 'websiteLogo') {
+                srcToIcons[0] = websiteLogo
+            } else if (srcToIcons[0] == 'vkLogo') {
+                srcToIcons[0] = vkLogo
+            } else if (srcToIcons[0] == 'twitterLogo') {
+                srcToIcons[0] = twitterLogo
+            } else if (srcToIcons[0] == 'youtubeLogo') {
+                srcToIcons[0] = youtubeLogo
+            } else if (srcToIcons[0] == 'githubLogo') {
+                srcToIcons[0] = githubLogo
+            } else if (srcToIcons[0] == 'mainLinkLogo') {
+                srcToIcons[0] = mainLinkLogo
+            }
+            return (
+                <a
+                    href={props
+                        .currentProfile
+                        .contacts[socialIcons[i]]}
+                    target='blank'>
+                    <div className={classes.contactLogo}>
+                        <img src={srcToIcons[0]} alt={item}/>
+                        <p>{item}</p>
+                    </div>
+                </a>
+            )
+        } else {
+            return null
+        }
+    }))
+
+}
     return (
         <div className={classes.content}>
             <div className={classes.topimg}>
@@ -48,77 +93,7 @@ const Title = (props) => {
                         <li>Мои контакты:</li>
                     </ul>
                     <div className={classes.contacts}>
-                        {
-                            props.currentProfile.contacts.facebook
-                                ? <a href={props.currentProfile.contacts.facebook} target='blank'>
-                                        <div className={classes.contactLogo}>
-                                            <img src={facebookLogo} alt='facebook'/>
-                                            <p>facebook</p>
-                                        </div>
-                                    </a>
-                                : null
-                        }
-                        {
-                            props.currentProfile.contacts.vk
-                                ? <a href={props.currentProfile.contacts.vk} target='blank'>
-                                        <div className={classes.contactLogo}>
-                                            <img src={vkLogo} alt='vkLogo'/>
-                                            <p>VK</p>
-                                        </div>
-                                    </a>
-                                : null
-                        }
-                        {
-                            props.currentProfile.contacts.instagram
-                                ? <a href={props.currentProfile.contacts.instagram} target='blank'>
-                                        <div className={classes.contactLogo}>
-                                            <img src={instagramLogo} alt='instagramLogo'/>
-                                            <p>instagramm</p>
-                                        </div>
-                                    </a>
-                                : null
-                        }
-                        {
-                            props.currentProfile.contacts.twitter
-                                ? <a href={props.currentProfile.contacts.twitter} target='blank'>
-                                        <div className={classes.contactLogo}>
-                                            <img src={twitterLogo} alt='twitterLogo'/>
-                                            <p>twitter</p>
-                                        </div>
-                                    </a>
-                                : null
-                        }
-                        {
-                            props.currentProfile.contacts.youtube
-                                ? <a href={props.currentProfile.contacts.youtube} target='blank'>
-                                        <div className={classes.contactLogo}>
-                                            <img src={youtubeLogo} alt='youtubeLogo'/>
-                                            <p>youtube</p>
-                                        </div>
-                                    </a>
-                                : null
-                        }
-                        {
-                            props.currentProfile.contacts.website
-                                ? <a href={props.currentProfile.contacts.website} target='blank'>
-                                        <div className={classes.contactLogo}>
-                                            <img src={websiteLogo} alt='websiteLogo'/>
-                                            <p>website</p>
-                                        </div>
-                                    </a>
-                                : null
-                        }
-                        {
-                            props.currentProfile.contacts.github
-                                ? <a href={props.currentProfile.contacts.github} target='blank'>
-                                        <div className={classes.contactLogo}>
-                                            <img src={githubLogo} alt='githubLogo'/>
-                                            <p>github</p>
-                                        </div>
-                                    </a>
-                                : null
-                        }
-
+                        {contactsRender()}
                     </div>
                 </div>
             </div>
