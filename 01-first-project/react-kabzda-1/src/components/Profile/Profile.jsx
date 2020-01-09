@@ -9,7 +9,7 @@ const Profile = (props) => {
      
 
     <div className={classes.content}>
-      <Title currentProfile = {props.currentProfile}/>
+      <Title currentStatus = {props.currentStatus} currentProfile = {props.currentProfile}/>
       <PostsContainer /> 
     </div>);
     }

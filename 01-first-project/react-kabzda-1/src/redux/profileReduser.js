@@ -4,7 +4,8 @@ import { isloading } from './userReduser';
 const AD_POST = 'AD-POST',
     CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT',
     CHANGE_NUM_OF_LIKE = 'CHANGE_NUM_OF_LIKE',
-    SET_USER_PROFILE = 'SET_USER_PROFILE';
+    SET_USER_PROFILE = 'SET_USER_PROFILE',
+    SET_USER_STATUS = 'SET_USER_STATUS';
 
 export const addPost = (text) => (
     {type: AD_POST, someNewPost: text}
@@ -20,6 +21,10 @@ export const changeNumOfLike = (num, postId) => (
 
 export const setUserProfile = (currentProfile) => (
     {type: SET_USER_PROFILE, currentProfile}
+);
+
+export const setUserStatus = (status) => (
+  {type: SET_USER_STATUS, status}
 );
 
 let initialState = {
@@ -48,7 +53,8 @@ let initialState = {
     ],
     currentProfile: null,
     newPostText: '',
-    newNumOfLikes: ''
+    newNumOfLikes: '',
+    currentStatus: null
 };
 
 export const getProfile = (userID = 5585) => (dispatch) => {
@@ -56,6 +62,15 @@ export const getProfile = (userID = 5585) => (dispatch) => {
   usersAPI.getProfile(userID)
     .then(data => {
       dispatch(setUserProfile(data));
+      dispatch(isloading(false));
+    });
+};
+
+export const getStatus = (userID = 5585) => (dispatch) => {
+  dispatch(isloading(true));
+  usersAPI.getStatus(userID)
+    .then(data => {
+      dispatch(setUserStatus(data));
       dispatch(isloading(false));
     });
 };
@@ -110,9 +125,10 @@ const profileReducer = (state = initialState, action) => {
             return stateCopy;
 
         case SET_USER_PROFILE:
-
-            return {...state, currentProfile: action.currentProfile}
-
+            return {...state, currentProfile: action.currentProfile};
+  
+            case SET_USER_STATUS:
+                    return {...state, currentStatus: action.status};
         default:
             return state;
 

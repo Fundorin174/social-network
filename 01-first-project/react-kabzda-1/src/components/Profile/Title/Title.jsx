@@ -11,6 +11,7 @@ import instagramLogo from './../../../img/socialLogo/instagram.svg';
 import youtubeLogo from './../../../img/socialLogo/yuotube.png';
 import githubLogo from './../../../img/socialLogo/github.png';
 import mainLinkLogo from './../../../img/socialLogo/mainLink.png';
+import ProfileStatus from './ProfileStatus';
 
 const Title = (props) => {
 if (!props.currentProfile) {
@@ -26,25 +27,25 @@ let contactsRender = () => {
     return (socialIcons.map((item, i) => {
         if (props.currentProfile.contacts[socialIcons[i]]) {
             srcToIcons.splice(0, 1, item + 'Logo');
-            if (srcToIcons[0] == 'facebookLogo') {
+            if (srcToIcons[0] === 'facebookLogo') {
                 srcToIcons[0] = facebookLogo
-            } else if (srcToIcons[0] == 'instagramLogo') {
+            } else if (srcToIcons[0] === 'instagramLogo') {
                 srcToIcons[0] = instagramLogo
-            } else if (srcToIcons[0] == 'websiteLogo') {
+            } else if (srcToIcons[0] === 'websiteLogo') {
                 srcToIcons[0] = websiteLogo
-            } else if (srcToIcons[0] == 'vkLogo') {
+            } else if (srcToIcons[0] === 'vkLogo') {
                 srcToIcons[0] = vkLogo
-            } else if (srcToIcons[0] == 'twitterLogo') {
+            } else if (srcToIcons[0] === 'twitterLogo') {
                 srcToIcons[0] = twitterLogo
-            } else if (srcToIcons[0] == 'youtubeLogo') {
+            } else if (srcToIcons[0] === 'youtubeLogo') {
                 srcToIcons[0] = youtubeLogo
-            } else if (srcToIcons[0] == 'githubLogo') {
+            } else if (srcToIcons[0] === 'githubLogo') {
                 srcToIcons[0] = githubLogo
-            } else if (srcToIcons[0] == 'mainLinkLogo') {
+            } else if (srcToIcons[0] === 'mainLinkLogo') {
                 srcToIcons[0] = mainLinkLogo
             }
             return (
-                <a
+                <a key={i}
                     href={props
                         .currentProfile
                         .contacts[socialIcons[i]]}
@@ -95,6 +96,9 @@ let contactsRender = () => {
                     <div className={classes.contacts}>
                         {contactsRender()}
                     </div>
+                </div>
+                <div className = {classes.status}>
+                        <ProfileStatus currentStatus = {props.currentStatus}/>
                 </div>
             </div>
         </div>

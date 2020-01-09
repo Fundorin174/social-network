@@ -27,6 +27,14 @@ return instance.get(`profile/${userID}`)
     });
   },
 
+  getStatus(userID) {
+
+    return instance.get(`profile/status/${userID}`)
+        .then(response => {
+          return response.data;
+        });
+      },
+
   toFollow(userID) {
     return instance.post(`follow/${userID}`)
       .then(response => {
