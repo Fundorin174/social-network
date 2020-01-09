@@ -8,13 +8,13 @@ class ProfileStatus extends React.Component {
     editMode: false
   }
 
-  statusEditModeOn(){
+  statusEditModeOn = () => {
     this.setState({
       editMode: true
     }) 
   }
 
-  statusEditModeOff(){
+  statusEditModeOff = () => {
     this.setState({
       editMode: false
     }) 
@@ -24,11 +24,11 @@ class ProfileStatus extends React.Component {
     return <>
      {!this.state.editMode ?    
   <div className = {classes.nonActive}>
-      <span onDoubleClick = {() => {this.statusEditModeOn()}} >Мой статус: {this.props.currentStatus}</span>
+      <span onDoubleClick = {this.statusEditModeOn} >Мой статус: {this.props.currentStatus}</span>
    </div> 
    :
    <div className = {classes.onActive}>
-      <input autoFocus onBlur = {() => {this.statusEditModeOff()}} type="text" value = {this.props.currentStatus}/>
+      <input autoFocus onBlur = {this.statusEditModeOff} type="text" value = {this.props.currentStatus}/>
   </div>
   }
   </>
