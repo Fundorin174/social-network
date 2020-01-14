@@ -19,21 +19,7 @@ export const usersAPI = {
     });
   },
 
-  getProfile(userID) {
-
-return instance.get(`profile/${userID}`)
-    .then(response => {
-      return response.data;
-    });
-  },
-
-  getStatus(userID) {
-
-    return instance.get(`profile/status/${userID}`)
-        .then(response => {
-          return response.data;
-        });
-      },
+  
 
   toFollow(userID) {
     return instance.post(`follow/${userID}`)
@@ -52,9 +38,51 @@ return instance.get(`profile/${userID}`)
   auth() {
     return instance.get('auth/me')
     .then(response => {
+      console.warn('This is old API. Please, use authApi.auth')
+      return authAPI.auth(response);
+    });
+  }
+
+}
+
+export const authAPI = {
+
+  auth() {
+    return instance.get('auth/me')
+    .then(response => {
       return response.data;
     });
   }
 
 }
+
+export const profileAPI = {
+
+  getProfile(userID) {
+
+    return instance.get(`profile/${userID}`)
+        .then(response => {
+          return response.data;
+        });
+      },
+
+  getStatus(userID) {
+
+    return instance.get(`profile/status/${userID}`)
+        .then(response => {
+          return response.data;
+        });
+      },
+
+  setStatus(status) {
+
+    return instance.put('profile/status', {status})
+    .then(response => {
+      return response.data;
+    })
+  }
+
+}
+
+
 

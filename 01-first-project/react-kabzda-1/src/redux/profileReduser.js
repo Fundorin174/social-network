@@ -1,4 +1,4 @@
-import { usersAPI } from './../DAL/api';
+import { profileAPI } from './../DAL/api';
 import { isloading } from './userReduser';
 
 const AD_POST = 'AD-POST',
@@ -6,6 +6,7 @@ const AD_POST = 'AD-POST',
     CHANGE_NUM_OF_LIKE = 'CHANGE_NUM_OF_LIKE',
     SET_USER_PROFILE = 'SET_USER_PROFILE',
     SET_USER_STATUS = 'SET_USER_STATUS';
+    // CHANGE_USER_STATUS = 'CHANGE_USER_STATUS';
 
 export const addPost = (text) => (
     {type: AD_POST, someNewPost: text}
@@ -26,6 +27,12 @@ export const setUserProfile = (currentProfile) => (
 export const setUserStatus = (status) => (
   {type: SET_USER_STATUS, status}
 );
+
+// export const changeUserStatus = (status) => (
+//   {type: CHANGE_USER_STATUS, status}
+// );
+
+
 
 let initialState = {
     posts: [
@@ -54,12 +61,12 @@ let initialState = {
     currentProfile: null,
     newPostText: '',
     newNumOfLikes: '',
-    currentStatus: null
+    currentStatus: ''
 };
 
 export const getProfile = (userID = 5585) => (dispatch) => {
   dispatch(isloading(true));
-  usersAPI.getProfile(userID)
+  profileAPI.getProfile(userID)
     .then(data => {
       dispatch(setUserProfile(data));
       dispatch(isloading(false));
@@ -68,11 +75,21 @@ export const getProfile = (userID = 5585) => (dispatch) => {
 
 export const getStatus = (userID = 5585) => (dispatch) => {
   dispatch(isloading(true));
-  usersAPI.getStatus(userID)
+  profileAPI.getStatus(userID)
     .then(data => {
       dispatch(setUserStatus(data));
       dispatch(isloading(false));
     });
+};
+
+export const setStatus = (status) => (dispatch) => {
+  dispatch(isloading(true));
+  profileAPI.setStatus(status)
+    .then(data => {
+      data.resultCode === 0 ? dispatch(setUserStatus(status)) : console.warn(data.message);
+      dispatch(isloading(false));
+    });
+
 };
 
 
@@ -127,8 +144,9 @@ const profileReducer = (state = initialState, action) => {
         case SET_USER_PROFILE:
             return {...state, currentProfile: action.currentProfile};
   
-            case SET_USER_STATUS:
-                    return {...state, currentStatus: action.status};
+        case SET_USER_STATUS:
+                return {...state, currentStatus: action.status};
+
         default:
             return state;
 

@@ -5,7 +5,8 @@ import classes from './Title.module.css';
 
 class ProfileStatus extends React.Component {
   state = {
-    editMode: false
+    editMode: false,
+    status: this.props.currentStatus
   }
 
   statusEditModeOn = () => {
@@ -17,18 +18,33 @@ class ProfileStatus extends React.Component {
   statusEditModeOff = () => {
     this.setState({
       editMode: false
-    }) 
+    })
+    this.props.setStatus(this.state.status) 
+  }
+
+  changeLocalStatus = (e) => {
+    let status = e.target.value;
+    this.setState({
+      status: status 
+    });
   }
   
+
+  componentDidUpdate (prevProps, prevState) {
+    (prevProps.currentStatus !== this.props.currentStatus) && this.setState({
+      status: this.props.currentStatus 
+    });
+  }
+
   render () {
     return <>
      {!this.state.editMode ?    
   <div className = {classes.nonActive}>
-      <span onDoubleClick = {this.statusEditModeOn} >Мой статус: {this.props.currentStatus}</span>
+      <span onDoubleClick = {this.statusEditModeOn} >Мой статус: {this.props.currentStatus || 'Нет статуса'}</span>
    </div> 
    :
    <div className = {classes.onActive}>
-      <input autoFocus onBlur = {this.statusEditModeOff} type="text" value = {this.props.currentStatus}/>
+      <input onChange = { this.changeLocalStatus } autoFocus onBlur = {this.statusEditModeOff} type="text" value = {this.state.status}/>
   </div>
   }
   </>

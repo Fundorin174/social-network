@@ -4,7 +4,7 @@ const SET_AUTH_DATA = 'SET_AUTH_DATA';
 export const authMe = (data) => ({type: SET_AUTH_DATA, data});
 
 export const letAuth = () => dispatch => {
-  usersAPI.auth()
+  authAPI.auth()
     .then(data => {
       if (data.resultCode === 0) {
         dispatch(authMe(data));

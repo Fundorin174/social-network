@@ -20,29 +20,29 @@ if (!props.currentProfile) {
 
 let contactsRender = () => {
     let socialIcons = [],
-        srcToIcons = [];
+        srcToIcons;
     for (let icon in props.currentProfile.contacts) {
         socialIcons.push(icon);
     }
     return (socialIcons.map((item, i) => {
         if (props.currentProfile.contacts[socialIcons[i]]) {
-            srcToIcons.splice(0, 1, item + 'Logo');
-            if (srcToIcons[0] === 'facebookLogo') {
-                srcToIcons[0] = facebookLogo
-            } else if (srcToIcons[0] === 'instagramLogo') {
-                srcToIcons[0] = instagramLogo
-            } else if (srcToIcons[0] === 'websiteLogo') {
-                srcToIcons[0] = websiteLogo
-            } else if (srcToIcons[0] === 'vkLogo') {
-                srcToIcons[0] = vkLogo
-            } else if (srcToIcons[0] === 'twitterLogo') {
-                srcToIcons[0] = twitterLogo
-            } else if (srcToIcons[0] === 'youtubeLogo') {
-                srcToIcons[0] = youtubeLogo
-            } else if (srcToIcons[0] === 'githubLogo') {
-                srcToIcons[0] = githubLogo
-            } else if (srcToIcons[0] === 'mainLinkLogo') {
-                srcToIcons[0] = mainLinkLogo
+            srcToIcons = (item + 'Logo');
+            if (srcToIcons === 'facebookLogo') {
+                srcToIcons = facebookLogo
+            } else if (srcToIcons === 'instagramLogo') {
+                srcToIcons = instagramLogo
+            } else if (srcToIcons === 'websiteLogo') {
+                srcToIcons = websiteLogo
+            } else if (srcToIcons === 'vkLogo') {
+                srcToIcons = vkLogo
+            } else if (srcToIcons === 'twitterLogo') {
+                srcToIcons = twitterLogo
+            } else if (srcToIcons === 'youtubeLogo') {
+                srcToIcons = youtubeLogo
+            } else if (srcToIcons === 'githubLogo') {
+                srcToIcons = githubLogo
+            } else if (srcToIcons === 'mainLinkLogo') {
+                srcToIcons = mainLinkLogo
             }
             return (
                 <a key={i}
@@ -51,7 +51,7 @@ let contactsRender = () => {
                         .contacts[socialIcons[i]]}
                     target='blank'>
                     <div className={classes.contactLogo}>
-                        <img src={srcToIcons[0]} alt={item}/>
+                        <img src={srcToIcons} alt={item}/>
                         <p>{item}</p>
                     </div>
                 </a>
@@ -98,7 +98,7 @@ let contactsRender = () => {
                     </div>
                 </div>
                 <div className = {classes.status}>
-                        <ProfileStatus currentStatus = {props.currentStatus}/>
+                        <ProfileStatus currentStatus = {props.currentStatus} setStatus = {props.setStatus}/>
                 </div>
             </div>
         </div>
