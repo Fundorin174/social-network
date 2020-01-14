@@ -1,5 +1,6 @@
 import { profileAPI } from './../DAL/api';
 import { isloading } from './userReduser';
+import {  reset } from 'redux-form';
 
 const AD_POST = 'AD-POST',
     CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT',
@@ -91,6 +92,10 @@ export const setStatus = (status) => (dispatch) => {
     });
 
 };
+
+export const resetForm = (formName) => (dispatch) => {
+  dispatch(reset(formName));
+}
 
 
 const profileReducer = (state = initialState, action) => {

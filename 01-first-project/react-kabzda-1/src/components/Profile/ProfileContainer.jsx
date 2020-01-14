@@ -16,7 +16,6 @@ class ProfileContainer extends React.Component {
     this.props.getProfile(userID);
     this.props.getStatus(userID);
     this.props.currentStatus !== '' && this.props.setStatus(this.props.currentStatus);
-    console.log(this.props.currentProfile)
   }
 
 

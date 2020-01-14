@@ -1,21 +1,15 @@
 import React from 'react';
-import classes from './Posts.module.css';
 import Post from './Post/Post';
+import FormProfileNewMsg from './FormProfileNewMsg';
+
 
 const Posts = (props) => {
 
-    let newPostElement = React.createRef();
+    let addNewPost = values => {
+      props.addPost(values.someNewPost);
+      props.resetForm(FormProfileNewMsg.defaultProps.form);
+    };
 
-    let addNewPost = () => {
-        let text = newPostElement.current.value;
-      props.addPost(text);
-    }
-
-    let addNewText = () => {
-        let text = newPostElement.current.value;
-      props.changeText(text);
-
-    }
 
     let postsElements = props
         .posts
@@ -29,27 +23,11 @@ const Posts = (props) => {
         );
 
     return (
-
-        <div >
-            <h3>Мои сообщения</h3>
-            <div className={classes.newsform}>
-                <textarea
-                    onChange={addNewText}
-                    value={props.newPostText}
-                    ref={newPostElement}
-                    name={classes.youNews}
-                    id={classes.youNews}
-                    cols="30"
-                    rows="3"
-                    placeholder='Введите сообщение'/>
-                <button onClick={addNewPost} className={classes.btn}>Добавить сообщение</button>
-            </div>
-            <div>
-
-                {postsElements}
-
-            </div>
-        </div>
+      <div>
+        <h3>Мои сообщения</h3>
+        <FormProfileNewMsg onSubmit={addNewPost} />
+        <div>{postsElements}</div>
+      </div>
     );
 }
 

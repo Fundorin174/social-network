@@ -1,17 +1,23 @@
 import React from 'react';
 import Posts from './Posts';
-import {changeNumOfLike, addPost, changeText} from '../../../redux/profileReduser';
+import {
+  changeNumOfLike,
+  addPost,
+  resetForm
+} from "../../../redux/profileReduser";
 import {connect} from 'react-redux';
 // import StoreContext from '../../../storeContext';
 
 let mapStateToProps = (state) => {
-    return {posts: state.profilePage.posts, newPostText: state.profilePage.newPostText}
+    return {posts: state.profilePage.posts}
 
 }
 
 
 const PostsContainer = connect(mapStateToProps, {
-    addPost, changeText, changeNumOfLike
+  addPost,
+  changeNumOfLike,
+  resetForm
 })(Posts);
 
 export default PostsContainer;
