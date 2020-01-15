@@ -13,7 +13,7 @@
     text-overflow: ellipsis;
     width: 80%;
     height: 100px;
-    margin: 20px auto;
+    margin: 20px 10%;
     padding: 10px 15px;
     min-width: 100px;
     border-radius: 10px;
@@ -28,6 +28,7 @@
     -o-border-radius: 10px;
 }
 
+
 .msg_btn {
     width: 100px;
     align-self: flex-end;
@@ -40,3 +41,11 @@
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
 }
+
+.form {
+  width: 100%;
+  text-align: right;
+
+}
+
+

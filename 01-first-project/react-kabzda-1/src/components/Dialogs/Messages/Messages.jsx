@@ -1,36 +1,31 @@
 import React from 'react';
-import classes from './Messages.module.css'; 
+import classes from './Messages.module.css';
 import MsgItem from './MessageItem/MessageItem';
-
-
+import FormMessagesNewMsg from './FormMessagesNewMsg';
 
 const Messages = (props) => {
 
+    let addNewMsg = (values) => {
 
-
-    let addNewMsg = () => {
-        let newMsg = props.newMsgText;
-        props.addNewMsg(newMsg);
+        props.addNewMsg(values.someNewMsg);
+        props.resetForm(FormMessagesNewMsg.defaultProps.form);
     };
 
-    let changeNewMsgText = (e) => {
-        let newMsgText = e.target.value;
-        props.changeNewMsgText(newMsgText);
-    }
-
-
-    let massagesElements = props.messages.map(message =>  <MsgItem key = {message.id} id={message.id} name={message.name} date={message.date} msg={message.msg} />);
-
-
+    let massagesElements = props
+        .messages
+        .map(
+            message => <MsgItem
+                key={message.id}
+                id={message.id}
+                name={message.name}
+                date={message.date}
+                msg={message.msg}/>
+        );
 
     return (
-        <div className = {classes.messages}>
-
-            { massagesElements }
-
-            <textarea onChange={changeNewMsgText} value={props.newMsgText}
-            col='30' row='3' className={classes.addNewMsg} placeholder='Введите сообщение'></textarea>
-            <button onClick={ addNewMsg } className={classes.msg_btn}>Добавить сообщение</button>
+        <div className={classes.messages}>
+            {massagesElements}
+            <FormMessagesNewMsg onSubmit={addNewMsg}/>
         </div>
     );
 }

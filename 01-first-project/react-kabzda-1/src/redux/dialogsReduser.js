@@ -88,7 +88,7 @@ const dialogsReducer = (state = initialState, action) => {
             let date = new Date(),
                 year = date.getFullYear(),
                 month = date.toLocaleString('ru', {month: 'long'}),
-                day = date.getDay(),
+                day = date.getDate(),
                 hours = date.getHours(),
                 minutes = date.getMinutes(),
                 sec = date.getSeconds();

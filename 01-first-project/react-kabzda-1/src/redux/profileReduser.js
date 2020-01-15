@@ -36,29 +36,15 @@ export const setUserStatus = (status) => (
 
 
 let initialState = {
-    posts: [
-        {
-            id: '1',
-            msg: 'Deserunt dolor aliqua ex elit et.',
-            numOfLikes: 0
-        }, {
-            id: '2',
-            msg: 'Fuck',
-            numOfLikes: 0
-        }, {
-            id: '3',
-            msg: 'Это Redux детка!',
-            numOfLikes: 0
-        }, {
-            id: '4',
-            msg: 'Ахахахаха',
-            numOfLikes: 0
-        }, {
-            id: '5',
-            msg: 'Получилось!!!',
-            numOfLikes: 0
-        }
-    ],
+  posts: [{
+    id: '1',
+    msg: 'И снова здрасте-)',
+    numOfLikes: 0
+  }, {
+      id: '2',
+      msg: 'Привет, народ!)',
+      numOfLikes: 0
+    }],
     currentProfile: null,
     newPostText: '',
     newNumOfLikes: '',
@@ -103,17 +89,21 @@ const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case AD_POST:
             let newItem = {
-                id: (`${state.posts.length + 1}`),
+                id: (1),
                 msg: action.someNewPost,
                 numOfLikes: 0
             };
 
+        let newposts = [
+          ...state.posts
+        ]
+        newposts.map(post => {
+          post.id++; 
+        })
+        newposts.unshift(newItem);
             return {
                 ...state,
-                posts: [
-                    ...state.posts,
-                    newItem
-                ],
+                posts: newposts,
                 newPostText: ''
             }
 
@@ -134,13 +124,13 @@ const profileReducer = (state = initialState, action) => {
                 posts: [...state.posts],
                 newNumOfLikes: action.newNumOfLikes + 1
             }
+            
 
             for (let i = 0; i < stateCopy.posts.length; i++) {
                 stateCopy.posts[i] = {
                     ...state.posts[i]
                 };
             }
-
             stateCopy
                 .posts[action.id - 1]
                 .numOfLikes = action.newNumOfLikes;
