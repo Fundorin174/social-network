@@ -1,10 +1,10 @@
 import React from 'react';
 import classes from './Posts.module.css';
 import {Field, reduxForm} from 'redux-form';
+import {Textarea} from "../../common/BlockContainer";
+import {required} from "../../common/validators";
 
 let FormProfileNewMsg = (props) => {
-
-
     return (
       <>
         <form
@@ -14,9 +14,10 @@ let FormProfileNewMsg = (props) => {
           <Field
             name="someNewPost"
             id={classes.youNews}
-            component="textarea"
+            component={Textarea}
             type="text"
             placeholder="Введите сообщение"
+            validate = {[required]}
           />
           <button className={classes.btn}>
             Добавить сообщение

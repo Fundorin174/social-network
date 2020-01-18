@@ -17,7 +17,6 @@ h3 {
   min-width: 100px;
   height: 100px;
   padding: 0 15px;
-  border-width: 0;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -27,6 +26,18 @@ h3 {
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+}
+
+.textareaWrp{
+    width: 100%;
+}
+
+.error{
+    border: solid 2px brown;
+}
+
+.spanWrp span{
+    color: brown;
 }
 
 .btn {
@@ -40,3 +51,4 @@ h3 {
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
 }
+

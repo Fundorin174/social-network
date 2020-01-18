@@ -6,8 +6,10 @@ import FormProfileNewMsg from './FormProfileNewMsg';
 const Posts = (props) => {
 
     let addNewPost = values => {
+      // console.log(values)
       props.addPost(values.someNewPost);
       props.resetForm(FormProfileNewMsg.defaultProps.form);
+
     };
 
 
