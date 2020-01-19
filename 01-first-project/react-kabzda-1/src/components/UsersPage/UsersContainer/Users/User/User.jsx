@@ -6,7 +6,7 @@ const User = (props) => {
     return (
         <div className = {classes.user_wrapper}>
             <div className={classes.left_column}>
-              <NavLink to={'/profile/' + props.id}>
+              <NavLink to={props.isAuth ? '/profile/' + props.id : '/login'}>
               <img
                   className={classes.img}
                   src={ props.smallPhotoSrc != null ? props.smallPhotoSrc : Avatar}
@@ -28,7 +28,7 @@ const User = (props) => {
             </div>
             <div className={classes.right_column}>
                 <div className={classes.row}>
-                    <NavLink to={'/profile/' + props.id}>
+                    <NavLink to={props.isAuth ?'/profile/' + props.id : '/login'}>
                     <h4>{props.fullName}</h4>
                     </NavLink>
                     <p>Какая то страна</p>

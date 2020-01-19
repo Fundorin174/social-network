@@ -16,7 +16,7 @@ const Header = (props) => {
           : 
             <div className={classes.iflogin}>
               <div className={classes.login}>{props.data.login}</div>
-              <div onClick={() => { props.logout() }} className={classes.login + ' ' + classes.out}> <NavLink to={'/login'}>{'Выйти'}</NavLink> </div>
+              <div onClick={ props.logout} className={classes.login + ' ' + classes.out}> <NavLink to={'/login'}>{'Выйти'}</NavLink> </div>
               
             </div> 
         }

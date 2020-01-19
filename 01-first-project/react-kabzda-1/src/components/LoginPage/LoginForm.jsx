@@ -1,6 +1,8 @@
 import React from 'react';
 import classes from './Login.module.css';
 import {Field, reduxForm} from 'redux-form';
+import {InputFieldCreator} from "../common/BlockContainer";
+import {required} from "../common/validators";
 
 
 let LoginForm = (props) => {
@@ -22,16 +24,18 @@ let LoginForm = (props) => {
           <Field
             className={classes.email}
             name="email"
-            component="input"
-            type="text"
+            component={InputFieldCreator}
+            type="input"
             placeholder="E-mail"
+            validate = {[required]}
           />
           <Field
             className={classes.password}
             name="password"
-            component="input"
-            type="text"
+            component={InputFieldCreator}
+            type="password"
             placeholder="Пароль"
+            validate = {[required]}
           />
 
           <div>
@@ -42,8 +46,14 @@ let LoginForm = (props) => {
             type="checkbox"
           /> 
           <span>Запомнить меня</span>
-
           </div>
+          {props.error ?
+            <div className={classes.error}>
+              {props.error}
+            </div>
+            :
+            null
+          }
           <button className={classes.btn}>
             Отправить
           </button>

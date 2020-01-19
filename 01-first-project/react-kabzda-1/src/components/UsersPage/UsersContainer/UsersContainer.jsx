@@ -108,7 +108,10 @@ changeActivePage = (p) => {
             this.props.isLoading
                 ? <Preloader />
                 : null
-        } <Users currentPage = {
+        }
+        <Users
+          isAuth = {this.props.isAuth}
+          currentPage = {
             this.props.currentPage
         }
         searchUsers = {
@@ -162,7 +165,6 @@ changeActivePage = (p) => {
         followInProgress = {
           this.props.followInProgress
         }
-
         /> 
         </ >
 
@@ -178,14 +180,14 @@ return {
     usersPerPageCount: state.usersPage.usersPerPageCount,
     totalUsersCount: state.usersPage.totalUsersCount,
     isLoading: state.usersPage.isLoading,
-  followInProgress: state.usersPage.followInProgress
+  followInProgress: state.usersPage.followInProgress,
+  isAuth: state.auth.isAuth
 }
 
 }
 
 export default compose(
-  withAuthRedirect,
-  connect(mapStateToProps, {
+   connect(mapStateToProps, {
     toFriends,
     fromFriends,
     searchUsers,

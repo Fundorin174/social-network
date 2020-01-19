@@ -1,4 +1,5 @@
 import {authAPI} from '../DAL/api';
+import {stopSubmit} from "redux-form";
 
 const SET_AUTH_DATA = 'SET_AUTH_DATA';
 const DELETE_AUTH_DATA = 'DELETE_AUTH_DATA';
@@ -11,12 +12,18 @@ const deleteAuthMe = () => ({type: DELETE_AUTH_DATA})
 
 
 export const login = (email, password, rememberMe) => (dispatch) => {
- authAPI.login(email, password, rememberMe)
+
+  authAPI.login(email, password, rememberMe)
  .then(response => {
 
     if (response.data.resultCode === 0) {
       dispatch(letAuth());
-    } else console.log('Неудача логинизации');
+    } else {
+      let message = response.data.messages;
+      let action = stopSubmit('LoginForm', {_error: message});
+      dispatch(action);
+    }
+
  });
 };
 
@@ -34,7 +41,7 @@ export const logout = () => (dispatch) => {
 };
 
 export const letAuth = () => dispatch => {
-  authAPI.auth()
+  return authAPI.auth()
     .then(data => {
       if (data.resultCode === 0) {
         dispatch(authMe(data));

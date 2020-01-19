@@ -6,6 +6,8 @@ import NavbarFriendsContainer from './NavBarFrends/NavBarFrendsContainer';
 
 const Navbar = (props) => {
 
+
+
     return (
 <div className={classes.wrapper}>
 <nav className={classes.nav}>
@@ -14,15 +16,6 @@ const Navbar = (props) => {
   </div>
   <div className={classes.item}>
     <NavLink to='/dialogs'activeClassName={classes.active}>Сообщения</NavLink>
-  </div>
-  <div className={classes.item}>
-    <NavLink to='/news'activeClassName={classes.active}>Новости</NavLink>
-  </div>
-  <div className={classes.item}>
-    <NavLink to='/music'activeClassName={classes.active}>Музыка</NavLink>
-  </div>
-  <div className={classes.item}>
-    <NavLink to='/settings'activeClassName={classes.active}>Настройки</NavLink>
   </div>
   <div className={classes.item}>
     <NavLink to='/users'activeClassName={classes.active}>Пользователи</NavLink>

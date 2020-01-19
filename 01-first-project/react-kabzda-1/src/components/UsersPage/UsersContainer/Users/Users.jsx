@@ -59,6 +59,7 @@ const Users = (props) => {
                                     smallPhotoSrc={user.photos.small}
                                     status={user.status}
                                     isFrend={user.isFrend}
+                                    isAuth = {props.isAuth}
                                     follow={props.follow}
                                     unFollow={props.unFollow}
                                     toFriends={props.toFriends}

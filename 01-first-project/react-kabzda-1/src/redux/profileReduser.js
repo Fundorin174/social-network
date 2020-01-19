@@ -1,6 +1,6 @@
-import { profileAPI } from './../DAL/api';
-import { isloading } from './userReduser';
-import {  reset } from 'redux-form';
+import {profileAPI} from './../DAL/api';
+import {isloading} from './userReduser';
+import {reset} from 'redux-form';
 
 const AD_POST = 'AD-POST',
     CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT',
@@ -13,9 +13,6 @@ export const addPost = (text) => (
     {type: AD_POST, someNewPost: text}
 );
 
-export const changeText = (text) => (
-    {type: CHANGE_NEW_POST_TEXT, newAddedPost: text}
-);
 
 export const changeNumOfLike = (num, postId) => (
     {type: CHANGE_NUM_OF_LIKE, newNumOfLikes: num, id: postId}
@@ -29,9 +26,6 @@ export const setUserStatus = (status) => (
   {type: SET_USER_STATUS, status}
 );
 
-// export const changeUserStatus = (status) => (
-//   {type: CHANGE_USER_STATUS, status}
-// );
 
 
 
@@ -51,7 +45,7 @@ let initialState = {
     currentStatus: ''
 };
 
-export const getProfile = (userID = 5585) => (dispatch) => {
+export const getProfile = (userID) => (dispatch) => {
   dispatch(isloading(true));
   profileAPI.getProfile(userID)
     .then(data => {
