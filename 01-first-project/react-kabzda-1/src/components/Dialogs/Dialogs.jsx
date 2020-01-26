@@ -4,7 +4,7 @@ import DialogItems from './DialogItems/DialogItems';
 import Messages from './Messages/Messages';
 
 
-const Dialogs = (props) => {
+const Dialogs = React.memo(props => {
 
     return (
         <div className={classes.dialogs}>
@@ -12,6 +12,6 @@ const Dialogs = (props) => {
         <Messages messages={props.messages} addNewMsg={props.addNewMsg} resetForm={props.resetForm} />
         </div>
     );
-}
+});
 
 export default Dialogs;

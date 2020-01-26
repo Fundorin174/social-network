@@ -51,6 +51,7 @@ export const getProfile = (userID) => (dispatch) => {
     .then(data => {
       dispatch(setUserProfile(data));
       dispatch(isloading(false));
+      // console.log(data);
     });
 };
 
@@ -61,13 +62,14 @@ export const getStatus = (userID = 5585) => (dispatch) => {
       dispatch(setUserStatus(data));
       dispatch(isloading(false));
     });
+
 };
 
 export const setStatus = (status) => (dispatch) => {
   dispatch(isloading(true));
   profileAPI.setStatus(status)
     .then(data => {
-      data.resultCode === 0 ? dispatch(setUserStatus(status)) : console.warn(data.message);
+      data.resultCode === 0 ? dispatch(setUserStatus(status)) : console.log(data.message);
       dispatch(isloading(false));
     });
 

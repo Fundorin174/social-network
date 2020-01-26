@@ -10,6 +10,7 @@ class ProfileStatus extends React.Component {
   }
 
   statusEditModeOn = () => {
+    if(this.props.userID === this.props.autorizedUserId)
     this.setState({
       editMode: true
     }) 

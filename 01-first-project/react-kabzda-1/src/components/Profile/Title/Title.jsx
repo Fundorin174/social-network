@@ -12,6 +12,7 @@ import youtubeLogo from './../../../img/socialLogo/yuotube.png';
 import githubLogo from './../../../img/socialLogo/github.png';
 import mainLinkLogo from './../../../img/socialLogo/mainLink.png';
 import ProfileStatus from './ProfileStatus';
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 const Title = (props) => {
 if (!props.currentProfile) {
@@ -98,7 +99,7 @@ let contactsRender = () => {
                     </div>
                 </div>
                 <div className = {classes.status}>
-                        <ProfileStatus currentStatus = {props.currentStatus} setStatus = {props.setStatus}/>
+                        <ProfileStatusWithHooks autorizedUserId = {props.autorizedUserId} userID = {props.currentProfile.userId} currentStatus = {props.currentStatus} setStatus = {props.setStatus}/>
                 </div>
             </div>
         </div>

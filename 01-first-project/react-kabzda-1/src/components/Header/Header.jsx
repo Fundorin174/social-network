@@ -5,6 +5,11 @@ import { NavLink } from 'react-router-dom';
 
 const Header = (props) => {
 
+  let toMyPage = () => {
+    let userID = props.data.id;
+      props.getProfile(userID);
+      props.getStatus(userID);
+  }
 
     return(
         <header className={classes.header}>
@@ -15,7 +20,7 @@ const Header = (props) => {
           <NavLink to= {'/login'} className={classes.login}>Авторизуйтесь</NavLink> 
           : 
             <div className={classes.iflogin}>
-              <div className={classes.login}>{props.data.login}</div>
+              <NavLink onClick = { () => toMyPage()} to= {'/profile/' + props.data.id} className={classes.login}>{props.data.login}</NavLink>
               <div onClick={ props.logout} className={classes.login + ' ' + classes.out}> <NavLink to={'/login'}>{'Выйти'}</NavLink> </div>
               
             </div> 

@@ -4,6 +4,7 @@ import LoginForm from './LoginForm';
 import { connect } from 'react-redux';
 import { login} from './../../redux/authReduser';
 import {Redirect} from "react-router-dom";
+import {getIsAuthSelector} from "../../redux/authSelectors";
 
 const Login = (props) => {
 
@@ -29,7 +30,7 @@ const Login = (props) => {
 
 let mapStateToProps = (state) => {
   return {
-    isAuth: state.auth.isAuth
+    isAuth: getIsAuthSelector(state)
   }
 
 }

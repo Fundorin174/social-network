@@ -5,14 +5,15 @@ import { addNewMsg} from './../../redux/dialogsReduser';
 import { resetForm } from "./../../redux/profileReduser";
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import {getDialogsSelector, getMessagesSelector, getNewMsgTextelector} from "../../redux/dialogsSelectors";
 
 
 
 let mapStateToProps = (state) => {
   return {
-    dialogs: state.dialogPage.dialogs,
-    messages: state.dialogPage.messages,
-    newMsgText: state.dialogPage.newMsgText
+    dialogs: getDialogsSelector(state),
+    messages: getMessagesSelector(state),
+    newMsgText: getNewMsgTextelector(state)
   }
 }
 

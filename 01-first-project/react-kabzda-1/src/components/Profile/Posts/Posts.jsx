@@ -3,7 +3,7 @@ import Post from './Post/Post';
 import FormProfileNewMsg from './FormProfileNewMsg';
 
 
-const Posts = (props) => {
+const Posts = React.memo(props => {
 
     let addNewPost = values => {
        props.addPost(values.someNewPost);
@@ -30,6 +30,6 @@ const Posts = (props) => {
         <div>{postsElements}</div>
       </div>
     );
-}
+});
 
 export default Posts;

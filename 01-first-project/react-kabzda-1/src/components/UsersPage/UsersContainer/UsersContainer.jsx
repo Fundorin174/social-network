@@ -1,24 +1,33 @@
 import React from 'react';
 import {
-  follow,
-  unFollow,
-  searchUsers,
-  toFriends,
-  fromFriends,
   changeCurrentPage,
+  changeUsersPerPage,
+  firstPage,
+  follow,
+  fromFriends,
+  getUsers,
+  lastPage,
   nextPage,
   previosPage,
-  firstPage,
-  lastPage,
-  changeUsersPerPage,
+  searchUsers,
+  toFriends,
   toggleFollowInProgress,
-  getUsers
+  unFollow
 } from "../../../redux/userReduser";
 import {connect} from 'react-redux';
 import Users from './Users/Users';
 import Preloader from './../../common/Preloader/Preloader'
-import { compose } from 'redux';
-import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
+import {compose} from 'redux';
+import {getIsAuthSelector} from "../../../redux/authSelectors";
+import {
+  getCurrentPageSelector,
+  getFollowInProgressSelector,
+  getIsLoadingSelector,
+  getSearchingUsersSelector,
+  getSearchUsersTextSelector,
+  getTotalUsersCountSelector,
+  getUsersPerPageCountSelector
+} from "../../../redux/usersSelectors";
 
 
 class UsersContainer extends React.Component {
@@ -31,7 +40,7 @@ componentDidMount() {
 
 changeUserPerPageCount = (e) => {
     let numOfUsers = e.target.value;
-
+  (numOfUsers > 100) && (numOfUsers = 100) ;
     this
         .props
         .changeUsersPerPage(numOfUsers);
@@ -174,14 +183,14 @@ changeActivePage = (p) => {
 
 let mapStateToProps = (state) => {
 return {
-    users: state.usersPage.users,
-    searchUsersText: state.usersPage.searchUsersText,
-    currentPage: state.usersPage.currentPage,
-    usersPerPageCount: state.usersPage.usersPerPageCount,
-    totalUsersCount: state.usersPage.totalUsersCount,
-    isLoading: state.usersPage.isLoading,
-  followInProgress: state.usersPage.followInProgress,
-  isAuth: state.auth.isAuth
+    users: getSearchingUsersSelector(state),
+    searchUsersText: getSearchUsersTextSelector(state),
+    currentPage: getCurrentPageSelector(state),
+    usersPerPageCount: getUsersPerPageCountSelector(state),
+    totalUsersCount: getTotalUsersCountSelector(state),
+    isLoading: getIsLoadingSelector(state),
+  followInProgress: getFollowInProgressSelector(state),
+  isAuth: getIsAuthSelector(state)
 }
 
 }

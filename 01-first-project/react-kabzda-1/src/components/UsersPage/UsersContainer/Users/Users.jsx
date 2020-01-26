@@ -49,8 +49,7 @@ const Users = (props) => {
                 {
                     props
                         .users
-                        .map(user => {
-                            if (`${user.name}`.toLowerCase().includes(props.searchUsersText.toLowerCase())) {
+                        .map(user => {{
                                 return <User
                                     key={user.id}
                                     id={user.id}
