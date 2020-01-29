@@ -3,7 +3,7 @@ import classes from './Title.module.css';
 
 
 
-class ProfileStatus extends React.Component {
+class ProfileStatus extends React.PureComponent {
   state = {
     editMode: false,
     status: this.props.currentStatus

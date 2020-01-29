@@ -11,6 +11,7 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./redux/appReduser";
 import Preloader from "./components/common/Preloader/Preloader";
+import {getIsAuthSelector} from "./redux/authSelectors";
 
 
 class App extends React.Component {
@@ -32,16 +33,15 @@ class App extends React.Component {
           <Route path='/profile/:userID?' render={() => <ProfileContainer/>}/>
           <Route path='/dialogs' render={() => <DialogsMainContainer/>}/>
           <Route path='/users' render={() => <UsersContainer/>}/>
-          <Route path='/login' render={() => <Login/>}
-          />
-        </div>
+          <Route path='/login' render={() => <Login/>}/>
+        </div>;
       </div>
 
     );
   }
 }
 let mapStateToProps = (state) => ({
-  isAuth: state.auth.isAuth,
+  isAuth: getIsAuthSelector(state),
   initialized: state.app.initialized
 });
 
