@@ -1,5 +1,5 @@
-const ADD_MSG = 'ADD-MSG',
-    CHANGE_NEW_MSG_TEXT = 'CHANGE-NEW-MSG-TEXT';
+const ADD_MSG = 'SOCIAL-NETWORK/DIALOGS/ADD-MSG',
+    CHANGE_NEW_MSG_TEXT = 'SOCIAL-NETWORK/DIALOGS/CHANGE-NEW-MSG-TEXT';
 
 export const addNewMsg = (newMsg) => (
     {type: ADD_MSG, someNewMsg: newMsg}

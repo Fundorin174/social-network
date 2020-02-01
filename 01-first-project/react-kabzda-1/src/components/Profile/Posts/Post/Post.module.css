@@ -29,13 +29,17 @@
     width: 20px;
     height: auto;
     margin-left: 20px;
-    cursor: pointer;
+
   }
 
   .likeNum{
     font-size: 0.7rem;
     margin-left: 10px;
   }
+
+.like, .likeNum:hover{
+    cursor: pointer;
+}
 
   
   

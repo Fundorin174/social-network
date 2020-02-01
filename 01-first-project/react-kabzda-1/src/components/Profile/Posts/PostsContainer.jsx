@@ -6,10 +6,11 @@ import {
   resetForm
 } from "../../../redux/profileReduser";
 import {connect} from 'react-redux';
+import {getPostsSelector} from "../../../redux/profileSelectors";
 // import StoreContext from '../../../storeContext';
 
 let mapStateToProps = (state) => {
-    return {posts: state.profilePage.posts}
+    return {posts: getPostsSelector(state)}
 
 }
 

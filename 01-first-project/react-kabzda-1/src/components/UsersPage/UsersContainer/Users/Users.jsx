@@ -2,6 +2,7 @@ import React from 'react';
 import classes from './Users.module.css';
 import User from './User/User';
 import Search from './Search/Search';
+import Pagination from "../../../common/Paginator/Pagination";
 
 const Users = (props) => {
     let pages = [];
@@ -12,44 +13,42 @@ const Users = (props) => {
     return (
         <div>
             <div className={classes.search_wrapper}>
-                <Search searchUsers={props.searchUsers}/>
+                <Search searchUsers={props.searchUsers} />
             </div>
-            <div className={classes.page_pagination}>
-                <span onClick={props.setFirstPage} className={classes.page_navigation}>Первая страница</span>
-                <span onClick={props.setPreviosPage} className={classes.previos_page}>&laquo;</span>
-                {
-                    pages.map(p => {
-                        if ((Math.ceil(props.totalUsersCount / props.usersPerPageCount) - p) > -1) {
-                            return <span
-                                onClick={() => {
-                                    props.changeActivePage(p)
-                                }}
-                                className={props.currentPage === p
-                                    ? `${classes.page} ${classes.active}`
-                                    : `${classes.page}`}
-                                key={p}>{p}</span>
-                        }
-                    })
-                }
-                <span onClick={props.setNextPage} className={classes.next_page}>&raquo;</span>
-                <span
-                    onClick={props.lastPage}
-                    className={`${classes.page_navigation} ${classes.lastPage}`}>Последняя страница</span>
-                <span>
-                    Пользователей на странице:
-                    <input
-                        className={classes.input}
-                        type="number"
-                        value={props.usersPerPageCount}
-                        onChange={props.changeUserPerPageCount}/>
-
-                </span>
-            </div>
+            <Pagination
+              currentPage = {
+               props.currentPage
+              }
+              setFirstPage = {
+                props.setFirstPage
+              }
+              setPreviosPage = {
+                props.setPreviosPage
+              }
+              setNextPage = {
+                props.setNextPage
+              }
+              lastPage = {
+                props.lastPage
+              }
+              totalUsersCount = {
+                props.totalUsersCount
+              }
+              usersPerPageCount = {
+                props.usersPerPageCount
+              }
+              changeUserPerPageCount = {
+                props.changeUserPerPageCount
+              }
+              changeActivePage = {
+                props.changeActivePage
+              }
+            />
             <div className={classes.users_wrapper}>
                 {
                     props
                         .users
-                        .map(user => {{
+                        .map(user => {
                                 return <User
                                     key={user.id}
                                     id={user.id}
@@ -65,7 +64,7 @@ const Users = (props) => {
                                     fromFriends={props.fromFriends}
                                   toggleFollowInProgress={props.toggleFollowInProgress}
                                   followInProgress = {props.followInProgress}/>
-                            }
+
                         })
                 }
             </div>

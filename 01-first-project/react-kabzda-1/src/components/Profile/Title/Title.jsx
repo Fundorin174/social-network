@@ -11,7 +11,6 @@ import instagramLogo from './../../../img/socialLogo/instagram.svg';
 import youtubeLogo from './../../../img/socialLogo/yuotube.png';
 import githubLogo from './../../../img/socialLogo/github.png';
 import mainLinkLogo from './../../../img/socialLogo/mainLink.png';
-import ProfileStatus from './ProfileStatus';
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 
 const Title = (props) => {

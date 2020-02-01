@@ -21,23 +21,23 @@ class App extends React.Component {
 
   render() {
     if (!this.props.initialized){
-      return <Preloader/>
+      return (
+        <Preloader />
+    )
     }
     return (
-
       <div className='app-wrapper'>
 
         <HeaderContainer/>
         <Navbar/>
         <div className='app-wrapper-content'>
-          <Route path='/profile/:userID?' render={() => <ProfileContainer/>}/>
-          <Route path='/dialogs' render={() => <DialogsMainContainer/>}/>
+          <Route path='/profile/:userID?' render={() => <ProfileContainer />}/>
+          <Route path='/dialogs' render={() => <DialogsMainContainer />}/>
           <Route path='/users' render={() => <UsersContainer/>}/>
           <Route path='/login' render={() => <Login/>}/>
         </div>;
       </div>
-
-    );
+    )
   }
 }
 let mapStateToProps = (state) => ({

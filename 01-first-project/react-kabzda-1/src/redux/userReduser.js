@@ -1,95 +1,76 @@
 import { usersAPI } from "./../DAL/api";
+import {changeElementInArray} from "../components/common/helpFunctions";
 
-const FOLLOW = 'FOLLOW',
-    UNFOLLOW = 'UNFOLLOW',
-    SEARCH_USERS = 'SEARCH_USERS',
-    SET_USERS = 'SET_USERS',
-    TO_FRIENDS = 'TO_FRIENDS',
-    FROM_FRIENDS = 'FROM_FRIENDS',
-    CHANGE_CURRENT_PAGE = 'CHANGE_CURRENT_PAGE',
-    NEXT_PAGE = 'NEXT_PAGE',
-    PREVIOS_PAGE = 'PREVIOS_PAGE',
-    FIRST_PAGE = 'FIRST_PAGE',
-    LAST_PAGE = 'LAST_PAGE',
-    USERS_PER_PAGE = 'USERS_PER_PAGE',
-    SET_TOTAL_COUNT = 'SET_TOTAL_COUNT',
-    TOGGLE_IS_LOADING = 'TOGGLE_IS_LOADING',
-    TOGGLE_FOLLOW_IN_PROGRESS = 'TOGGLE_FOLLOW_IN_PROGRESS';
+const FOLLOW = 'SOCIAL-NETWORK/USERS/FOLLOW',
+    UNFOLLOW = 'SOCIAL-NETWORK/USERS/UNFOLLOW',
+    SEARCH_USERS = 'SOCIAL-NETWORK/USERS/SEARCH_USERS',
+    SET_USERS = 'SOCIAL-NETWORK/USERS/SET_USERS',
+    TO_FRIENDS = 'SOCIAL-NETWORK/USERS/TO_FRIENDS',
+    FROM_FRIENDS = 'SOCIAL-NETWORK/USERS/FROM_FRIENDS',
+    CHANGE_CURRENT_PAGE = 'SOCIAL-NETWORK/USERS/CHANGE_CURRENT_PAGE',
+    NEXT_PAGE = 'SOCIAL-NETWORK/USERS/NEXT_PAGE',
+    PREVIOS_PAGE = 'SOCIAL-NETWORK/USERS/PREVIOS_PAGE',
+    FIRST_PAGE = 'SOCIAL-NETWORK/USERS/FIRST_PAGE',
+    LAST_PAGE = 'SOCIAL-NETWORK/USERS/LAST_PAGE',
+    USERS_PER_PAGE = 'SOCIAL-NETWORK/USERS/USERS_PER_PAGE',
+    SET_TOTAL_COUNT = 'SOCIAL-NETWORK/USERS/SET_TOTAL_COUNT',
+    TOGGLE_IS_LOADING = 'SOCIAL-NETWORK/USERS/TOGGLE_IS_LOADING',
+    TOGGLE_FOLLOW_IN_PROGRESS = 'SOCIAL-NETWORK/USERS/TOGGLE_FOLLOW_IN_PROGRESS';
 
 export const toFollow = (userID) => ({type: FOLLOW,
   userID
 });
-
 export const toUnfollow = (userID) => ({type: UNFOLLOW, userID});
-
 export const toFriends = (userID) => ({type: TO_FRIENDS, userID});
-
 export const fromFriends = (userID) => ({type: FROM_FRIENDS, userID});
-
 export const searchUsers = (partOfName) => (
     {type: SEARCH_USERS, partOfName: partOfName}
 );
 export const setUsers = (users) => ({type: SET_USERS, users});
-
 export const changeCurrentPage = (pageNum) => (
     {type: CHANGE_CURRENT_PAGE, pageNum}
 );
-
 export const nextPage = () => ({type: NEXT_PAGE});
-
 export const previosPage = () => ({type: PREVIOS_PAGE});
-
 export const firstPage = () => ({type: FIRST_PAGE});
-
 export const isloading = (isLoading) => ({type: TOGGLE_IS_LOADING, isLoading});
-
 export const lastPage = (pagesCount) => ({type: LAST_PAGE, pagesCount});
-
 export const changeUsersPerPage = (numOfUsers) => (
     {type: USERS_PER_PAGE, numOfUsers}
 );
-
 export const setTotalUsersCount = (totalCount) => (
     {type: SET_TOTAL_COUNT, totalCount}
 );
-
 export const toggleFollowInProgress = (isFetching, userID) => ({
   type: TOGGLE_FOLLOW_IN_PROGRESS, isFetching, userID
   });
-
-
-
-export const getUsers = (currentPage, usersPerPageCount) => dispatch => {
+export const getUsers = (currentPage, usersPerPageCount) => async (dispatch) => {
          dispatch(isloading(true));
-         usersAPI
-           .getUsers(currentPage, usersPerPageCount)
-           .then(data => {
+         let data = await usersAPI.getUsers(currentPage, usersPerPageCount);
              dispatch(isloading(false));
              dispatch(setUsers(data.items));
              dispatch(setTotalUsersCount(data.totalCount));
-           });
        };
 
-export const unFollow = (id) => (dispatch) => {
-        dispatch(toggleFollowInProgress(true, id))
-        usersAPI.unFollow(id)
-          .then(data => {
-            if (data.resultCode === 0) {
-              dispatch(toUnfollow(id))
-            }
-            dispatch(toggleFollowInProgress(false, id))
-          });
-      }
-
-export const follow = (id) => (dispatch) => {
+export const followUnFollowToggle = (dispatch, id, data, followinMethod) => {
   dispatch(toggleFollowInProgress(true, id));
-  usersAPI.toFollow(id).then(data => {
-    if (data.resultCode === 0) {
-      dispatch(toFollow(id));
-    }
-    dispatch(toggleFollowInProgress(false, id));
-  });
+  if (data.resultCode === 0) {followinMethod(id)}
+  dispatch(toggleFollowInProgress(false, id));
+}
+
+export const follow = (id) => async (dispatch) => {
+  let data = await usersAPI.toFollow(id);
+  let followinMethod = (id) => {dispatch(toFollow(id))};
+  followUnFollowToggle(dispatch, id, data, followinMethod);
 };
+
+export const unFollow = (id) => async (dispatch) => {
+  let data = await usersAPI.unFollow(id);
+  let followinMethod = (id) => {dispatch(toUnfollow(id))};
+  followUnFollowToggle(dispatch, id, data, followinMethod);
+}
+
+
 
 
 let initialState = {
@@ -117,65 +98,25 @@ const usersReducer = (state = initialState, action) => {
         case FOLLOW:
             return {
                 ...state,
-                users: state
-                    .users
-                    .map((user) => {
-                        if (user.id === action.userID) {
-                            return {
-                                ...user,
-                                followed: true
-                            }
-                        }
-                        return user;
-                    })
+                users: changeElementInArray(state.users, "id", action.userID, {followed: true})
             }
 
         case UNFOLLOW:
             return {
                 ...state,
-                users: state
-                    .users
-                    .map((user) => {
-                        if (user.id === action.userID) {
-                            return {
-                                ...user,
-                                followed: false
-                            }
-                        }
-                        return user;
-                    })
+              users: changeElementInArray(state.users, "id", action.userID, {followed: false})
             }
 
         case TO_FRIENDS:
             return {
                 ...state,
-                users: state
-                    .users
-                    .map((user) => {
-                        if (user.id === action.userID) {
-                            return {
-                                ...user,
-                                isFrend: true
-                            }
-                        }
-                        return user;
-                    })
+                users: changeElementInArray(state.users, "id", action.userID, {isFrend: true})
             }
 
         case FROM_FRIENDS:
             return {
                 ...state,
-                users: state
-                    .users
-                    .map((user) => {
-                        if (user.id === action.userID) {
-                            return {
-                                ...user,
-                                isFrend: false
-                            }
-                        }
-                        return user;
-                    })
+                users: changeElementInArray(state.users, "id", action.userID, {isFrend: false})
             }
 
         case SEARCH_USERS:
@@ -197,14 +138,14 @@ const usersReducer = (state = initialState, action) => {
 
             return {
                 ...state,
-                currentPage: state.currentPage + 1
+                currentPage: ++state.currentPage
             }
 
         case PREVIOS_PAGE:
             if (state.currentPage > 1) {
                 return {
                     ...state,
-                    currentPage: state.currentPage - 1
+                    currentPage: --state.currentPage
                 }
             } else {
                 return {

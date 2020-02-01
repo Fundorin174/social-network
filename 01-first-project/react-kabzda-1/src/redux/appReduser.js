@@ -1,19 +1,14 @@
-import {authAPI} from '../DAL/api';
-import {stopSubmit} from "redux-form";
 import {letAuth} from "./authReduser";
 
-const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
+const INITIALIZED_SUCCESS = 'SOCIAL-NETWORK/APP/INITIALIZED_SUCCESS';
 
 export const initializedSuccess = () => ({type: INITIALIZED_SUCCESS});
 
 
-export const initializeApp = () => (dispatch) => {
-
+export const initializeApp = () => async (dispatch) => {
         let promise = dispatch(letAuth());
-        Promise.all([promise]).then(()=> {
+        await Promise.all([promise]);
         dispatch(initializedSuccess());
-        });
-
 };
 
 

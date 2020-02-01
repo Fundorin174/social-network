@@ -26,7 +26,7 @@ const Post = (props) => {
                     className={classes.like}
                     src={Like}
                     alt={"Like"}/>
-                <span className={classes.likeNum}>{props.likeNum}</span>
+                <span onClick={changeNumOfLike} className={classes.likeNum}>{props.likeNum}</span>
             </div>
         </div>
     );

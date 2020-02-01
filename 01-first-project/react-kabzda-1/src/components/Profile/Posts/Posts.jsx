@@ -14,13 +14,12 @@ const Posts = React.memo(props => {
 
     let postsElements = props
         .posts
-        .map(
-            postitem => <Post
+        .map(postitem => <Post
                 key={postitem.id}
                 changeNumOfLike={props.changeNumOfLike}
                 msg={postitem.msg}
                 likeNum={postitem.numOfLikes}
-                id={postitem.id}/>
+                id={postitem.id} />
         );
 
     return (

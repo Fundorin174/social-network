@@ -1,8 +1,8 @@
 import {authAPI} from '../DAL/api';
 import {stopSubmit} from "redux-form";
 
-const SET_AUTH_DATA = 'SET_AUTH_DATA';
-const DELETE_AUTH_DATA = 'DELETE_AUTH_DATA';
+const SET_AUTH_DATA = 'SOCIAL-NETWORK/AUTH/SET_AUTH_DATA';
+const DELETE_AUTH_DATA = 'SOCIAL-NETWORK/AUTH/DELETE_AUTH_DATA';
 
 export const authMe = (data) => ({type: SET_AUTH_DATA, data});
 

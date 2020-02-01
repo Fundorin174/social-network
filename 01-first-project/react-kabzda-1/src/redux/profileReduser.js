@@ -2,26 +2,21 @@ import {profileAPI} from './../DAL/api';
 import {isloading} from './userReduser';
 import {reset} from 'redux-form';
 
-const AD_POST = 'AD-POST',
-    CHANGE_NEW_POST_TEXT = 'CHANGE-NEW-POST-TEXT',
-    CHANGE_NUM_OF_LIKE = 'CHANGE_NUM_OF_LIKE',
-    SET_USER_PROFILE = 'SET_USER_PROFILE',
-    SET_USER_STATUS = 'SET_USER_STATUS';
-    // CHANGE_USER_STATUS = 'CHANGE_USER_STATUS';
+const AD_POST = 'SOCIAL-NETWORK/PROFILE/AD-POST',
+    CHANGE_NEW_POST_TEXT = 'SOCIAL-NETWORK/PROFILE/CHANGE-NEW-POST-TEXT',
+    CHANGE_NUM_OF_LIKE = 'SOCIAL-NETWORK/PROFILE/CHANGE_NUM_OF_LIKE',
+    SET_USER_PROFILE = 'SOCIAL-NETWORK/PROFILE/SET_USER_PROFILE',
+    SET_USER_STATUS = 'SOCIAL-NETWORK/PROFILE/SET_USER_STATUS';
 
 export const addPost = (text) => (
     {type: AD_POST, someNewPost: text}
 );
-
-
 export const changeNumOfLike = (num, postId) => (
     {type: CHANGE_NUM_OF_LIKE, newNumOfLikes: num, id: postId}
 );
-
 export const setUserProfile = (currentProfile) => (
     {type: SET_USER_PROFILE, currentProfile}
 );
-
 export const setUserStatus = (status) => (
   {type: SET_USER_STATUS, status}
 );
@@ -45,34 +40,26 @@ let initialState = {
     currentStatus: ''
 };
 
-export const getProfile = (userID) => (dispatch) => {
+export const getProfile = (userID) => async (dispatch) => {
   dispatch(isloading(true));
-  profileAPI.getProfile(userID)
-    .then(data => {
+  let data = await profileAPI.getProfile(userID)
       dispatch(setUserProfile(data));
       dispatch(isloading(false));
-      // console.log(data);
-    });
 };
 
-export const getStatus = (userID = 5585) => (dispatch) => {
+
+export const getStatus = (userID) => async (dispatch) => {
   dispatch(isloading(true));
-  profileAPI.getStatus(userID)
-    .then(data => {
+  let data = await profileAPI.getStatus(userID);
       dispatch(setUserStatus(data));
       dispatch(isloading(false));
-    });
-
 };
 
-export const setStatus = (status) => (dispatch) => {
+export const setStatus = (status) => async (dispatch) => {
   dispatch(isloading(true));
-  profileAPI.setStatus(status)
-    .then(data => {
+  let data = await profileAPI.setStatus(status);
       data.resultCode === 0 ? dispatch(setUserStatus(status)) : console.log(data.message);
       dispatch(isloading(false));
-    });
-
 };
 
 export const resetForm = (formName) => (dispatch) => {

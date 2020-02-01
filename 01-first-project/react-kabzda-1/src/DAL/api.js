@@ -1,6 +1,5 @@
 
 import * as axios from 'axios';
-import Login from '../components/LoginPage/Login';
 
 
 const instance = axios.create({

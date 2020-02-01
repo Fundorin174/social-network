@@ -1,8 +1,9 @@
 import React from 'react';
 import classes from './Login.module.css';
-import {Field, reduxForm} from 'redux-form';
+import {reduxForm} from 'redux-form';
 import {InputFieldCreator} from "../common/BlockContainer";
 import {required} from "../common/validators";
+import {createTextField} from "../common/helpFunctions";
 
 
 let LoginForm = (props) => {
@@ -15,37 +16,17 @@ let LoginForm = (props) => {
           className={classes.form}
           >
           {/* <Field
-            className={classes.name}
+            className={classes.textField}
             name="name"
             component="input"
             type="text"
             placeholder="Имя"
           /> */}
-          <Field
-            className={classes.email}
-            name="email"
-            component={InputFieldCreator}
-            type="input"
-            placeholder="E-mail"
-            validate = {[required]}
-          />
-          <Field
-            className={classes.password}
-            name="password"
-            component={InputFieldCreator}
-            type="password"
-            placeholder="Пароль"
-            validate = {[required]}
-          />
-
+          {createTextField(classes.textField, "email", InputFieldCreator, "input", "E-mail", [required])}
+          {createTextField(classes.textField, "password", InputFieldCreator, "password", "Пароль", [required])}
           <div>
-          <Field
-            className={classes.rememberMe}
-            name="rememberMe"
-            component="input"
-            type="checkbox"
-          /> 
-          <span>Запомнить меня</span>
+          {createTextField('', "rememberMe", 'input', "checkbox", null, [])}
+           <span>Запомнить меня</span>
           </div>
           {props.error ?
             <div className={classes.error}>

@@ -13,7 +13,7 @@ const ProfileContainerWithHooks  = (props) => {
 
     useEffect( () =>{
       let userID = props.match.params.userID;
-      if (!userID) userID =  props.autorizedUserId;
+      if (!userID) {userID = props.autorizedUserId;}
       props.getProfile(userID);
       props.getStatus(userID);
       props.currentStatus !== '' && props.getStatus(userID);
