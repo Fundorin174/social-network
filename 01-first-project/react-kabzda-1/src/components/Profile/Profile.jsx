@@ -11,6 +11,7 @@ const Profile = React.memo(props => {
           currentStatus={props.currentStatus}
           currentProfile={props.currentProfile}
           setStatus={props.setStatus}
+          upLoadAvatar={props.upLoadAvatar}
         />
         <PostsContainer />
       </div>

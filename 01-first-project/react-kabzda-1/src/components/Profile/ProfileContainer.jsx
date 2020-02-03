@@ -1,7 +1,12 @@
 import React, {useEffect} from 'react';
 import Profile from './Profile';
 import {connect} from 'react-redux';
-import {getProfile, getStatus, setStatus} from './../../redux/profileReduser';
+import {
+  getProfile,
+  getStatus,
+  setStatus,
+  upLoadAvatar
+} from "./../../redux/profileReduser";
 import {withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
@@ -9,7 +14,7 @@ import {getCurrentProfileSelector, getCurrentStatusSelector} from "../../redux/p
 import {getAutorizedUserIdSelector, getIsAuthSelector} from "../../redux/authSelectors";
 
 
-const ProfileContainerWithHooks  = (props) => {
+const ProfileContainerWithHooks = React.memo(props => {
 
     useEffect(() => {
       let userID = props.match.params.userID;
@@ -22,12 +27,11 @@ const ProfileContainerWithHooks  = (props) => {
     }, [props.match.params.userID]);
 
 
-
     return (
       <Profile {...props} currentStatus = {props.currentStatus} currentProfile={props.currentProfile} setStatus = {props.setStatus}/>
     );
 
-}
+})
 
 
 // class ProfileContainer extends React.Component {
@@ -62,7 +66,7 @@ let mapStateToProps = (state) => ({
 
 export default compose(
   withAuthRedirect,
-  connect(mapStateToProps, { getProfile, getStatus, setStatus }),
+  connect(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar }),
   withRouter
-  )(ProfileContainerWithHooks);
+)(ProfileContainerWithHooks);
 

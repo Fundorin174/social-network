@@ -89,8 +89,20 @@ export const profileAPI = {
     .then(response => {
       return response.data;
     })
-  }
+  },
 
+  upLoadAvatar(avatar) {
+    const formData = new FormData();
+    formData.append('image', avatar);
+    return instance.put('profile/photo', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      .then(response => {
+        return response.data;
+      })
+  }
 }
 
 

@@ -5,7 +5,7 @@ import classes from './Title.module.css';
 const ProfileStatusWithHooks = (props) => {
 
   let [editMode, setEditMode] = useState(false),
-      [status, setStatus] = useState(props.currentStatus);;
+      [status, setStatus] = useState(props.currentStatus);
 
       useEffect( () => {
         setStatus(props.currentStatus)

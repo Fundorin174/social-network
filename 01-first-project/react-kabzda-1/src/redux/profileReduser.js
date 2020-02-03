@@ -6,6 +6,7 @@ const AD_POST = 'SOCIAL-NETWORK/PROFILE/AD-POST',
     CHANGE_NEW_POST_TEXT = 'SOCIAL-NETWORK/PROFILE/CHANGE-NEW-POST-TEXT',
     CHANGE_NUM_OF_LIKE = 'SOCIAL-NETWORK/PROFILE/CHANGE_NUM_OF_LIKE',
     SET_USER_PROFILE = 'SOCIAL-NETWORK/PROFILE/SET_USER_PROFILE',
+    UPLOAD_AVATAR_SUCCESS = 'SOCIAL-NETWORK/PROFILE/UPLOAD_AVATAR_SUCCESS',
     SET_USER_STATUS = 'SOCIAL-NETWORK/PROFILE/SET_USER_STATUS';
 
 export const addPost = (text) => (
@@ -20,6 +21,11 @@ export const setUserProfile = (currentProfile) => (
 export const setUserStatus = (status) => (
   {type: SET_USER_STATUS, status}
 );
+
+export const upLoadAvatarSuccess = (data) => ({
+  type: UPLOAD_AVATAR_SUCCESS,
+  data
+});
 
 
 
@@ -61,6 +67,15 @@ export const setStatus = (status) => async (dispatch) => {
       data.resultCode === 0 ? dispatch(setUserStatus(status)) : console.log(data.message);
       dispatch(isloading(false));
 };
+
+export const upLoadAvatar = (avatar) => async (dispatch) => {
+  dispatch(isloading(true));
+  let data = await profileAPI.upLoadAvatar(avatar);
+      data.resultCode === 0 ? dispatch(upLoadAvatarSuccess(data.data.photos)) : console.log(data.message);
+      dispatch(isloading(false));
+};
+
+
 
 export const resetForm = (formName) => (dispatch) => {
   dispatch(reset(formName));
@@ -121,6 +136,12 @@ const profileReducer = (state = initialState, action) => {
 
         case SET_USER_PROFILE:
             return {...state, currentProfile: action.currentProfile};
+
+        case UPLOAD_AVATAR_SUCCESS:
+          return {
+            ...state,
+            currentProfile: {...state.currentProfile, photos: action.data}
+            }
   
         case SET_USER_STATUS:
                 return {...state, currentStatus: action.status};
