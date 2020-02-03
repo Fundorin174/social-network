@@ -6,11 +6,16 @@ import {
   resetForm
 } from "../../../redux/profileReduser";
 import {connect} from 'react-redux';
-import {getPostsSelector} from "../../../redux/profileSelectors";
+import {getPostsSelector, getCurrentProfileSelector} from "../../../redux/profileSelectors";
+import { getAutorizedUserIdSelector } from "../../../redux/authSelectors";
 // import StoreContext from '../../../storeContext';
 
 let mapStateToProps = (state) => {
-    return {posts: getPostsSelector(state)}
+    return {
+      posts: getPostsSelector(state),
+      currentProfile: getCurrentProfileSelector(state),
+      autorizedUserId: getAutorizedUserIdSelector(state)
+    };
 
 }
 
