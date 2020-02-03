@@ -8,5 +8,6 @@
 	"strict": false,
 	"browser": true,
 	"jquery": true,
-	"esversion": 6
+	"esversion": 9,
+	"tab": 2
 }
