@@ -22,7 +22,7 @@ class App extends React.Component {
   render() {
     if (!this.props.initialized){
       return (<Preloader />)
-    }
+    } 
     return (
       <div className='app-wrapper'>
 
@@ -32,7 +32,7 @@ class App extends React.Component {
           <Route path='/profile/:userID?' render={() => <ProfileContainer />}/>
           <Route path='/dialogs' render={() => <DialogsMainContainer />}/>
           < Route path = '/users'
-          render = {withSuspensComponent(UsersContainer)}/>
+          render = {withSuspensComponent(UsersContainer)} />
           <Route path='/login' render={withSuspensComponent(Login)}/>
         </div>;
       </div>
