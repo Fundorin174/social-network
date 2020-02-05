@@ -13,9 +13,11 @@ import githubLogo from './../../../img/socialLogo/github.png';
 import mainLinkLogo from './../../../img/socialLogo/mainLink.png';
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import changePhotoIcon from './../../../img/pencilIcon.png';
+import ProfileDataForm from './ProfileDataForm';
 
 const Title = (props) => {
-const [inputState, setInputState] = useState(false);
+const [inputState, setInputState] = useState(false); //edit avatar upload mode on/off
+const [editMode, setEditMode] = useState(false);//edit profile data mode on/off
 
 
 if (!props.currentProfile) {
@@ -75,9 +77,12 @@ const upLoadAvatar = (e) => {
   if (e.target.files.length) {
     props.upLoadAvatar(e.target.files[0]);
   }
-  
-  
+   
 }
+//Upload Profile Data callback
+  const loadProfileData = (value) => {
+    console.log(value);
+  }
 return (
   <div className={classes.content}>
     <div className={classes.topimg}>
@@ -135,7 +140,9 @@ return (
           currentStatus={props.currentStatus}
           setStatus={props.setStatus}
         />
+        {props.autorizedUserId === props.currentProfile.userId && <button onClick={() => { setEditMode(true)}} className={classes.btn}>Редактировать профиль</button>}
       </div>
+      {editMode && <ProfileDataForm onSubmit = {loadProfileData} />} 
     </div>
   </div>
 );

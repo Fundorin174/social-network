@@ -40,3 +40,35 @@
     -o-border-radius: 10px;
   }
 
+  .ProfileDataform{
+    /* margin: 20px auto; */
+    margin-right: 20px;
+    width: 70%;
+    max-width: 1000px;
+    min-width: 100px;
+    /* justify-content: center; */
+    align-items: center;
+      background:  #fff;
+      border: 1px solid #5181b8;
+      border-radius: 15px;
+      position: fixed;
+      top: 20%;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -ms-border-radius: 15px;
+      -o-border-radius: 15px;
+      
+      z-index: 3;
+}
+
+.textFieldProfile{
+      margin: 10px auto;
+      padding: 10px 5px;
+      border-radius: 15px;
+      -webkit-border-radius: 15px;
+      -moz-border-radius: 15px;
+      -ms-border-radius: 15px;
+      -o-border-radius: 15px;
+
+}
+

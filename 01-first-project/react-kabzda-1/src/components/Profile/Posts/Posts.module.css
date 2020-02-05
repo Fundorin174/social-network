@@ -30,6 +30,11 @@ h3 {
 
 .textareaWrp{
     width: 100%;
+
+}
+
+.inputWrp{
+margin: 0 auto;
 }
 
 .error{
