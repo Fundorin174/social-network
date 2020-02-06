@@ -1,6 +1,8 @@
+import React from 'react';
 import {profileAPI} from './../DAL/api';
 import {isloading} from './userReduser';
 import {reset} from 'redux-form';
+
 
 const AD_POST = 'SOCIAL-NETWORK/PROFILE/AD-POST',
     CHANGE_NEW_POST_TEXT = 'SOCIAL-NETWORK/PROFILE/CHANGE-NEW-POST-TEXT',
@@ -50,6 +52,18 @@ export const getProfile = (userID) => async (dispatch) => {
   dispatch(isloading(true));
   let data = await profileAPI.getProfile(userID)
       dispatch(setUserProfile(data));
+      dispatch(isloading(false));
+};
+
+
+export const loadProfileData = (profile) => async (dispatch, getState) => {
+  dispatch(isloading(true));
+  // console.log(profile)
+  let data = await profileAPI.setProfile(profile);
+  let userID = getState().auth.id;
+
+  data.resultCode === 0 ? dispatch(getProfile(userID)) : console.log(data.message);
+        
       dispatch(isloading(false));
 };
 

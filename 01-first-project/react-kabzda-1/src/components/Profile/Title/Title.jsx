@@ -81,7 +81,8 @@ const upLoadAvatar = (e) => {
 }
 //Upload Profile Data callback
   const loadProfileData = (value) => {
-    console.log(value);
+    props.loadProfileData(value);
+    setEditMode(false);
   }
 return (
   <div className={classes.content}>
@@ -142,8 +143,9 @@ return (
         />
         {props.autorizedUserId === props.currentProfile.userId && <button onClick={() => { setEditMode(true)}} className={classes.btn}>Редактировать профиль</button>}
       </div>
-      {editMode && <ProfileDataForm onSubmit = {loadProfileData} />} 
+      
     </div>
+    {editMode && <ProfileDataForm onSubmit = {loadProfileData} setEditMode = {setEditMode}/>} 
   </div>
 );
 

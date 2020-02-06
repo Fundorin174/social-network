@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './../../LoginPage/Login.module.css';
+import classes from './ProfileDataForm.module.css';
 import { reduxForm } from 'redux-form';
 import { InputDataFieldCreator } from "./../../common/BlockContainer";
 import { required } from "./../../common/validators";
@@ -14,21 +14,18 @@ let ProfileDataForm = (props) => {
       <form
         onSubmit={props.handleSubmit}
         className={`${classes.ProfileDataform} ${classes.form}`}
-      >
-        {/* <Field
-            className={classes.textField}
-            name="name"
-            component="input"
-            type="text"
-            placeholder="Имя"
-          /> */}
-        {createTextField(classes.textFieldProfile, "fullname", InputDataFieldCreator, "input", "Имя", [required], 'Ваше Имя: ')}
-        {createTextField(classes.textFieldProfile, "aboutMe", InputDataFieldCreator, "textarea", "Описание", [required], 'Обо мне: ')}
-        <div>
+      > 
+      <span onClick = {()=>{props.setEditMode(false)}} className = {classes.closeBtn}>Закрыть</span>
+      <div className = {classes.allInputWrp}>
+        {createTextField(classes.textFieldProfile, "FullName", InputDataFieldCreator, "input", "Имя", [], 'Ваше Имя: ')}
+        {createTextField(classes.textFieldProfile, "AboutMe", InputDataFieldCreator, "textarea", "Описание", [], 'Обо мне: ')}
+        <div className={classes.inputWrp}>
           <span>Ищу работу</span>
           {createTextField('', "lookingForAJob", 'input', "checkbox", null, [])}
         </div>
-        {createTextField(classes.textFieldProfile, "lookingForAJobDescription", InputDataFieldCreator, "textarea", "Описание", [required], 'Опишите желаемую вакансию: ')}
+        {createTextField(classes.textFieldProfile, "LookingForAJobDescription", InputDataFieldCreator, "textarea", "Описание", [], 'Опишите желаемую вакансию: ')}
+
+      </div>
         <div>
           <span>Укажите Ваши контакты: </span>
           {createTextField(classes.textFieldProfile, "contacts.facebook", InputDataFieldCreator, "input", null, [], 'Facebook: ')}
@@ -48,8 +45,7 @@ let ProfileDataForm = (props) => {
           null
         }
         <button className={classes.btn}>
-          Отправить
-          </button>
+          Сохранить</button>
       </form>
     </>
   );

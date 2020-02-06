@@ -1,0 +1,108 @@
+.title{
+  text-align: center;
+}
+
+.error{
+    color: brown;
+}
+
+
+.btn {
+  width: 100px;
+  background-color: #5181b8;
+  color: var(--main-light-color);
+  margin: 10px 0;
+      padding: 5px 5px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.ProfileDataform{
+  /* margin: 20px auto; */
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  width: 70%;
+  max-width: 1000px;
+  min-width: 100px;
+  justify-content: center;
+  align-items: center;
+    background:  #fff;
+    border: 1px solid #5181b8;
+    border-radius: 15px;
+    position: absolute;
+    top: 20%;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    
+    z-index: 3;
+}
+
+.textFieldProfile{
+    margin: 10px auto;
+    padding: 5px 5px;
+    border-radius: 15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    flex: 2 100px;
+    box-sizing: border-box;
+}
+
+
+.textareaWrp{
+  width: 100%;
+
+}
+
+.inputWrp{
+  width: 100%;
+margin: 0 auto;
+padding: 0 10px;
+display: flex;
+flex-direction: row;
+justify-content: flex-start;
+align-items: center;
+}
+
+.error{
+  border: solid 2px brown;
+}
+
+
+.spanWrp span{
+  color: brown;
+}
+
+.allInputWrp{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.label{
+display: block;
+flex: 1 100px;
+}
+
+.textarea{
+ flex: 2 100px;
+}
+
+.closeBtn{
+  font-weight: bold;
+  align-self: flex-end;
+  margin-right: 20px;
+  margin-top: 10px;
+}
+
+.closeBtn:hover{
+ cursor: pointer;
+}

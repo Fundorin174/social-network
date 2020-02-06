@@ -7,6 +7,7 @@ const Profile = React.memo(props => {
     return (
       <div className={classes.content}>
         <Title
+          loadProfileData = {props.loadProfileData}
           autorizedUserId={props.autorizedUserId}
           currentStatus={props.currentStatus}
           currentProfile={props.currentProfile}

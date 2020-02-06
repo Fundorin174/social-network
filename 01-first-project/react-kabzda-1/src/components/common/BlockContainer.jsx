@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './../Profile/Posts/Posts.module.css';
+import classes from './../Profile/Title/ProfileDataForm.module.css';
 
 
 
@@ -25,8 +25,8 @@ export const InputDataFieldCreator = ({ input, meta, ...props }) => {
   return (
     <>
       <div className={classes.inputWrp}>
-        {<span>{label}</span>}
-        {inputType === 'textarea' ? <textarea className={meta.touched && meta.error ? classes.error : ''} {...input} {...props} /> : (<input className={meta.touched && meta.error ? classes.error : ''} {...input} {...props} />)}
+        {<span className = {classes.label}>{label}</span>}
+        {inputType === 'textarea' ? <textarea className={meta.touched && meta.error ? classes.error : classes.textarea} {...input} {...props} /> : (<input className={meta.touched && meta.error ? classes.error : ''} {...input} {...props} />)}
       </div>
       <div className={classes.spanWrp}>
         {meta.touched && meta.error && <span>{meta.error}</span>}

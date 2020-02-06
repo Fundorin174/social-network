@@ -83,6 +83,15 @@ export const profileAPI = {
         });
       },
 
+  setProfile(data) {
+
+    return instance.put('profile', {...data})
+    .then(response => {
+      console.log(response.data)
+      return response.data;
+    })
+  },
+
   setStatus(status) {
 
     return instance.put('profile/status', {status})

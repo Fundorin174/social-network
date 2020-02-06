@@ -5,7 +5,8 @@ import {
   getProfile,
   getStatus,
   setStatus,
-  upLoadAvatar
+  upLoadAvatar,
+  loadProfileData
 } from "./../../redux/profileReduser";
 import {withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
@@ -66,7 +67,7 @@ let mapStateToProps = (state) => ({
 
 export default compose(
   withAuthRedirect,
-  connect(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar }),
+  connect(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar, loadProfileData }),
   withRouter
 )(ProfileContainerWithHooks);
 
