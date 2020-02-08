@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './../Profile/Title/ProfileDataForm.module.css';
+import classes from './BlockContainer.module.css';
 
 
 
@@ -7,6 +7,7 @@ import classes from './../Profile/Title/ProfileDataForm.module.css';
 
 export const InputFieldCreator = ({input, meta, ...props}) => {
   let inputType = props.type;
+
   return (
     <>
       <div className={classes.textareaWrp}>
@@ -22,14 +23,28 @@ export const InputFieldCreator = ({input, meta, ...props}) => {
 export const InputDataFieldCreator = ({ input, meta, ...props }) => {
   let inputType = props.type;
   let label = props.label;
+  let formError = props.formerror;
+  
+  
+  // const isThisFieldHasError = (name) =>{
+  //   const isNameIndex = errorsFromServer.indexOf(name);
+    
+  // }
+    // errorsFromServer.indexOf(input.name)
+
   return (
     <>
-      <div className={classes.inputWrp}>
+      <div className={`${classes.inputWrp} ${!!meta.touched && !!meta.error ? classes.error: null}`}>
         {<span className = {classes.label}>{label}</span>}
-        {inputType === 'textarea' ? <textarea className={meta.touched && meta.error ? classes.error : classes.textarea} {...input} {...props} /> : (<input className={meta.touched && meta.error ? classes.error : ''} {...input} {...props} />)}
+        {inputType === 'textarea' ? <textarea className={!!meta.touched && !!meta.error ? classes.error : classes.textarea} {...input} {...props} /> : (<input className={!!meta.touched && !!meta.error ? classes.error : ''} {...input} {...props} />)}
       </div>
       <div className={classes.spanWrp}>
-        {meta.touched && meta.error && <span>{meta.error}</span>}
+        {!!meta.touched && !!meta.error && <span>{meta.error}</span>}
+        {(formError && input) 
+        ? 
+          <span>{formError}</span>
+        :
+        null}
       </div>
     </>
   )

@@ -9,7 +9,8 @@ const AD_POST = 'SOCIAL-NETWORK/PROFILE/AD-POST',
     CHANGE_NUM_OF_LIKE = 'SOCIAL-NETWORK/PROFILE/CHANGE_NUM_OF_LIKE',
     SET_USER_PROFILE = 'SOCIAL-NETWORK/PROFILE/SET_USER_PROFILE',
     UPLOAD_AVATAR_SUCCESS = 'SOCIAL-NETWORK/PROFILE/UPLOAD_AVATAR_SUCCESS',
-    SET_USER_STATUS = 'SOCIAL-NETWORK/PROFILE/SET_USER_STATUS';
+    SET_USER_STATUS = 'SOCIAL-NETWORK/PROFILE/SET_USER_STATUS',
+    SET_PROFILESET_ERRORS = 'SOCIAL-NETWORK/PROFILE/SET_PROFILESET_ERRORS';
 
 export const addPost = (text) => (
     {type: AD_POST, someNewPost: text}
@@ -29,6 +30,8 @@ export const upLoadAvatarSuccess = (data) => ({
   data
 });
 
+const setErrors = (errors) => ({type: SET_PROFILESET_ERRORS, errors});
+
 
 
 
@@ -45,7 +48,8 @@ let initialState = {
     currentProfile: null,
     newPostText: '',
     newNumOfLikes: '',
-    currentStatus: ''
+    currentStatus: '',
+    profileSetErrors: []
 };
 
 export const getProfile = (userID) => async (dispatch) => {
@@ -61,9 +65,13 @@ export const loadProfileData = (profile) => async (dispatch, getState) => {
   // console.log(profile)
   let data = await profileAPI.setProfile(profile);
   let userID = getState().auth.id;
+  data.resultCode === 0 
+  ? 
+  dispatch(getProfile(userID)) 
+  : 
+  dispatch(setErrors(data.messages));
+  
 
-  data.resultCode === 0 ? dispatch(getProfile(userID)) : console.log(data.message);
-        
       dispatch(isloading(false));
 };
 
@@ -159,6 +167,12 @@ const profileReducer = (state = initialState, action) => {
   
         case SET_USER_STATUS:
                 return {...state, currentStatus: action.status};
+        
+                case SET_PROFILESET_ERRORS:
+                return {
+                  ...state,
+                  profileSetErrors: action.errors
+                };
 
         default:
             return state;

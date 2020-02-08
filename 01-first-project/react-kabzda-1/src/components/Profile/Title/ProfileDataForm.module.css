@@ -87,15 +87,6 @@ align-items: center;
   align-items: flex-start;
 }
 
-.label{
-display: block;
-flex: 1 100px;
-}
-
-.textarea{
- flex: 2 100px;
-}
-
 .closeBtn{
   font-weight: bold;
   align-self: flex-end;

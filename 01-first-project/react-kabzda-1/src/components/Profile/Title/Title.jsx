@@ -82,7 +82,7 @@ const upLoadAvatar = (e) => {
 //Upload Profile Data callback
   const loadProfileData = (value) => {
     props.loadProfileData(value);
-    setEditMode(false);
+    // setEditMode(false);
   }
 return (
   <div className={classes.content}>
@@ -145,7 +145,7 @@ return (
       </div>
       
     </div>
-    {editMode && <ProfileDataForm onSubmit = {loadProfileData} setEditMode = {setEditMode}/>} 
+    {editMode && <ProfileDataForm formError={props.formError} onSubmit = {loadProfileData} setEditMode = {setEditMode}/>} 
   </div>
 );
 

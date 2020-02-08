@@ -15,12 +15,13 @@ export const changeElementInArray = (items, changedElement, newElement, objProps
 }
 
 
-export const createTextField = (className, name, component, type, placeholder, validate, label)  => <Field
-    className = {className}
+export const createTextField = (className, name, component, type, placeholder, validate, label, formerror)  => <Field
+    className = {className}z
     name = {name}
     component = {component}
     type = {type}
     placeholder = {placeholder}
     validate = {validate}
-  label={label}
+    label={label}
+    formerror={formerror}
   />

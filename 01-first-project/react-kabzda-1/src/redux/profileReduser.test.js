@@ -14,7 +14,7 @@ let initialState = {
   currentProfile: null,
   newPostText: '',
   newNumOfLikes: '',
-  currentStatus: ''
+  currentStatus: '',
 };
 
 let action = changeNumOfLike(5, 1);

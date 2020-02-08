@@ -11,4 +11,9 @@ export const getPostsSelector = (state) => {
   return state.profilePage.posts;
 }
 
+export const getProfileSetErrors = (state) => {
+  return state.profilePage.profileSetErrors;
+}
+
+
 

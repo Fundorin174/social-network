@@ -11,8 +11,9 @@ import {
 import {withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
-import {getCurrentProfileSelector, getCurrentStatusSelector} from "../../redux/profileSelectors";
+import {getCurrentProfileSelector, getCurrentStatusSelector, getProfileSetErrors} from "../../redux/profileSelectors";
 import {getAutorizedUserIdSelector, getIsAuthSelector} from "../../redux/authSelectors";
+import { getFormSyncErrors } from 'redux-form';
 
 
 const ProfileContainerWithHooks = React.memo(props => {
@@ -61,7 +62,8 @@ let mapStateToProps = (state) => ({
   currentProfile: getCurrentProfileSelector(state),
   currentStatus: getCurrentStatusSelector(state),
   isAuth: getIsAuthSelector(state),
-  autorizedUserId: getAutorizedUserIdSelector(state)
+  autorizedUserId: getAutorizedUserIdSelector(state),
+  formError: getProfileSetErrors(state)
 });
 
 
