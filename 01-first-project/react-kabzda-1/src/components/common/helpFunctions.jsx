@@ -16,7 +16,7 @@ export const changeElementInArray = (items, changedElement, newElement, objProps
 
 
 export const createTextField = (className, name, component, type, placeholder, validate, label, formerror)  => <Field
-    className = {className}z
+    className = {className}
     name = {name}
     component = {component}
     type = {type}

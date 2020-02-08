@@ -36,10 +36,10 @@ export const InputDataFieldCreator = ({ input, meta, ...props }) => {
     <>
       <div className={`${classes.inputWrp} ${!!meta.touched && !!meta.error ? classes.error: null}`}>
         {<span className = {classes.label}>{label}</span>}
-        {inputType === 'textarea' ? <textarea className={!!meta.touched && !!meta.error ? classes.error : classes.textarea} {...input} {...props} /> : (<input className={!!meta.touched && !!meta.error ? classes.error : ''} {...input} {...props} />)}
+        {inputType === 'textarea' ? <textarea className={meta.touched && meta.error ? classes.error : classes.textarea} {...input} {...props} /> : (<input className={meta.touched && meta.error ? classes.error : ''} {...input} {...props} />)}
       </div>
       <div className={classes.spanWrp}>
-        {!!meta.touched && !!meta.error && <span>{meta.error}</span>}
+        {meta.touched && meta.error && <span>{meta.error}</span>}
         {(formError && input) 
         ? 
           <span>{formError}</span>
