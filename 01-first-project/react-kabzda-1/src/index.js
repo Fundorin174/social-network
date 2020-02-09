@@ -5,8 +5,6 @@ import store from './redux/reduxStore';
 import './index.css';
 import App from './App';
 import {Provider} from 'react-redux'
-// import {adPost, adMsg, changeNewPostText, changeNewMsgText, subscribe} from
-// './redux/state';
 import {HashRouter} from 'react-router-dom';
 
 
