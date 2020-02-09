@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classes from './Title.module.css';
 import topImg from './../../../img/topProfileImg.jpg';
 import Preloader from '../../common/Preloader/Preloader';
@@ -19,6 +19,9 @@ const Title = (props) => {
 const [inputState, setInputState] = useState(false); //edit avatar upload mode on/off
 const [editMode, setEditMode] = useState(false);//edit profile data mode on/off
 
+  useEffect(() => {
+    props.loadProfileDataSuccess && setEditMode(false)
+  }, [props.loadProfileDataSuccess]);
 
 if (!props.currentProfile) {
     return <Preloader/>
@@ -81,9 +84,23 @@ const upLoadAvatar = (e) => {
 }
 //Upload Profile Data callback
   const loadProfileData = (value) => {
-    props.loadProfileData(value);
-    // setEditMode(false);
+
+    props.loadProfileData(value)
   }
+
+  const openFormProfileData = () => {
+    props.isloadProfileDataSuccess(false)
+    props.setErrors([]);
+    setEditMode(true)
+  }
+
+
+
+  // if (props.loadProfileDataSuccess) {
+  //   setEditMode(false);
+  //   // debugger
+  //   // props.isloadProfileDataSuccess(false);
+  // }
 return (
   <div className={classes.content}>
     <div className={classes.topimg}>
@@ -141,7 +158,7 @@ return (
           currentStatus={props.currentStatus}
           setStatus={props.setStatus}
         />
-        {props.autorizedUserId === props.currentProfile.userId && <button onClick={() => { setEditMode(true)}} className={classes.btn}>Редактировать профиль</button>}
+        {props.autorizedUserId === props.currentProfile.userId && <button onClick={openFormProfileData} className={classes.btn}>Редактировать профиль</button>}
       </div>
       
     </div>

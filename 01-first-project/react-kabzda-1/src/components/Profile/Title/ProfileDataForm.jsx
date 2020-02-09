@@ -8,8 +8,8 @@ import { createTextField } from "./../../common/helpFunctions";
 
 let ProfileDataForm = (props) => {
 
-  let formerror = props.formError.join(', ');
-
+  let formerror = props.formError;
+  // let formerror = props.formError.join(', ');
 
   return (
     <>
@@ -19,13 +19,13 @@ let ProfileDataForm = (props) => {
       > 
       <span onClick = {()=>{props.setEditMode(false)}} className = {classes.closeBtn}>Закрыть</span>
       <div className = {classes.allInputWrp}>
-          {createTextField(classes.textFieldProfile, "FullName", InputDataFieldCreator, "input", "Имя", [], 'Ваше Имя: ', formerror)}
-          {createTextField(classes.textFieldProfile, "AboutMe", InputDataFieldCreator, "textarea", "Описание", [], 'Обо мне: ', formerror)}
+          {createTextField(classes.textFieldProfile, "FullName", InputDataFieldCreator, "input", "Имя", [required], 'Ваше Имя: ', formerror)}
+          {createTextField(classes.textFieldProfile, "AboutMe", InputDataFieldCreator, "textarea", "Описание", [required], 'Обо мне: ', formerror)}
         <div className={classes.inputWrp}>
           <span>Ищу работу</span>
           {createTextField('', "lookingForAJob", 'input', "checkbox", null, [])}
         </div>
-          {createTextField(classes.textFieldProfile, "LookingForAJobDescription", InputDataFieldCreator, "textarea", "Описание", [], 'Опишите желаемую вакансию: ', formerror)}
+          {createTextField(classes.textFieldProfile, "LookingForAJobDescription", InputDataFieldCreator, "textarea", "Описание", [required], 'Опишите желаемую вакансию: ', formerror)}
 
       </div>
         <div>
@@ -41,7 +41,7 @@ let ProfileDataForm = (props) => {
         </div>
         {props.formError[0] ?
           <div className={classes.error}>
-            {<span>{formerror}</span>}
+            {<span>Необходимо правильно заполнить указанные поля</span>}
           </div>
           :
           null

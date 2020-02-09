@@ -14,7 +14,9 @@ const Profile = React.memo(props => {
           currentProfile={props.currentProfile}
           setStatus={props.setStatus}
           upLoadAvatar={props.upLoadAvatar}
-        />
+          loadProfileDataSuccess={props.loadProfileDataSuccess}
+          setErrors={props.setErrors}
+          isloadProfileDataSuccess= {props.isloadProfileDataSuccess}/>
         <PostsContainer />
       </div>
     );

@@ -87,7 +87,6 @@ export const profileAPI = {
 
     return instance.put('profile', {...data})
     .then(response => {
-      console.log(response.data)
       return response.data;
     })
   },

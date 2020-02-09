@@ -15,5 +15,9 @@ export const getProfileSetErrors = (state) => {
   return state.profilePage.profileSetErrors;
 }
 
+export const getloadProfileDataSuccess = (state) => {
+  return state.profilePage.loadProfileDataSuccess;
+}
+
 
 

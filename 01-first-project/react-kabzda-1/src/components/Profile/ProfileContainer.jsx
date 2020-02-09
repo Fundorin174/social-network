@@ -6,12 +6,14 @@ import {
   getStatus,
   setStatus,
   upLoadAvatar,
-  loadProfileData
+  loadProfileData,
+  setErrors,
+  isloadProfileDataSuccess
 } from "./../../redux/profileReduser";
 import {withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
-import {getCurrentProfileSelector, getCurrentStatusSelector, getProfileSetErrors} from "../../redux/profileSelectors";
+import {getCurrentProfileSelector, getCurrentStatusSelector, getProfileSetErrors, getloadProfileDataSuccess} from "../../redux/profileSelectors";
 import {getAutorizedUserIdSelector, getIsAuthSelector} from "../../redux/authSelectors";
 import { getFormSyncErrors } from 'redux-form';
 
@@ -63,13 +65,14 @@ let mapStateToProps = (state) => ({
   currentStatus: getCurrentStatusSelector(state),
   isAuth: getIsAuthSelector(state),
   autorizedUserId: getAutorizedUserIdSelector(state),
-  formError: getProfileSetErrors(state)
+  formError: getProfileSetErrors(state),
+  loadProfileDataSuccess: getloadProfileDataSuccess(state)
 });
 
 
 export default compose(
   withAuthRedirect,
-  connect(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar, loadProfileData }),
+  connect(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar, loadProfileData, setErrors, isloadProfileDataSuccess}),
   withRouter
 )(ProfileContainerWithHooks);
 

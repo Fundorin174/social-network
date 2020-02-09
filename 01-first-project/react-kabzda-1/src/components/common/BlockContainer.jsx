@@ -24,13 +24,14 @@ export const InputDataFieldCreator = ({ input, meta, ...props }) => {
   let inputType = props.type;
   let label = props.label;
   let formError = props.formerror;
-  
-  
-  // const isThisFieldHasError = (name) =>{
-  //   const isNameIndex = errorsFromServer.indexOf(name);
-    
-  // }
-    // errorsFromServer.indexOf(input.name)
+  let inputName = input.name.toLowerCase();
+//slice "contacts" from name
+  if (inputName.includes('contacts')) {
+    inputName = inputName.slice(9);
+  }
+  //choosing only personal error 
+  let filteredFormError = formError.filter(item => item.toLowerCase().includes(inputName))
+
 
   return (
     <>
@@ -40,9 +41,9 @@ export const InputDataFieldCreator = ({ input, meta, ...props }) => {
       </div>
       <div className={classes.spanWrp}>
         {meta.touched && meta.error && <span>{meta.error}</span>}
-        {(formError && input) 
+        {(formError[0] && input) 
         ? 
-          <span>{formError}</span>
+          <span>{filteredFormError}</span>
         :
         null}
       </div>
