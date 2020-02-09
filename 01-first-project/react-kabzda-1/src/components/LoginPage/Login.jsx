@@ -4,7 +4,7 @@ import LoginForm from './LoginForm';
 import { connect } from 'react-redux';
 import { login} from './../../redux/authReduser';
 import {Redirect} from "react-router-dom";
-import {getIsAuthSelector} from "../../redux/authSelectors";
+import { getIsAuthSelector, getCapchaUrlSelector, getIsCaptchaNeededSelector} from "../../redux/authSelectors";
 
 const Login = (props) => {
 
@@ -12,8 +12,10 @@ const Login = (props) => {
   let onSubmit = values => {
     let email = values.email,
       password = values.password,
-      rememberMe = values.rememberMe;
-    props.login(email, password, rememberMe);
+      rememberMe = values.rememberMe,
+      captcha = values.captcha;
+    props.login(email, password, rememberMe, captcha);
+
 
   };
   if (props.isAuth) {
@@ -22,7 +24,7 @@ const Login = (props) => {
   else {
     return <div className = {classes.login}>
       <h1 className = {classes.title}>Страница авторизации</h1>
-      <LoginForm onSubmit={onSubmit} />
+      <LoginForm onSubmit={onSubmit} capchaUrl={props.capchaUrl} isCaptchaNeeded={props.isCaptchaNeeded}/>
     </div>
   }
 
@@ -30,7 +32,9 @@ const Login = (props) => {
 
 let mapStateToProps = (state) => {
   return {
-    isAuth: getIsAuthSelector(state)
+    isAuth: getIsAuthSelector(state),
+    capchaUrl: getCapchaUrlSelector(state),
+    isCaptchaNeeded: getIsCaptchaNeededSelector(state)
   }
 
 }

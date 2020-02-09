@@ -10,3 +10,11 @@ export const getAutorizedUserIdSelector = (state) => {
 export const getAllAuthDataSelector = (state) => {
   return state.auth
 }
+
+export const getCapchaUrlSelector = (state) => {
+  return state.auth.capchaUrl
+}
+
+export const getIsCaptchaNeededSelector = (state) => {
+  return state.auth.isCaptchaNeeded
+}

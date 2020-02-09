@@ -28,6 +28,13 @@ let LoginForm = (props) => {
           {createTextField('', "rememberMe", 'input', "checkbox", null, [])}
            <span>Запомнить меня</span>
           </div>
+          {
+            props.isCaptchaNeeded && <div>
+              <span>Введите текст с картинки</span>
+              <img src={props.capchaUrl} alt="Captcha" />
+              {createTextField(classes.textField, "captcha", InputFieldCreator, "input", "Captcha")}
+            </div>
+          }
           {props.error ?
             <div className={classes.error}>
               {props.error}
