@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import {Route, withRouter, Switch, Redirect} from 'react-router-dom';
-import ProfileContainer from './components/Profile/ProfileContainer';
+import ProfileContainerWithHooks from './components/Profile/ProfileContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import DialogsMainContainer from './components/Dialogs/DialogsMainContainer';
 import {connect} from "react-redux";
@@ -13,6 +13,7 @@ import {getIsAuthSelector} from "./redux/authSelectors";
 import {withSuspensComponent} from './hoc/withSuspens';
 const Login = React.lazy(() => import('./components/LoginPage/Login'));
 const UsersContainer = React.lazy(() => import('./components/UsersPage/UsersContainer/UsersContainer'));
+const ToDoListContainerWithHooks = React.lazy(() => import('./components/ToDoList/ToDoListContainer'));
 
 class App extends React.Component {
   componentDidMount() {
@@ -38,10 +39,12 @@ class App extends React.Component {
             />
           }
           />
-          <Route path='/profile/:userID?' render={() => <ProfileContainer />}/>
+          <Route path='/profile/:userID?' render={() => <ProfileContainerWithHooks />}/>
           <Route path='/dialogs' render={() => <DialogsMainContainer />}/>
           < Route path = '/users'
           render = {withSuspensComponent(UsersContainer)} />
+          < Route path = '/todolist'
+          render = {withSuspensComponent(ToDoListContainerWithHooks)} />
           <Route path='/login' render={withSuspensComponent(Login)}/>
           <Route path='*' render={() => <div>404 Page not found</div>}/>
           </Switch>

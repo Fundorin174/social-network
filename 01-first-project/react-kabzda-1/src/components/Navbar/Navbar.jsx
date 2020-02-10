@@ -20,6 +20,9 @@ const Navbar = (props) => {
   <div className={classes.item}>
     <NavLink to='/users'activeClassName={classes.active}>Пользователи</NavLink>
   </div>
+  <div className={classes.item}>
+    <NavLink to='/todolist'activeClassName={classes.active}>Ежедневник</NavLink>
+  </div>
 </nav>
  <NavbarFriendsContainer />;
 

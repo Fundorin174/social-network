@@ -125,5 +125,70 @@ export const profileAPI = {
   }
 }
 
+export const toDoListAPI = {
+
+    setNewToDoList(title) {
+
+    return instance.post('todo-lists', {
+      title: title
+    })
+  },
+
+  getAllToDoLists(){
+    return instance.get('todo-lists')
+        .then(response => {
+          return response.data;
+        });
+      },
+
+  deleteToDoList(todolistId) {
+    return instance.delete(`todo-lists/${todolistId}`)
+    .then(response => {
+      return response.data;
+    });
+  },
+
+  renameToDoList(todolistId, title) {
+
+    return instance.put(`todo-lists/${todolistId}`, {
+      title: title
+    })
+  },
+  
+  setNewTask(todolistId, task) {
+
+    return instance.post(`todo-lists/${todolistId}/tasks`, {
+      ...task
+    })
+    .then(response => {
+      return response.data;
+    });
+  },
+  
+  getTasksThisList(todolistId, currentPage = 1, tasksPerPageCount = 10){
+    return instance.get(`todo-lists/${todolistId}/tasks?page=${currentPage}&count=${tasksPerPageCount}`)
+        .then(response => {
+          return response.data;
+        });
+      },
+
+  changeExistingTask(todolistId, taskId, task) {
+
+    return instance.put(`todo-lists/${todolistId}/tasks/${taskId}`, {
+      ...task
+    })
+    .then(response => {
+      return response.data;
+    });
+  },
+
+  deleteTaskFromList(todolistId, taskId) {
+    return instance.delete(`todo-lists/${todolistId}/tasks/${taskId}`)
+    .then(response => {
+      return response.data;
+    });
+  }
+}
+
 
 

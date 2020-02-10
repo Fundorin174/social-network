@@ -8,6 +8,7 @@ import thunkMiddleware from 'redux-thunk';
 import { applyMiddleware } from 'redux';
 import {reducer as formReducer} from 'redux-form';
 import appReducer from "./appReduser";
+import toDoListReducer from './toDoListReduser';
 
 
 let reducers = combineReducers({
@@ -17,7 +18,8 @@ let reducers = combineReducers({
   usersPage: userReduser,
   auth: authReducer,
   form: formReducer,
-  app: appReducer
+  app: appReducer,
+  toDoList: toDoListReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
