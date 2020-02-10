@@ -16,7 +16,7 @@ import {getCurrentProfileSelector, getCurrentStatusSelector, getProfileSetErrors
 import {getAutorizedUserIdSelector, getIsAuthSelector} from "../../redux/authSelectors";
 import { getFormSyncErrors } from 'redux-form';
 import ToDoList from './ToDoList';
-import {createNewToDoList} from './../../redux/toDoListReduser'
+import { createNewToDoList, deleteToDoList} from './../../redux/toDoListReduser'
 
 
 const ToDoListContainerWithHooks = React.memo(props => {
@@ -51,7 +51,7 @@ let mapStateToProps = (state) => ({
 
 export default compose(
   withAuthRedirect,
-  connect(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar, loadProfileData, setErrors, isloadProfileDataSuccess, createNewToDoList}),
+  connect(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar, loadProfileData, setErrors, isloadProfileDataSuccess, createNewToDoList, deleteToDoList}),
   withRouter
 )(ToDoListContainerWithHooks);
 

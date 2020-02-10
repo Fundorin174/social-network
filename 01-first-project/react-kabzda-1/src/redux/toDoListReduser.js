@@ -28,11 +28,15 @@ export const createNewToDoList = (title) => (dispatch) => {
   toDoListAPI.setNewToDoList(title)
   toDoListAPI.getAllToDoLists()
   .then((data)=>{
-    debugger
     dispatch(setToDoLists(data))
   })
 
   dispatch(isloading(false));
+}
+
+export const deleteToDoList = (todolistId) => (dispatch) => {
+  toDoListAPI.deleteToDoList(todolistId)
+
 }
 
 
@@ -61,13 +65,18 @@ const toDoListReducer = (state = initialState, action) => {
   switch (action.type) {
          
       case SET_ALL_LISTS:
-        console.log(state)
+    console.log(state)
           return {
               ...state,
               toDoLists: state.toDoLists.push(...action.data)
-          }
+          };
 
-
+//  case DELETE_TODO_LIST:
+//         console.log(state);
+//           return {
+//               ...state,
+//               toDoLists: state.toDoLists.push(...action.data)
+//           };
 
       default:
           return state;

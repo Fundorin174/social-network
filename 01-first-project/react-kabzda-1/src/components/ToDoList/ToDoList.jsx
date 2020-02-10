@@ -18,7 +18,8 @@ const ToDoList = React.memo(props => {
           loadProfileDataSuccess={props.loadProfileDataSuccess}
           setErrors={props.setErrors}
           isloadProfileDataSuccess= {props.isloadProfileDataSuccess}/>
-        <Lists createNewToDoList = {props.createNewToDoList} />
+        <Lists createNewToDoList = {props.createNewToDoList} 
+          deleteToDoList={props.deleteToDoList}/>
       </div>
     );
     });

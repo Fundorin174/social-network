@@ -144,6 +144,7 @@ export const toDoListAPI = {
   deleteToDoList(todolistId) {
     return instance.delete(`todo-lists/${todolistId}`)
     .then(response => {
+      console.log(response)
       return response.data;
     });
   },
