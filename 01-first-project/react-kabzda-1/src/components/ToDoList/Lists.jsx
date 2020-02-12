@@ -11,7 +11,7 @@ return(
   <div className = {classes.listsWrp}>
     Тут списки
     <button onClick = {()=>{props.createNewToDoList('Ваще Новый список')}}>Создать новый список</button>
-    <button onClick={() => { props.deleteToDoList('b21b3102-628b-4f65-86fa-0200be45cb62') }}>Удалить список</button>
+    <button onClick={() => { props.deleteToDoList('162d0068-c5b5-4857-8d5d-0776d68b9fe3') }}>Удалить список</button>
   </div>
 )
 

@@ -8,7 +8,15 @@ const instance = axios.create({
     headers: {
       "API-KEY": "e74a81aa-88b1-45c7-b4dd-7f98f1a44333"
     }
-  })
+  });
+
+  const generatedPhotoinstance = axios.create({
+    baseURL: 'https://api.generated.photos/api/v1',
+    withCredentials: true,
+      headers: {
+        'Authorization': 'API-Key 6pydmUJIYJE48FXPqo-E0Q'
+      }
+    })
 
 export const usersAPI = {
 
@@ -144,7 +152,6 @@ export const toDoListAPI = {
   deleteToDoList(todolistId) {
     return instance.delete(`todo-lists/${todolistId}`)
     .then(response => {
-      console.log(response)
       return response.data;
     });
   },
@@ -192,4 +199,17 @@ export const toDoListAPI = {
 }
 
 
+
+
+export const generatedFotoAPI = {
+
+  getGeneratedPhoto(userID) {
+
+    return generatedPhotoinstance.get(`profile/${userID}`)
+        .then(response => {
+          return response.data;
+        });
+      }
+
+}
 
