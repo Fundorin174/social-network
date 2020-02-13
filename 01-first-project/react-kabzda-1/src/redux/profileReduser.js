@@ -134,8 +134,12 @@ export const upLoadAvatar = (avatar) => async (dispatch) => {
 export const getGeneratedPhoto = (faceParams, page, per_page, order_by) => async (dispatch) => {
   dispatch(isloading(true));
   let data = await generatedFotoAPI.getGeneratedPhoto(faceParams, page, per_page, order_by);
-       dispatch(setAIGeneretedPhoto(data));
-      dispatch(isloading(false));
+    if (data.total === 0) {
+      console.log('Таких не бывает');
+    } else {
+      dispatch(setAIGeneretedPhoto(data));
+     dispatch(isloading(false));
+    }
 };
 
 export const resetForm = (formName) => (dispatch) => {

@@ -9,7 +9,7 @@ export const InputFieldCreator = ({
 }) => {
 let inputType = props.type;
 
-        return (<> < div className = {
+        return (<> <div className = {
             classes.textareaWrp
         } > {
             inputType === 'textarea'
@@ -25,12 +25,12 @@ let inputType = props.type;
                             : ''}
                         {...input}
                         {...props}/>
-        } < /div>
+        } </div>
       <div className={classes.spanWrp}>
-        {meta.touched &&  meta.error && <span>{meta.error}</span >} < /div>
-    </ >
+        {meta.touched &&  meta.error && <span>{meta.error}</span >} </div>
+    </>
 )
-}
+};
 
 export const InputDataFieldCreator = ({input, meta, ...props}) => {
 let inputType = props.type;
@@ -86,4 +86,4 @@ formError[0] && input
 } </div>
     </ >
 );
-}
+};

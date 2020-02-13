@@ -1,16 +1,14 @@
 import React from 'react';
 import classes from './ProfileDataForm.module.css';
 import { reduxForm } from 'redux-form';
-import { InputDataFieldCreator } from "../../common/BlockContainer";
-import { required } from "../../common/validators";
-import { createTextField } from "../../common/helpFunctions";
+import { Field } from "redux-form"
 
 
 let CreateAIAvatarForm = (props) => {
 
-  let formerror = props.formError;
+  // let formerror = props.formError;
   // let formerror = props.formError.join(', ');
-
+  // let formOptions = {};
   return (
     <>
       <form
@@ -19,35 +17,129 @@ let CreateAIAvatarForm = (props) => {
       > 
       <span onClick = {()=>{props.setEditAvatarMode(false)}} className = {classes.closeBtn}>Закрыть</span>
       <div className = {classes.allInputWrp}>
-          {createTextField(classes.textFieldProfile, "FullName", InputDataFieldCreator, "input", "Имя", [required], 'Ваше Имя: ', formerror)}
-          {createTextField(classes.textFieldProfile, "AboutMe", InputDataFieldCreator, "textarea", "Описание", [required], 'Обо мне: ', formerror)}
+
+          <div className={classes.inputWrp}>
+            <label className={classes.label}>Пол:  </label>
+            <div>
+              <Field
+                className={classes.textFieldProfile}
+                name='gender'
+                component="select"
+                type='input'>
+                <option ></option>
+                <option value="male">Мужской</option>
+                <option value="female">Женский</option>
+              </Field>
+            </div>
+          </div>
+
+          <div className={classes.inputWrp}>
+            <label className={classes.label}>Возраст:  </label>
+            <div>
+              <Field
+                className={classes.textFieldProfile}
+                name='age'
+                component="select"
+                type='input'>
+                <option ></option>
+                <option value="infant">Младенец</option>
+                <option value="child">Ребенок</option>
+                <option value="young-adult">Подросток</option>
+                <option value="adult">Взрослый</option>
+                <option value="elderly">Пожилой</option>
+              </Field>
+            </div>
+          </div>
+
+          <div className={classes.inputWrp}>
+            <label className={classes.label}>Раса:  </label>
+            <div>
+              <Field
+                className={classes.textFieldProfile}
+                name='ethnicity'
+                component="select"
+                type='input'>
+                <option ></option>
+                <option value="white">Белый</option>
+                <option value="latino">Латиноамериканец</option>
+                <option value="asian">Азиат</option>
+                <option value="black">Темнокожий</option>
+              </Field>
+            </div>
+          </div>
+
+          <div className={classes.inputWrp}>
+            <label className={classes.label}>Настроение аватара:  </label>
+            <div>
+              <Field
+                className={classes.textFieldProfile}
+                name='emotion'
+                component="select"
+                type='input'>
+                <option ></option>
+                <option value="joy">Радость</option>
+                <option value="neutral">Нейтральное</option>
+                <option value="surprise">Удивление</option>
+              </Field>
+            </div>
+          </div>
+
+          <div className={classes.inputWrp}>
+            <label className={classes.label}>Цвет глаз:  </label>
+            <div>
+              <Field
+                className={classes.textFieldProfile}
+                name='eye_color'
+                component="select"
+                type='input'>
+                <option ></option>
+                <option value="brown">Карие</option>
+                <option value="blue">Голыбые</option>
+                <option value="gray">Серые</option>
+                <option value="green">Зеленые</option>
+              </Field>
+            </div>
+          </div>
+
         <div className={classes.inputWrp}>
-          <span>Ищу работу</span>
-          {createTextField('', "lookingForAJob", 'input', "checkbox", null, [])}
+          <label className={classes.label}>Цвет волос:  </label>
+          <div>
+            <Field
+              className={classes.textFieldProfile}
+              name='hair_color'
+              component="select"
+              type='input'>
+              <option ></option>
+              <option value="brown">Брюнет</option>
+              <option value="blond">Блондин</option>
+              <option value="black">Черный</option>
+              <option value="gray">Серый</option>
+              <option value="red">Рыжий</option>
+            </Field>
+          </div>
         </div>
-          {createTextField(classes.textFieldProfile, "LookingForAJobDescription", InputDataFieldCreator, "textarea", "Описание", [required], 'Опишите желаемую вакансию: ', formerror)}
+
+
+          <div className={classes.inputWrp}>
+            <label className={classes.label}>Длина волос:  </label>
+            <div>
+              <Field
+                className={classes.textFieldProfile}
+                name='hair_length'
+                component="select"
+                type='input'>
+                <option ></option>
+                <option value="short">Короткие</option>
+                <option value="medium">Средние</option>
+                <option value="long">Длинные</option>
+              </Field>
+            </div>
+          </div>
 
       </div>
-        <div>
-          <span>Укажите Ваши контакты: </span>
-          {createTextField(classes.textFieldProfile, "contacts.facebook", InputDataFieldCreator, "input", null, [], 'Facebook: ', formerror)}
-          {createTextField(classes.textFieldProfile, "contacts.website", InputDataFieldCreator, "input", null, [], 'Website: ', formerror)}
-          {createTextField(classes.textFieldProfile, "contacts.vk", InputDataFieldCreator, "input", null, [], 'VK: ', formerror)}
-          {createTextField(classes.textFieldProfile, "contacts.twitter", InputDataFieldCreator, "input", null, [], 'Twitter: ', formerror)}
-          {createTextField(classes.textFieldProfile, "contacts.instagram", InputDataFieldCreator, "input", null, [], 'Instagram: ', formerror)}
-          {createTextField(classes.textFieldProfile, "contacts.youtube", InputDataFieldCreator, "input", null, [], 'Youtube: ', formerror)}
-          {createTextField(classes.textFieldProfile, "contacts.github", InputDataFieldCreator, "input", null, [], 'Github: ', formerror)}
-          {createTextField(classes.textFieldProfile, "contacts.mainLink", InputDataFieldCreator, "input", null, [], 'MainLink: ', formerror)}
-        </div>
-        {props.formError[0] ?
-          <div className={classes.error}>
-            {<span>Необходимо правильно заполнить указанные поля</span>}
-          </div>
-          :
-          null
-        }
+
         <button className={classes.btn}>
-          Сохранить</button>
+          Сгенерировать</button>
       </form>
     </>
   );

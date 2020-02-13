@@ -106,18 +106,9 @@ const upLoadAvatar = (e) => {
     setEditMode(true)
   }
 
-  const getGeneratedPhoto = () => {
-    const faceParams = {
-      emotion:'joy',
-      gender:'male',
-      age:'young-adult',
-      ethnicity:'white',
-      eye_color:'blue',
-      hair_color:'blond',
-      hair_length:'medium',
-    }
+  const getGeneratedPhoto = (value) => {
     let order_by = 'random';
-    props.getGeneratedPhoto(faceParams, 1, 1, order_by)
+    props.getGeneratedPhoto(value, 1, 1, order_by)
   }
 return (
   <div className={classes.content}>

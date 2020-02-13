@@ -202,13 +202,17 @@ export const toDoListAPI = {
 
 
 export const generatedFotoAPI = {
+    getGeneratedPhoto(faceParams, page = 1, per_page = 1, order_by='random') {
+      let url = 'https://api.generated.photos/api/v1/faces?api_key=6pydmUJIYJE48FXPqo-E0Q&page=1&per_page=1';
+      for (let value in faceParams) {
+        url = url + '&' + value +'='+ faceParams[value];
+      }
 
-  getGeneratedPhoto(faceParams, page = 1, per_page = 1, order_by='random') {
-    return axios.get(`https://api.generated.photos/api/v1/faces?api_key=6pydmUJIYJE48FXPqo-E0Q&page=${page}&per_page=${per_page}&emotion=${faceParams.emotion}&gender=${faceParams.gender}&age=${faceParams.age}&ethnicity=${faceParams.ethnicity}&eye_color=${faceParams.eye_color}&hair_color=${faceParams.hair_color}&hair_length=${faceParams.hair_length}&order_by=${order_by}`)
+    return axios.get(url)
         .then(response => {
           return response.data;
         });
       }
-      // emotion, gender, age, ethnicity, eye_color, hair_color, hair_length
+ 
 }
 
