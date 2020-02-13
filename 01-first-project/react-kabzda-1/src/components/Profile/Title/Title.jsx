@@ -14,10 +14,12 @@ import mainLinkLogo from './../../../img/socialLogo/mainLink.png';
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import changePhotoIcon from './../../../img/pencilIcon.png';
 import ProfileDataForm from './ProfileDataForm';
+import CreateAIAvatarForm from './CreateAIAvatarForm'
 
 const Title = (props) => {
 const [inputState, setInputState] = useState(false); //edit avatar upload mode on/off
 const [editMode, setEditMode] = useState(false);//edit profile data mode on/off
+const [editAvatarMode, setEditAvatarMode] = useState(false);//edit AI Avatar creatin form on/off
 
   useEffect(() => {
     props.loadProfileDataSuccess && setEditMode(false)
@@ -81,6 +83,10 @@ const showInput = () => {
   setInputState(!inputState);
 }
 
+const showEditAIAvatarForm = () => {
+  setEditAvatarMode(!inputState);
+}
+
 const upLoadAvatar = (e) => {
   setInputState(!inputState);
   if (e.target.files.length) {
@@ -142,7 +148,7 @@ return (
         )}
         {/* Generation AI avatar */}
         {
-        !props.currentProfile.photos.large&&<button onClick = {getGeneratedPhoto}>Создать AI аватар</button>
+        !props.currentProfile.photos.large&&<button onClick = {showEditAIAvatarForm}>Создать AI аватар</button>
         }
       </div>
 
@@ -179,6 +185,7 @@ return (
       
     </div>
     {editMode && <ProfileDataForm formError={props.formError} onSubmit = {loadProfileData} setEditMode = {setEditMode}/>} 
+    {editAvatarMode && <CreateAIAvatarForm formError={props.formError} onSubmit = {getGeneratedPhoto} setEditAvatarMode = {setEditAvatarMode}/>} 
   </div>
 );
 
