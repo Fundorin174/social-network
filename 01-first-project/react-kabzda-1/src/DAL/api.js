@@ -10,13 +10,13 @@ const instance = axios.create({
     }
   });
 
-  const generatedPhotoinstance = axios.create({
-    baseURL: 'https://api.generated.photos/api/v1',
-    withCredentials: true,
-      headers: {
-        'Authorization': 'API-Key 6pydmUJIYJE48FXPqo-E0Q'
-      }
-    })
+  // const generatedPhotoinstance = axios.create({
+  //   baseURL: 'https://api.generated.photos/api/v1',
+  //   withCredentials: true,
+  //     headers: {
+  //       Authorization: 'API-Key 6pydmUJIYJE48FXPqo-E0Q'
+  //     }
+  //   })
 
 export const usersAPI = {
 
@@ -203,13 +203,12 @@ export const toDoListAPI = {
 
 export const generatedFotoAPI = {
 
-  getGeneratedPhoto(userID) {
-
-    return generatedPhotoinstance.get(`profile/${userID}`)
+  getGeneratedPhoto(faceParams, page = 1, per_page = 1, order_by='random') {
+    return axios.get(`https://api.generated.photos/api/v1/faces?api_key=6pydmUJIYJE48FXPqo-E0Q&page=${page}&per_page=${per_page}&emotion=${faceParams.emotion}&gender=${faceParams.gender}&age=${faceParams.age}&ethnicity=${faceParams.ethnicity}&eye_color=${faceParams.eye_color}&hair_color=${faceParams.hair_color}&hair_length=${faceParams.hair_length}&order_by=${order_by}`)
         .then(response => {
           return response.data;
         });
       }
-
+      // emotion, gender, age, ethnicity, eye_color, hair_color, hair_length
 }
 

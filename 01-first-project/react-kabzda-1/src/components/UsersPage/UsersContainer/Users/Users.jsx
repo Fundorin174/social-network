@@ -63,7 +63,10 @@ const Users = (props) => {
                                     toFriends={props.toFriends}
                                     fromFriends={props.fromFriends}
                                   toggleFollowInProgress={props.toggleFollowInProgress}
-                                  followInProgress = {props.followInProgress}/>
+                                  followInProgress = {props.followInProgress}
+                                  isFaceGeneratedAvatar = {props.isFaceGeneratedAvatar}
+          urlAIGeneratedImage = {props.urlAIGeneratedImage}
+                                  />
 
                         })
                 }

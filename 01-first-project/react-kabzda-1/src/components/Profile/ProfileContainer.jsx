@@ -8,12 +8,13 @@ import {
   upLoadAvatar,
   loadProfileData,
   setErrors,
-  isloadProfileDataSuccess
+  isloadProfileDataSuccess,
+  getGeneratedPhoto
 } from "./../../redux/profileReduser";
 import {withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
-import {getCurrentProfileSelector, getCurrentStatusSelector, getProfileSetErrors, getloadProfileDataSuccess} from "../../redux/profileSelectors";
+import {getCurrentProfileSelector, getCurrentStatusSelector, getProfileSetErrors, getloadProfileDataSuccess, getIsFaceGeneratedSelector, getUrlAIGeneratedImageSelector} from "../../redux/profileSelectors";
 import {getAutorizedUserIdSelector, getIsAuthSelector} from "../../redux/authSelectors";
 import { getFormSyncErrors } from 'redux-form';
 
@@ -66,13 +67,15 @@ let mapStateToProps = (state) => ({
   isAuth: getIsAuthSelector(state),
   autorizedUserId: getAutorizedUserIdSelector(state),
   formError: getProfileSetErrors(state),
-  loadProfileDataSuccess: getloadProfileDataSuccess(state)
+  loadProfileDataSuccess: getloadProfileDataSuccess(state),
+  isFaceGeneratedAvatar: getIsFaceGeneratedSelector(state),
+  urlAIGeneratedImage: getUrlAIGeneratedImageSelector(state)
 });
 
 
 export default compose(
   withAuthRedirect,
-  connect(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar, loadProfileData, setErrors, isloadProfileDataSuccess}),
+  connect(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar, loadProfileData, setErrors, isloadProfileDataSuccess, getGeneratedPhoto}),
   withRouter
 )(ProfileContainerWithHooks);
 

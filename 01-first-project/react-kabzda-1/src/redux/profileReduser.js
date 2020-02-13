@@ -1,5 +1,5 @@
 import React from 'react';
-import {profileAPI} from './../DAL/api';
+import {profileAPI, generatedFotoAPI} from './../DAL/api';
 import {isloading} from './userReduser';
 import {reset} from 'redux-form';
 
@@ -11,7 +11,8 @@ const AD_POST = 'SOCIAL-NETWORK/PROFILE/AD-POST',
     UPLOAD_AVATAR_SUCCESS = 'SOCIAL-NETWORK/PROFILE/UPLOAD_AVATAR_SUCCESS',
     SET_USER_STATUS = 'SOCIAL-NETWORK/PROFILE/SET_USER_STATUS',
     SET_PROFILESET_ERRORS = 'SOCIAL-NETWORK/PROFILE/SET_PROFILESET_ERRORS',
-    LOAD_PROFILE_DATA_SUCCESS = 'SOCIAL-NETWORK/PROFILE/LOAD_PROFILE_DATA_SUCCESS';
+    LOAD_PROFILE_DATA_SUCCESS = 'SOCIAL-NETWORK/PROFILE/LOAD_PROFILE_DATA_SUCCESS',
+    SET_AI_GENERATED_PHOTO = 'SOCIAL-NETWORK/PROFILE/SET_AI_GENERATED_PHOTO';
 
 export const addPost = (text) => (
     {type: AD_POST, someNewPost: text}
@@ -28,6 +29,11 @@ export const setUserStatus = (status) => (
 
 export const upLoadAvatarSuccess = (data) => ({
   type: UPLOAD_AVATAR_SUCCESS,
+  data
+});
+
+export const setAIGeneretedPhoto = (data) => ({
+  type: SET_AI_GENERATED_PHOTO,
   data
 });
 
@@ -56,7 +62,27 @@ let initialState = {
     newNumOfLikes: '',
     currentStatus: '',
     profileSetErrors: [],
-    loadProfileDataSuccess: false
+    loadProfileDataSuccess: false,
+    generatedFaces: 
+      {faces:[
+        {id:"5e01137a7b1b300007f72ab3",
+        urls:[
+          {32:"https://images.generated.photos/cDyfGeFdum82G-BvxZwK_7AgiaLlERHm6yZp7oV9X94/rs:fit:32:32/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA5Nzk2OTQuanBn.jpg"},{64:"https://images.generated.photos/eK4R66p9K7vqQSgm0GcIYu1NeNJiVhQH-yP0ayt2p-Y/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA5Nzk2OTQuanBn.jpg"},{128:"https://images.generated.photos/soqUR--DY0fPpUCXpMulYND_ZZgF1Sv91GrMlFTBo4Y/rs:fit:128:128/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA5Nzk2OTQuanBn.jpg"},{256:"https://images.generated.photos/cv5ccGtHNqHww2wZT5v4ePCsvqo-6-VklAwfKbcsRSA/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA5Nzk2OTQuanBn.jpg"},{512:"https://images.generated.photos/idbUf1EgZqu9sXfynX08FXUQ5JHuBmF3bK3AH2emqPI/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA5Nzk2OTQuanBn.jpg"}],
+        meta:{
+          confidence:0.000888282957021147,
+          gender:["male"],
+          age:["young-adult"],
+          ethnicity:["white"],
+          eye_color:["blue"],
+          hair_color:["blond"],
+          hair_length:["medium"],
+          emotion:["joy"]
+          }
+      }],
+      total:6
+    },
+    isFaceGeneratedAvatar: false
+
 };
 
 export const getProfile = (userID) => async (dispatch) => {
@@ -105,7 +131,12 @@ export const upLoadAvatar = (avatar) => async (dispatch) => {
       dispatch(isloading(false));
 };
 
-
+export const getGeneratedPhoto = (faceParams, page, per_page, order_by) => async (dispatch) => {
+  dispatch(isloading(true));
+  let data = await generatedFotoAPI.getGeneratedPhoto(faceParams, page, per_page, order_by);
+       dispatch(setAIGeneretedPhoto(data));
+      dispatch(isloading(false));
+};
 
 export const resetForm = (formName) => (dispatch) => {
   dispatch(reset(formName));
@@ -166,6 +197,11 @@ const profileReducer = (state = initialState, action) => {
 
         case SET_USER_PROFILE:
             return {...state, currentProfile: action.currentProfile};
+        
+        case SET_AI_GENERATED_PHOTO:
+            return {...state, 
+                    generatedFaces: action.data, 
+                    isFaceGeneratedAvatar: true};
  
         case LOAD_PROFILE_DATA_SUCCESS:
             return {...state, loadProfileDataSuccess: action.result};

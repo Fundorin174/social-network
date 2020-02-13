@@ -28,6 +28,7 @@ import {
   getTotalUsersCountSelector,
   getUsersPerPageCountSelector
 } from "../../../redux/usersSelectors";
+import { getIsFaceGeneratedSelector, getUrlAIGeneratedImageSelector } from '../../../redux/profileSelectors';
 
 
 class UsersContainer extends React.Component {
@@ -174,6 +175,8 @@ changeActivePage = (p) => {
         followInProgress = {
           this.props.followInProgress
         }
+        isFaceGeneratedAvatar = {this.props.isFaceGeneratedAvatar}
+        urlAIGeneratedImage = {this.props.urlAIGeneratedImage}
         /> 
         </ >
 
@@ -190,7 +193,9 @@ return {
     totalUsersCount: getTotalUsersCountSelector(state),
     isLoading: getIsLoadingSelector(state),
   followInProgress: getFollowInProgressSelector(state),
-  isAuth: getIsAuthSelector(state)
+  isAuth: getIsAuthSelector(state),
+  isFaceGeneratedAvatar: getIsFaceGeneratedSelector(state),
+  urlAIGeneratedImage: getUrlAIGeneratedImageSelector(state)
 }
 
 }

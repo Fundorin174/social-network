@@ -19,5 +19,15 @@ export const getloadProfileDataSuccess = (state) => {
   return state.profilePage.loadProfileDataSuccess;
 }
 
+export const getIsFaceGeneratedSelector = (state) => {
+  return state.profilePage.isFaceGeneratedAvatar;
+}
+
+export const getUrlAIGeneratedImageSelector = (state) => {
+  return state.profilePage.generatedFaces.faces[0].urls[3][256];
+}
+
+
+
 
 

@@ -16,7 +16,11 @@ const Profile = React.memo(props => {
           upLoadAvatar={props.upLoadAvatar}
           loadProfileDataSuccess={props.loadProfileDataSuccess}
           setErrors={props.setErrors}
-          isloadProfileDataSuccess= {props.isloadProfileDataSuccess}/>
+          isloadProfileDataSuccess= {props.isloadProfileDataSuccess}
+          getGeneratedPhoto = {props.getGeneratedPhoto}
+          isFaceGeneratedAvatar = {props.isFaceGeneratedAvatar}
+          urlAIGeneratedImage = {props.urlAIGeneratedImage}
+          />
         <PostsContainer />
       </div>
     );

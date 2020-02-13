@@ -9,7 +9,7 @@ const User = (props) => {
               <NavLink to={props.isAuth ? '/profile/' + props.id : '/login'}>
               <img
                   className={classes.img}
-                  src={ props.smallPhotoSrc != null ? props.smallPhotoSrc : Avatar}
+                  src={ props.smallPhotoSrc != null ? props.smallPhotoSrc : props.isFaceGeneratedAvatar ? props.urlAIGeneratedImage : Avatar}
                   alt={"avatar"}/>
               </NavLink>
                {

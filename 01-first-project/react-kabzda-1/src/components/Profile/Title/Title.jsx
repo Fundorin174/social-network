@@ -23,6 +23,12 @@ const [editMode, setEditMode] = useState(false);//edit profile data mode on/off
     props.loadProfileDataSuccess && setEditMode(false)
   }, [props.loadProfileDataSuccess]);
 
+
+  // useEffect(() => {
+  //   let userID = props.match.params.userID;
+  //   props.isFaceGeneratedAvatar && props.getProfile(userID);
+  // }, [props.isFaceGeneratedAvatar]);
+
 if (!props.currentProfile) {
     return <Preloader/>
 } else{
@@ -94,13 +100,19 @@ const upLoadAvatar = (e) => {
     setEditMode(true)
   }
 
-
-
-  // if (props.loadProfileDataSuccess) {
-  //   setEditMode(false);
-  //   // debugger
-  //   // props.isloadProfileDataSuccess(false);
-  // }
+  const getGeneratedPhoto = () => {
+    const faceParams = {
+      emotion:'joy',
+      gender:'male',
+      age:'young-adult',
+      ethnicity:'white',
+      eye_color:'blue',
+      hair_color:'blond',
+      hair_length:'medium',
+    }
+    let order_by = 'random';
+    props.getGeneratedPhoto(faceParams, 1, 1, order_by)
+  }
 return (
   <div className={classes.content}>
     <div className={classes.topimg}>
@@ -113,7 +125,7 @@ return (
           src={
             props.currentProfile.photos.large != null
               ? props.currentProfile.photos.large
-              : Avatar
+              : props.isFaceGeneratedAvatar ? props.urlAIGeneratedImage :Avatar
           }
           alt={"my-ava"}
         />
@@ -128,6 +140,10 @@ return (
         {inputState && (
           <input onChange={upLoadAvatar} className={classes.btn} type="file" />
         )}
+        {/* Generation AI avatar */}
+        {
+        !props.currentProfile.photos.large&&<button onClick = {getGeneratedPhoto}>Создать AI аватар</button>
+        }
       </div>
 
       <div className={classes.description}>
