@@ -25,6 +25,10 @@ const [editAvatarMode, setEditAvatarMode] = useState(false);//edit AI Avatar cre
     props.loadProfileDataSuccess && setEditMode(false)
   }, [props.loadProfileDataSuccess]);
 
+  
+  useEffect(() => {
+    props.isAIAvatarGeneratedSucces && setEditAvatarMode(false)
+  }, [props.isAIAvatarGeneratedSucces]);
 
   // useEffect(() => {
   //   let userID = props.match.params.userID;
@@ -84,7 +88,9 @@ const showInput = () => {
 }
 
 const showEditAIAvatarForm = () => {
+  props.setAIAvatarGeneratedSucces(false);
   setEditAvatarMode(!inputState);
+
 }
 
 const upLoadAvatar = (e) => {
@@ -176,7 +182,12 @@ return (
       
     </div>
     {editMode && <ProfileDataForm formError={props.formError} onSubmit = {loadProfileData} setEditMode = {setEditMode}/>} 
-    {editAvatarMode && <CreateAIAvatarForm formError={props.formError} onSubmit = {getGeneratedPhoto} setEditAvatarMode = {setEditAvatarMode}/>} 
+    {editAvatarMode && <CreateAIAvatarForm 
+    formError={props.formError} 
+    onSubmit = {getGeneratedPhoto} 
+    setEditAvatarMode = {setEditAvatarMode}
+    isAIAvatarGeneratedSucces = {props.isAIAvatarGeneratedSucces}
+    aVatarNotFoundMsg = {props.aVatarNotFoundMsg}/>} 
   </div>
 );
 

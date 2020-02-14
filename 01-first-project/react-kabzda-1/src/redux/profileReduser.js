@@ -12,7 +12,8 @@ const AD_POST = 'SOCIAL-NETWORK/PROFILE/AD-POST',
     SET_USER_STATUS = 'SOCIAL-NETWORK/PROFILE/SET_USER_STATUS',
     SET_PROFILESET_ERRORS = 'SOCIAL-NETWORK/PROFILE/SET_PROFILESET_ERRORS',
     LOAD_PROFILE_DATA_SUCCESS = 'SOCIAL-NETWORK/PROFILE/LOAD_PROFILE_DATA_SUCCESS',
-    SET_AI_GENERATED_PHOTO = 'SOCIAL-NETWORK/PROFILE/SET_AI_GENERATED_PHOTO';
+    SET_AI_GENERATED_PHOTO = 'SOCIAL-NETWORK/PROFILE/SET_AI_GENERATED_PHOTO',
+    AI_AVATAR_GENERATED_SUCCESS = 'SOCIAL-NETWORK/PROFILE/AI_AVATAR_GENERATED_SUCCESS';
 
 export const addPost = (text) => (
     {type: AD_POST, someNewPost: text}
@@ -40,6 +41,12 @@ export const setAIGeneretedPhoto = (data) => ({
 export const isloadProfileDataSuccess = (result) => ({
   type: LOAD_PROFILE_DATA_SUCCESS,
   result: result
+})
+
+export const setAIAvatarGeneratedSucces = (state, msg) => ({
+  type: AI_AVATAR_GENERATED_SUCCESS,
+  state: state,
+  msg: msg
 })
 
 export const setErrors = (errors) => ({type: SET_PROFILESET_ERRORS, errors});
@@ -81,7 +88,9 @@ let initialState = {
       }],
       total:6
     },
-    isFaceGeneratedAvatar: false
+    isFaceGeneratedAvatar: false,
+    isAIAvatarGeneratedSucces: true,
+    aVatarNotFoundMsg: ''
 
 };
 
@@ -135,9 +144,10 @@ export const getGeneratedPhoto = (faceParams, page, per_page, order_by) => async
   dispatch(isloading(true));
   let data = await generatedFotoAPI.getGeneratedPhoto(faceParams, page, per_page, order_by);
     if (data.total === 0) {
-      console.log('Таких не бывает');
+      dispatch(setAIAvatarGeneratedSucces(false, 'Изображения с выбранными параметрами отсутствуют в базе. Поменяйте условия'));
     } else {
       dispatch(setAIGeneretedPhoto(data));
+      dispatch(setAIAvatarGeneratedSucces(true, ''));
      dispatch(isloading(false));
     }
 };
@@ -209,6 +219,10 @@ const profileReducer = (state = initialState, action) => {
  
         case LOAD_PROFILE_DATA_SUCCESS:
             return {...state, loadProfileDataSuccess: action.result};
+        
+            case AI_AVATAR_GENERATED_SUCCESS:
+            return {...state, isAIAvatarGeneratedSucces: action.state, 
+            aVatarNotFoundMsg: action.msg};
 
         case UPLOAD_AVATAR_SUCCESS:
           return {

@@ -9,12 +9,13 @@ import {
   loadProfileData,
   setErrors,
   isloadProfileDataSuccess,
-  getGeneratedPhoto
+  getGeneratedPhoto,
+  setAIAvatarGeneratedSucces
 } from "./../../redux/profileReduser";
 import {withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
-import {getCurrentProfileSelector, getCurrentStatusSelector, getProfileSetErrors, getloadProfileDataSuccess, getIsFaceGeneratedSelector, getUrlAIGeneratedImageSelector} from "../../redux/profileSelectors";
+import {getCurrentProfileSelector, getCurrentStatusSelector, getProfileSetErrors, getloadProfileDataSuccess, getIsFaceGeneratedSelector, getUrlAIGeneratedImageSelector, getIsAIAvatarGeneratedSucces, getaVatarNotFoundMsgSelector} from "../../redux/profileSelectors";
 import {getAutorizedUserIdSelector, getIsAuthSelector} from "../../redux/authSelectors";
 import { getFormSyncErrors } from 'redux-form';
 
@@ -69,13 +70,15 @@ let mapStateToProps = (state) => ({
   formError: getProfileSetErrors(state),
   loadProfileDataSuccess: getloadProfileDataSuccess(state),
   isFaceGeneratedAvatar: getIsFaceGeneratedSelector(state),
-  urlAIGeneratedImage: getUrlAIGeneratedImageSelector(state)
+  urlAIGeneratedImage: getUrlAIGeneratedImageSelector(state),
+  isAIAvatarGeneratedSucces: getIsAIAvatarGeneratedSucces(state),
+  aVatarNotFoundMsg: getaVatarNotFoundMsgSelector(state)
 });
 
 
 export default compose(
   withAuthRedirect,
-  connect(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar, loadProfileData, setErrors, isloadProfileDataSuccess, getGeneratedPhoto}),
+  connect(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar, loadProfileData, setErrors, isloadProfileDataSuccess, getGeneratedPhoto, setAIAvatarGeneratedSucces}),
   withRouter
 )(ProfileContainerWithHooks);
 

@@ -15,12 +15,12 @@ import {compose} from 'redux';
 import {getCurrentProfileSelector, getCurrentStatusSelector, getProfileSetErrors, getloadProfileDataSuccess} from "../../redux/profileSelectors";
 import {getAutorizedUserIdSelector, getIsAuthSelector} from "../../redux/authSelectors";
 import { getFormSyncErrors } from 'redux-form';
-import ToDoList from './ToDoList';
-import { createNewToDoList, deleteToDoList} from './../../redux/toDoListReduser'
+import ToDoLists from './ToDoLists';
+import { createNewToDoList, deleteToDoList, getAllToDoLists} from './../../redux/toDoListReduser'
+import { getToDoListsSelector } from '../../redux/toDoListsSelectors';
 
 
 const ToDoListContainerWithHooks = React.memo(props => {
-
     useEffect(() => {
       let userID = props.match.params.userID;
       if (!userID) {
@@ -29,11 +29,12 @@ const ToDoListContainerWithHooks = React.memo(props => {
       props.getProfile(userID);
       props.getStatus(userID);
       props.currentStatus !== "" && props.getStatus(userID);
-    }, [props.match.params.userID]);
+      props.getAllToDoLists();
+    }, [props.match.params.userID, props.toDoLists.length]);
 
 
     return (
-      <ToDoList {...props} />
+      <ToDoLists {...props} />
     );
 
 })
@@ -45,13 +46,14 @@ let mapStateToProps = (state) => ({
   isAuth: getIsAuthSelector(state),
   autorizedUserId: getAutorizedUserIdSelector(state),
   formError: getProfileSetErrors(state),
-  loadProfileDataSuccess: getloadProfileDataSuccess(state)
+  loadProfileDataSuccess: getloadProfileDataSuccess(state),
+  toDoLists: getToDoListsSelector(state)
 });
 
 
 export default compose(
   withAuthRedirect,
-  connect(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar, loadProfileData, setErrors, isloadProfileDataSuccess, createNewToDoList, deleteToDoList}),
+  connect(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar, loadProfileData, setErrors, isloadProfileDataSuccess, createNewToDoList, deleteToDoList, getAllToDoLists}),
   withRouter
 )(ToDoListContainerWithHooks);
 

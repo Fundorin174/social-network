@@ -20,6 +20,9 @@ const Profile = React.memo(props => {
           getGeneratedPhoto = {props.getGeneratedPhoto}
           isFaceGeneratedAvatar = {props.isFaceGeneratedAvatar}
           urlAIGeneratedImage = {props.urlAIGeneratedImage}
+          isAIAvatarGeneratedSucces={props.isAIAvatarGeneratedSucces}
+          setAIAvatarGeneratedSucces = {props.setAIAvatarGeneratedSucces}
+          aVatarNotFoundMsg = {props.aVatarNotFoundMsg}
           />
         <PostsContainer />
       </div>

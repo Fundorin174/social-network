@@ -23,6 +23,14 @@ export const getIsFaceGeneratedSelector = (state) => {
   return state.profilePage.isFaceGeneratedAvatar;
 }
 
+export const getIsAIAvatarGeneratedSucces = (state) => {
+  return state.profilePage.isAIAvatarGeneratedSucces;
+}
+
+export const getaVatarNotFoundMsgSelector = (state) => {
+  return state.profilePage.aVatarNotFoundMsg;
+}
+
 export const getUrlAIGeneratedImageSelector = (state) => {
   return state.profilePage.generatedFaces.faces[0].urls[3][256];
 }

@@ -137,7 +137,7 @@ let CreateAIAvatarForm = (props) => {
           </div>
 
       </div>
-
+        {!props.isAIAvatarGeneratedSucces && props.anyTouched && <span>{props.aVatarNotFoundMsg}</span>}
         <button className={classes.btn}>
           Сгенерировать</button>
       </form>

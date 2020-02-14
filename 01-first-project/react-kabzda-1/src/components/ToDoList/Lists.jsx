@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './ToDoList.module.css';
+import ToDoList from './ToDoList';
 
 
 const Lists = (props) => {
@@ -8,10 +9,22 @@ const Lists = (props) => {
 
 
 return(
-  <div className = {classes.listsWrp}>
-    Тут списки
+  <div className = {classes.listsWithBtnWrp}>
+    <div className = {classes.listsWrp}>
+    {
+    props.toDoLists.map((list) =>{
+      return <ToDoList 
+      key = {list.id}
+      id = {list.id}
+      title  = {list.title}
+      addedDate = {list.addedDate}
+      order = {list.order}
+      deleteToDoList = {props.deleteToDoList}/>
+    })
+    }
+    </div>
     <button onClick = {()=>{props.createNewToDoList('Ваще Новый список')}}>Создать новый список</button>
-    <button onClick={() => { props.deleteToDoList('162d0068-c5b5-4857-8d5d-0776d68b9fe3') }}>Удалить список</button>
+
   </div>
 )
 
