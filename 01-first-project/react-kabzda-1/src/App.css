@@ -19,6 +19,7 @@ a {
   max-width: 1500px;
   margin: 0 auto;
   min-height: 100vh;
+  height: auto;
 }
 
 .app-wrapper-content{

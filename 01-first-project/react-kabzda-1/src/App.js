@@ -48,7 +48,7 @@ class App extends React.Component {
           <Route path='/login' render={withSuspensComponent(Login)}/>
           <Route path='*' render={() => <div>404 Page not found</div>}/>
           </Switch>
-        </div>;
+        </div>
       </div>
     )
   }

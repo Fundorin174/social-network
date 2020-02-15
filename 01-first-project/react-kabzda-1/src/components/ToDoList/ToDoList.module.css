@@ -1,0 +1,43 @@
+h1{
+  text-align: center;
+}
+
+.listsWrp {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: flex-start;
+} 
+
+.toDoListItem {
+  border: 1px solid #000;
+  background-color: #fff;
+  border-radius: 20px;
+  width: 47%;
+  min-height: auto;
+  margin: 20px 0 0 0;
+  padding: 1%;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.btn{
+  position: relative;
+  background-color: #5181b8;
+  color: var(--main-light-color);
+  margin: 10px 0;
+  padding: 5px 5px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+.toDoListItemTitle{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start;
+}
