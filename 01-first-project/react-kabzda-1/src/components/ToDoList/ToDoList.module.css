@@ -1,4 +1,4 @@
-h1{
+h1 {
   text-align: center;
 }
 
@@ -9,7 +9,7 @@ h1{
   width: 100%;
   justify-content: space-evenly;
   align-items: flex-start;
-} 
+}
 
 .toDoListItem {
   border: 1px solid #000;
@@ -25,9 +25,9 @@ h1{
   -o-border-radius: 20px;
 }
 
-.btn{
+.btn {
   position: relative;
-  background-color: #5181b8;
+  background-color: rgb(81, 129, 184);
   color: var(--main-light-color);
   margin: 10px 0;
   padding: 5px 5px;
@@ -35,9 +35,62 @@ h1{
   -webkit-border-radius: 10px;
 }
 
-.toDoListItemTitle{
+.toDoListItemTitle {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: start;
+}
+
+.input {
+  width: fit-content;
+  padding: 5px 10px;
+  margin: 0 1%;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+
+/* Всплывающая подсказка */
+
+.tooltip {
+  cursor: help;
+}
+
+.tooltip::after {
+  background: rgba(81, 129, 184, 0.8);
+  border-radius: 8px 8px 8px 0px;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  color: #FFF;
+  content: attr(data-tooltip);
+  margin-top: -24px;
+  opacity: 0;
+  padding: 3px 7px;
+  position: absolute;
+  visibility: hidden;
+  transition: all 0.4s ease-in-out;
+  font-size: 14px;
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tasksList .tooltip>img {
+  width: 20px;
+  margin: 0 5px;
+}
+
+.tasksTitle{
+display: flex;
+flex-direction: row;
+justify-content: start;
+align-items: center;
+}
+
+.tasksTitle>p{
+  margin: 5px 0;
 }

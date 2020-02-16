@@ -21,7 +21,8 @@ const ToDoLists = React.memo(props => {
         <Lists 
         createNewToDoList = {props.createNewToDoList} 
           deleteToDoList={props.deleteToDoList}
-          toDoLists = {props.toDoLists}/>
+          toDoLists = {props.toDoLists}
+          loadNewTask={props.loadNewTask}/>
       </div>
     );
     });

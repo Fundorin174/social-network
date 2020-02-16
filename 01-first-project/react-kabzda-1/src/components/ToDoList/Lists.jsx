@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import classes from './ToDoList.module.css';
 import ToDoList from './ToDoList';
-import { createTextField } from '../common/helpFunctions';
-import { InputFieldCreator } from '../common/BlockContainer';
-import { required } from '../common/validators';
+// import { createTextField } from '../common/helpFunctions';
+// import { InputFieldCreator } from '../common/BlockContainer';
+// import { required } from '../common/validators';
 
 
 const Lists = (props) => {
@@ -15,10 +15,14 @@ const Lists = (props) => {
     setNewToDoListName(newName);
   }
 
+  const createNewToDoList = () => {
+  props.createNewToDoList(newToDoListName);
+    setNewToDoListName('');
+}
 
 return(
   <div className = {classes.listsWithBtnWrp}>
-    <h1>СПИСОК ДЕЛ</h1>
+    <h1 >СПИСОК ДЕЛ</h1>
     <div className = {classes.listsWrp}>
     {
     props.toDoLists.map((list) =>{
@@ -28,13 +32,14 @@ return(
       title  = {list.title}
       addedDate = {list.addedDate}
       order = {list.order}
-      deleteToDoList = {props.deleteToDoList}/>
+      deleteToDoList = {props.deleteToDoList}
+      loadNewTask={props.loadNewTask}/>
     })
     }
     </div>
 
-    <input onChange = {setNewToDoList} placeholder = 'Введите Имя нового списка'></input>    
-    <button className={classes.btn} onClick={() => { props.createNewToDoList(newToDoListName)}}>Создать</button>
+    <input className = {classes.input} onChange={setNewToDoList}  placeholder = 'Введите имя нового списка'></input>    
+    <button className={classes.btn} onClick={createNewToDoList}>Создать</button>
 
   </div>
 )
