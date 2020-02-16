@@ -63,11 +63,9 @@ export const loadNewTask = (newTask, listId) => async (dispatch) => {
   if (data.resultCode === 0)
   {
     // debugger
-                      console.log(data)
     const taskId = data.data.item.id;
     toDoListAPI.changeExistingTask(listId, taskId, newTask)
     .then((data) => {
-
       if (data.resultCode === 0){
         toDoListAPI.getTasksThisList(listId)
         .then((data) =>{
