@@ -47,7 +47,7 @@ let mapStateToProps = (state) => ({
   autorizedUserId: getAutorizedUserIdSelector(state),
   formError: getProfileSetErrors(state),
   loadProfileDataSuccess: getloadProfileDataSuccess(state),
-  toDoLists: getToDoListsSelector(state)
+  toDoLists: getToDoListsSelector(state),
 });
 
 

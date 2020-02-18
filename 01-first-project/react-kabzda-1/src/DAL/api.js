@@ -183,13 +183,7 @@ export const toDoListAPI = {
   changeExistingTask(todolistId, taskId, task) {
 
     return instance.put(`todo-lists/${todolistId}/tasks/${taskId}`, {
-     title: task.title,
-      description: task.description,
-      completed: true,
-      status: Math.trunc(1),
-     priority: Math.trunc(1),
-      startDate: '2020 - 02 - 16 T16: 35: 24.2677938 Z',
-      deadline: '2020 - 02 - 18 T16: 35: 24.2677938 Z'
+      ...task
     })
     .then(response => {
       return response.data;

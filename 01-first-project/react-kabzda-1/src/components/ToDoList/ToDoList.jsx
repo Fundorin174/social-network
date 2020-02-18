@@ -19,6 +19,12 @@ const ToDoList = props => {
     const listId = props.id;
     props.loadNewTask(newTask, listId);
   }
+
+  // const tasks = () =>{
+  //   props.tasks.map((task)=>{
+  //    return <div><span>{task.title}</span></div>
+  //   })
+  // }
     return (
       <div className={classes.toDoListItem}>
         <div className={classes.toDoListItemTitle}>
@@ -39,8 +45,11 @@ const ToDoList = props => {
               <img src={deleteIcon} alt="Удалить" />
             </div>
           </div>
-          <div>Задание 1</div>
-          
+          {
+            props.tasks && props.tasks.map((task)=>{
+              return <div key = {task.id}><span>{task.title}</span></div>
+             })
+          }
         </div>
         <button className={classes.btn} onClick={() => { props.deleteToDoList(props.id) }}>Удалить список</button>
         {showNewTaskFormState && <NewTaskForm formError={['sdf', 'sdf']} onSubmit={loadNewTask} toggleNewTaskForm={toggleNewTaskForm} />} 

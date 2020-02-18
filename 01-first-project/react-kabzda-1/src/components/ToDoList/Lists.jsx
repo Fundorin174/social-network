@@ -33,7 +33,8 @@ return(
       addedDate = {list.addedDate}
       order = {list.order}
       deleteToDoList = {props.deleteToDoList}
-      loadNewTask={props.loadNewTask}/>
+      loadNewTask={props.loadNewTask}
+      tasks = {list.items}/>
     })
     }
     </div>
