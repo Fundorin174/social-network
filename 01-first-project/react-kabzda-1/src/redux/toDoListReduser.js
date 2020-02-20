@@ -18,13 +18,7 @@ SET_TASKS_OF_THIS_LIST = 'SOCIAL-NETWORK/TO_DO_LIST/SET_TASKS_OF_THIS_LIST';
   {type: SET_TASKS_OF_THIS_LIST, listId, data}
 )
 
-// export const deleteToDoList = (todolistId) => (
-// {type: DELETE_TODO_LIST, todolistId}
-// );
 
-// export const setNewTask = (todolistId, task) => (
-// {type: SET_NEW_TASK, todolistId, task}
-// );
 
 // THUNKS
 

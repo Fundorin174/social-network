@@ -6,7 +6,7 @@ const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.0/',
   withCredentials: true,
     headers: {
-      "API-KEY": "e74a81aa-88b1-45c7-b4dd-7f98f1a44333"
+      "API-KEY": "38e52804-c31b-451f-9c8d-68163e22ba69"
     }
   });
 
@@ -28,6 +28,7 @@ export const usersAPI = {
   },
 
   
+  // Program Files(x86)\ Google\ Chrome\ Application\ chrome.exe”– - allow - file - access - from - files— disable - web - security— user - data - dir— disable - features = CrossSiteDocumentBlockingIfIsolating
 
   toFollow(userID) {
     return instance.post(`follow/${userID}`)
