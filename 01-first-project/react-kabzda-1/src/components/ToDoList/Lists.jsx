@@ -34,7 +34,9 @@ return(
       order = {list.order}
       deleteToDoList = {props.deleteToDoList}
       loadNewTask={props.loadNewTask}
-      tasks = {list.items}/>
+      changeTask = {props.changeTask}
+      tasks = {list.items}
+      deleteTaskFromList = {props.deleteTaskFromList}/>
     })
     }
     </div>

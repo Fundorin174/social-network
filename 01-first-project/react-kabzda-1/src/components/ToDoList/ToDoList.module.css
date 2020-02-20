@@ -94,3 +94,10 @@ align-items: center;
 .tasksTitle>p{
   margin: 5px 0;
 }
+
+
+.taskItem{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}

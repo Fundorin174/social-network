@@ -16,7 +16,7 @@ import {getCurrentProfileSelector, getCurrentStatusSelector, getProfileSetErrors
 import {getAutorizedUserIdSelector, getIsAuthSelector} from "../../redux/authSelectors";
 import { getFormSyncErrors } from 'redux-form';
 import ToDoLists from './ToDoLists';
-import { createNewToDoList, deleteToDoList, getAllToDoLists, loadNewTask} from './../../redux/toDoListReduser'
+import { createNewToDoList, deleteToDoList, getAllToDoLists, loadNewTask,changeTask, deleteTaskFromList} from './../../redux/toDoListReduser'
 import { getToDoListsSelector } from '../../redux/toDoListsSelectors';
 
 
@@ -53,7 +53,7 @@ let mapStateToProps = (state) => ({
 
 export default compose(
   withAuthRedirect,
-  connect(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar, loadProfileData, setErrors, isloadProfileDataSuccess, createNewToDoList, deleteToDoList, getAllToDoLists, loadNewTask}),
+  connect(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar, loadProfileData, setErrors, isloadProfileDataSuccess, createNewToDoList, deleteToDoList, getAllToDoLists, loadNewTask, changeTask, deleteTaskFromList}),
   withRouter
 )(ToDoListContainerWithHooks);
 

@@ -30,11 +30,6 @@ const [editAvatarMode, setEditAvatarMode] = useState(false);//edit AI Avatar cre
     props.isAIAvatarGeneratedSucces && setEditAvatarMode(false)
   }, [props.isAIAvatarGeneratedSucces]);
 
-  // useEffect(() => {
-  //   let userID = props.match.params.userID;
-  //   props.isFaceGeneratedAvatar && props.getProfile(userID);
-  // }, [props.isFaceGeneratedAvatar]);
-
 if (!props.currentProfile) {
     return <Preloader/>
 } else{

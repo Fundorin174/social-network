@@ -33,7 +33,7 @@
     background:  #fff;
     border: 1px solid #5181b8;
     border-radius: 15px;
-    position: absolute;
+    position: fixed;
     top: 20%;
     left: 20%;
     -webkit-border-radius: 15px;
