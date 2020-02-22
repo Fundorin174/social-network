@@ -36,7 +36,8 @@ return(
       loadNewTask={props.loadNewTask}
       changeTask = {props.changeTask}
       tasks = {list.items}
-      deleteTaskFromList = {props.deleteTaskFromList}/>
+      deleteTaskFromList = {props.deleteTaskFromList}
+        formError={props.formError}/>
     })
     }
     </div>

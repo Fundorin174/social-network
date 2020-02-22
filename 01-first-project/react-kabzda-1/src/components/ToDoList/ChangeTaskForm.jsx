@@ -7,7 +7,7 @@ import {createTextField} from "../common/helpFunctions";
 
 let ChangeTaskForm = (props) => {
 
-    let formerror = props.formError;
+  let formerror = props.error ? props.error : [];
 
     return (
         <> < form onSubmit = {
@@ -21,6 +21,7 @@ let ChangeTaskForm = (props) => {
             }}
             className={classes.closeBtn}>Закрыть</span>
         <div className={classes.allInputWrp}>
+          {props.error && <span>{props.error}</span>}
             {
                 createTextField(
                     classes.textFieldProfile,
@@ -110,13 +111,14 @@ let ChangeTaskForm = (props) => {
             )
           }
         </div>
-            {/* {props.formError[0] ?
-          <div className={classes.error}>
-            {<span>Необходимо правильно заполнить указанные поля</span>}
-          </div>
-          :
-          null
-        } */
+        {formerror ?
+        <div className={classes.error}>
+            {<span>{formerror}</span>}
+        </div>
+        :
+        null
+      } 
+            {
         } <button className = {
             classes.btn
         }>Добавить</button> </form>

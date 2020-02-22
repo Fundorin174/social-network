@@ -1,7 +1,7 @@
 import {reset, stopSubmit} from 'redux-form';
 import {toDoListAPI} from './../DAL/api';
 import {isloading} from './userReduser';
-import { getToDoListsSelector } from './toDoListsSelectors';
+
 
 const SET_ALL_LISTS = 'SOCIAL-NETWORK/TO_DO_LIST/SET_ALL_LISTS',
 SET_TASKS_OF_THIS_LIST = 'SOCIAL-NETWORK/TO_DO_LIST/SET_TASKS_OF_THIS_LIST';
@@ -101,36 +101,59 @@ export const loadNewTask = (newTask, listId) => (dispatch) => {
         })
 }
 
-export const changeTask = (task, listId) => (dispatch) => {
-    toDoListAPI
-        .changeExistingTask(listId, task.id, task)
-        .then((data) => {
-            if (data.resultCode === 0) {
-                toDoListAPI
-                    .getTasksThisList(listId)
-                    .then((data) => {
-                        if (!data.error) {
-                            dispatch(setTasksOfThisList(listId, data))
-                        } else {
-                            let message = data.error;
-                            let action = stopSubmit('NewTaskForm', {_error: message})
-                            dispatch(action);
-                        }
-                    })
-            } else {
-                let message = data.messages;
-                let action = stopSubmit('NewTaskForm', {_error: message})
-                dispatch(action);
-            }
-        })
+export const changeTask = (task, listId) => async dispatch => {
+
+   let data = toDoListAPI
+        .changeExistingTask(listId, task.id, task);
+        
+            console.log(data)
+// Надо делать Try/Catch
+  
+        //   (data) => {
+        //   debugger
+        //     if (!data.message) {
+        //       debugger
+        //         toDoListAPI
+        //             .getTasksThisList(listId)
+        //             .then((data) => {
+        //                 if (!data.message) {
+        //                     dispatch(setTasksOfThisList(listId, data))
+        //                 } else {
+        //                     let message = data.message;
+        //                     console.log(message)
+        //                   let action = stopSubmit('ChangeTaskForm', {_error: message})
+        //                     dispatch(action);
+        //                 }
+        //             })
+        //     } else {
+        //       debugger
+        //         let message = data.message;
+        //                                     console.log(message)
+        //       let action = stopSubmit('ChangeTaskForm', {_error: message})
+        //         dispatch(action);
+        //     }
+        // }
+        
+        // )
 }
 
 export const deleteTaskFromList = (todolistId, taskId) => (dispatch) => {
   toDoListAPI.deleteTaskFromList(todolistId, taskId)
   .then(()=>{
-    dispatch(getAllToDoLists);
-  })
+    toDoListAPI
+      .getTasksThisList(todolistId)
+      .then((data) => {
+        if (!data.error) {
+          dispatch(setTasksOfThisList(todolistId, data))
+        } else {
+          console.log('Ошибка получения данных')
+        }
+      }
+  )
+})
 }
+
+
 
 
 // INITIAL STATE

@@ -24,14 +24,14 @@ const ToDoList = props => {
   const loadNewTask = (newTask) => {
     const listId = props.id;
     props.loadNewTask(newTask, listId);
-    toggleChangeTaskForm();
+    toggleNewTaskForm();
   }
 
   
   const changeTask = (task) => {
     const listId = props.id;
     props.changeTask(task, listId);
-    toggleChangeTaskForm()
+    // toggleChangeTaskForm()
   }
 
   const deleteTaskFromCurrentList = ((todolistId, taskId) =>{
@@ -53,7 +53,7 @@ const ToDoList = props => {
           </div>
           {
             props.tasks && props.tasks.map((task)=>{
-              return <div key = {task.id} className = {classes.taskItem}>
+              return <div id = {task.id} key = {task.id} className = {classes.taskItem}>
                 <span>{task.title}</span>
                 <div className={classes.tooltip} onClick = {toggleChangeTaskForm} data-tooltip="Изменить задание" >
               <img src={editIcon} alt="Переименовать" />
@@ -67,7 +67,7 @@ const ToDoList = props => {
         </div>
         <button className={classes.btn} onClick={() => { props.deleteToDoList(props.id) }}>Удалить список</button>
         {showNewTaskFormState && <NewTaskForm formError={['sdf', 'sdf']} onSubmit={loadNewTask} toggleNewTaskForm={toggleNewTaskForm} />} 
-        {showChangeTaskFormState && <ChangeTaskForm formError={['sdf', 'sdf']} onSubmit={changeTask} toggleChangeTaskForm={toggleChangeTaskForm} />} 
+        {showChangeTaskFormState && <ChangeTaskForm formError={props.formError} onSubmit={changeTask} toggleChangeTaskForm={toggleChangeTaskForm} />} 
       </div>
     );
     };

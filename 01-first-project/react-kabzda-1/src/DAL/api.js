@@ -202,7 +202,7 @@ export const toDoListAPI = {
   deleteTaskFromList(todolistId, taskId) {
     return toDoInstance.delete(`todo-lists/${todolistId}/tasks/${taskId}`)
     .then(response => {
-      return response.data;
+      return response;
     });
   }
 }
