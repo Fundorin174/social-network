@@ -10,6 +10,14 @@ const instance = axios.create({
     }
   });
 
+  const toDoInstance = axios.create({
+  baseURL: 'https://social-network.samuraijs.com/api/1.1/',
+  withCredentials: true,
+    headers: {
+      "API-KEY": "38e52804-c31b-451f-9c8d-68163e22ba69"
+    }
+  });
+
   // const generatedPhotoinstance = axios.create({
   //   baseURL: 'https://api.generated.photos/api/v1',
   //   withCredentials: true,
@@ -183,7 +191,7 @@ export const toDoListAPI = {
 
   changeExistingTask(todolistId, taskId, task) {
 
-    return instance.put(`todo-lists/${todolistId}/tasks/${taskId}`, {
+    return toDoInstance.put(`todo-lists/${todolistId}/tasks/${taskId}`, {
       ...task
     })
     .then(response => {
@@ -192,7 +200,7 @@ export const toDoListAPI = {
   },
 
   deleteTaskFromList(todolistId, taskId) {
-    return instance.delete(`todo-lists/${todolistId}/tasks/${taskId}`)
+    return toDoInstance.delete(`todo-lists/${todolistId}/tasks/${taskId}`)
     .then(response => {
       return response.data;
     });
