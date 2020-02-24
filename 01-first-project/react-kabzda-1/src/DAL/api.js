@@ -210,7 +210,16 @@ export const toDoListAPI = {
       putAfterItemId: putAfterItemId
     })
     .then(response => {
-      return response;
+      return response.data;
+    });
+  },
+
+  reorderedTask(toDoListId, taskId, putAfterItemId = null) {
+    return toDoInstance.put(`todo-lists/${toDoListId}/tasks/${taskId}/reorder`, {
+      putAfterItemId: putAfterItemId
+    })
+    .then(response => {
+      return response.data;
     });
   }
 }

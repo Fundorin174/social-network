@@ -27,7 +27,7 @@ let NewTaskForm = (props) => {
                     "title",
                     InputDataFieldCreator,
                     "input",
-                    "Имя списка",
+                    "Имя задания",
                     [required],
                     'Название: ',
                     formerror
@@ -42,18 +42,6 @@ let NewTaskForm = (props) => {
               "Описание",
               [required],
               'Описание: ',
-              formerror
-            )
-          }
-          {
-            createTextField(
-              classes.textFieldProfile,
-              "completed",
-              InputDataFieldCreator,
-              "checkbox",
-              '',
-              [],
-              'Завершено: ',
               formerror
             )
           }

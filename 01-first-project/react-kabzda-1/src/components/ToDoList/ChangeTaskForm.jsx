@@ -28,7 +28,7 @@ let ChangeTaskForm = (props) => {
                     "title",
                     InputDataFieldCreator,
                     "input",
-                    "Имя списка",
+                    "Имя задания",
                     [required],
                     'Название: '
                 )

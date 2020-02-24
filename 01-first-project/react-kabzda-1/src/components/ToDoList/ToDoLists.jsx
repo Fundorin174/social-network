@@ -25,7 +25,9 @@ const ToDoLists = React.memo(props => {
           loadNewTask={props.loadNewTask}
           changeTask = {props.changeTask}
           deleteTaskFromList = {props.deleteTaskFromList}
-          formError={props.formError}/>
+          formError={props.formError}
+          reorderedToDoList={props.reorderedToDoList}
+          reorderedTask={props.reorderedTask}/>
       </div>
     );
     });

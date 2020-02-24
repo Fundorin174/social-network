@@ -5,13 +5,16 @@ import editIcon from './../../img/actions/edit.png';
 import descriptionIcon from './../../img/tasks/description.png';
 import deadlineIcon from './../../img/tasks/deadline.png';
 import startDateIcon from './../../img/tasks/startDate.png';
+import UpButton from './../../img/UP.png';
+import DownButton from './../../img/DOWN.png';
 
 
 const TaskItem = props => {
 
+
 return (
 <div id={props.taskItem.id}  className={classes.taskItem}>
-    <span className={props.taskItem.completed ? classes.lineThrough : null}>{props.taskItem.title}</span>
+    <span className={props.taskItem.completed ? classes.lineThrough : null}>- {props.taskItem.title}</span>
   <div className={classes.tooltip} onClick={()=> props.toggleChangeTaskFormAndSendIdToForm(props.taskItem.id)}
     data-tooltip="Изменить задание" >
     <img src={editIcon} alt="Переименовать" />
@@ -30,6 +33,12 @@ return (
     <div className={classes.tooltip} data-tooltip={props.taskItem.deadline ? `Deadline: ${props.taskItem.deadline}` : `Deadline: не задан`}>
       <img src={deadlineIcon} alt="Deadline" />
   </div>
+    <div className={classes.tooltip} onClick={() => { props.moveTaskUp(props.taskItem.id) }} data-tooltip="Переместить задание выше">
+      <img src={UpButton} alt='UP' />
+    </div>
+    <div className={classes.tooltip} onClick={() => { props.moveTaskDown(props.taskItem.id) }} data-tooltip="Переместить задание ниже">
+      <img src={DownButton} alt='Down' />
+    </div>
 </div>
 )}
 

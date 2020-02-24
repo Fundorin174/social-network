@@ -63,6 +63,7 @@ const setAllTaskofAllLists = (toDoLists) => (dispatch) => {
                 }
             })
     })
+    
 }
 
 
@@ -149,10 +150,32 @@ export const reorderedToDoList = (todolistId, putAfterItemId) => (dispatch) => {
   toDoListAPI.reorderedToDoList(todolistId, putAfterItemId)
   .then( data => {
     if (data.resultCode === 0){
-      getAllToDoLists();
+      dispatch(getAllToDoLists());
     } 
     else {
-      console.log(data.messages)
+      console.log(data.messages);
+    }
+  })
+
+}
+
+export const reorderedTask = (toDoListId, taskId, putAfterItemId) => (dispatch) => {
+  toDoListAPI.reorderedTask(toDoListId, taskId, putAfterItemId)
+  .then( data => {
+    if (data.resultCode === 0){
+      toDoListAPI
+        .getTasksThisList(toDoListId)
+        .then((response) => {
+          if (!response.message) {
+            dispatch(setTasksOfThisList(toDoListId, response))
+          } else {
+            let message = response.message;
+            console.log(message)
+          }
+        })
+    } 
+    else {
+      console.log(data.messages);
     }
   })
 
