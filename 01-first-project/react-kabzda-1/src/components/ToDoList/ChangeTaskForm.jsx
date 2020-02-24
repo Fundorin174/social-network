@@ -7,7 +7,7 @@ import {createTextField} from "../common/helpFunctions";
 
 let ChangeTaskForm = (props) => {
 
-  let formerror = props.error ? props.error : [];
+  let formerror = props.error ? props.error : null;
 
     return (
         <> < form onSubmit = {
@@ -30,8 +30,7 @@ let ChangeTaskForm = (props) => {
                     "input",
                     "Имя списка",
                     [required],
-                    'Название: ',
-                    formerror
+                    'Название: '
                 )
             }
             {
@@ -42,8 +41,7 @@ let ChangeTaskForm = (props) => {
                     "textarea",
                     "Описание",
                     [required],
-                    'Описание: ',
-                    formerror
+                    'Описание: '
                 )
             }
             {
@@ -54,8 +52,7 @@ let ChangeTaskForm = (props) => {
                     "checkbox",
                     '',
                     [],
-                    'Завершено: ',
-                    formerror
+                    'Завершено: '
                 )
             }
             <div className={classes.inputWrp}>
@@ -82,8 +79,7 @@ let ChangeTaskForm = (props) => {
               "number",
               '',
               [],
-              'Приоритет: ',
-              formerror
+              'Приоритет: '
             )
           }
           {
@@ -94,8 +90,7 @@ let ChangeTaskForm = (props) => {
               "date",
               '',
               [],
-              'Дата начала: ',
-              formerror
+              'Дата начала: '
             )
           }
           {
@@ -106,8 +101,7 @@ let ChangeTaskForm = (props) => {
               "date",
               '',
               [],
-              'Deadline: ',
-              formerror
+              'Deadline: '
             )
           }
         </div>

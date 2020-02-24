@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import classes from './ToDoList.module.css';
 import ToDoList from './ToDoList';
+import { reorderedToDoList } from '../../redux/toDoListReduser';
 // import { createTextField } from '../common/helpFunctions';
 // import { InputFieldCreator } from '../common/BlockContainer';
 // import { required } from '../common/validators';
@@ -20,6 +21,19 @@ const Lists = (props) => {
     setNewToDoListName('');
 }
 
+  const moveToDoListUp = (todolistId) =>{
+   let putAfterItemId;
+    for (let i = 0; i < props.toDoLists.length; i++){
+      
+      props.toDoLists[i - 2] && props.toDoLists[i].id === todolistId 
+      ? 
+      putAfterItemId = props.toDoLists[i-2].id
+      : 
+      putAfterItemId = null;
+    }
+  reorderedToDoList(todolistId, putAfterItemId);
+}
+
 return(
   <div className = {classes.listsWithBtnWrp}>
     <h1 >СПИСОК ДЕЛ</h1>
@@ -37,7 +51,8 @@ return(
       changeTask = {props.changeTask}
       tasks = {list.items}
       deleteTaskFromList = {props.deleteTaskFromList}
-        formError={props.formError}/>
+        formError={props.formError}
+        moveToDoListUp={moveToDoListUp}/>
     })
     }
     </div>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import classes from './ToDoList.module.css';
 import addIcon from './../../img/actions/edit_add.png';
-import deleteIcon from './../../img/actions/edit_remove.png';
-import editIcon from './../../img/actions/edit.png';
 import NewTaskForm from './NewTaskForm';
 import ChangeTaskForm from './ChangeTaskForm';
+import TaskItem from './TaskItem';
+import UpButton from './../../img/UP.png'
 
 
 
@@ -14,12 +14,21 @@ const ToDoList = props => {
   
   const [showChangeTaskFormState, setShowChangeTaskFormState] = useState(false); //edit changeTask form mode on/off
 
+  const [currentTaskId, setCurrentTaskId] = useState(); //current task ID to changed task
+
   const toggleNewTaskForm = () => {
     setShowNewTaskFormState(!showNewTaskFormState);
   }
   const toggleChangeTaskForm = () => {
     setShowChangeTaskFormState(!showChangeTaskFormState);
   }
+
+  const toggleChangeTaskFormAndSendIdToForm = (id) => {
+    setShowChangeTaskFormState(!showChangeTaskFormState);
+    setCurrentTaskId(id);
+  }
+
+
 
   const loadNewTask = (newTask) => {
     const listId = props.id;
@@ -30,8 +39,9 @@ const ToDoList = props => {
   
   const changeTask = (task) => {
     const listId = props.id;
-    props.changeTask(task, listId);
-    // toggleChangeTaskForm()
+    let taskId = currentTaskId;
+    props.changeTask(task, taskId, listId);
+    toggleChangeTaskForm();
   }
 
   const deleteTaskFromCurrentList = ((todolistId, taskId) =>{
@@ -41,6 +51,10 @@ const ToDoList = props => {
     return (<div className={classes.toDoListItem}>
         <div className={classes.toDoListItemTitle}>
           <div><b>{props.title}</b></div>
+        <div className={classes.tooltip} onClick={() => { props.moveToDoListUp(props.id) }} data-tooltip="Переместить список наверх">
+          <img src={UpButton} alt='UP' />
+        </div>
+          
           <div><span>Создан: </span>{props.addedDate.slice(0, 19)}</div>
         </div>
         <div>Порядок:{props.order}</div>
@@ -52,17 +66,10 @@ const ToDoList = props => {
             </div>
           </div>
           {
-            props.tasks && props.tasks.map((task)=>{
-              return <div id = {task.id} key = {task.id} className = {classes.taskItem}>
-                <span>{task.title}</span>
-                <div className={classes.tooltip} onClick = {toggleChangeTaskForm} data-tooltip="Изменить задание" >
-              <img src={editIcon} alt="Переименовать" />
-            </div>
-            <div className={classes.tooltip} onClick = {()=>{deleteTaskFromCurrentList(task.todoListId, task.id)}} data-tooltip="Удалить задание">
-              <img src={deleteIcon} alt="Удалить" />
-            </div>
-              </div>
-             })
+            props.tasks && props.tasks.map((taskItem)=>{
+              return <TaskItem key={taskItem.id} taskItem={taskItem} toggleChangeTaskFormAndSendIdToForm={toggleChangeTaskFormAndSendIdToForm}
+                deleteTaskFromCurrentList={deleteTaskFromCurrentList}/>
+            })
           }
         </div>
         <button className={classes.btn} onClick={() => { props.deleteToDoList(props.id) }}>Удалить список</button>

@@ -27,12 +27,16 @@ let inputType = props.type;
                         {...props}/>
         } </div>
       <div className={classes.spanWrp}>
-        {meta.touched &&  meta.error && <span>{meta.error}</span >} </div>
+        {meta.touched &&  meta.error && <span>{meta.error}</span >} < /div>
     </>
 )
 };
 
-export const InputDataFieldCreator = ({input, meta, ...props}) => {
+export const InputDataFieldCreator = ({
+input,
+meta,
+...props
+}) => {
 let inputType = props.type;
 let label = props.label;
 let formError = props.formerror;
@@ -44,20 +48,18 @@ if (inputName.includes('contacts')) {
     inputName = inputName.slice(9);
 }
 //choosing only personal error each input
-let filteredFormError = formError.filter(
-    item => item.toLowerCase().includes(inputName)
-)
+let filteredFormError = formError
+    ? formError.filter(item => item.toLowerCase().includes(inputName))
+    : null
 
 return (
-<> <div className = {
+<> < div className = {
     classNames(classes.inputWrp, {
         [classes.error]: meta.touched && meta.error
     })
-}> 
-{
+} > {
     <span className={classes.label}>{label}</span>
-} 
-{
+} {
     inputType === "textarea"
         ? (
             <textarea
@@ -76,14 +78,14 @@ return (
                 {...input}
                 {...props}/>
         )
-} </div>
+} < /div>
       <div className={classes.spanWrp}>
         {meta.touched && meta.error && <span>{meta.error}</span >
 } {
-formError[0] && input
+formError && formError[0] && input
 ? <span>{filteredFormError}</span>
 : null
-} </div>
+} < /div>
     </ >
 );
 };

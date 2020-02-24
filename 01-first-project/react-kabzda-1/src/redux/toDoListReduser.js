@@ -79,7 +79,7 @@ export const deleteToDoList = (todolistId) => (dispatch) => {
 
 export const loadNewTask = (newTask, listId) => (dispatch) => {
     toDoListAPI
-        .setNewTask(listId, newTask.title)
+        .setNewTask(newTask, listId)
         .then((data) => {
             if (data.resultCode === 0) {
                 toDoListAPI
@@ -101,40 +101,32 @@ export const loadNewTask = (newTask, listId) => (dispatch) => {
         })
 }
 
-export const changeTask = (task, listId) => async dispatch => {
+export const changeTask = (task, taskId, listId) => dispatch => {
+        toDoListAPI
+            .changeExistingTask(listId, taskId, task)
+            .then((response) => {
+                if (!response.message) {
 
-   let data = toDoListAPI
-        .changeExistingTask(listId, task.id, task);
-        
-            console.log(data)
-// Надо делать Try/Catch
-  
-        //   (data) => {
-        //   debugger
-        //     if (!data.message) {
-        //       debugger
-        //         toDoListAPI
-        //             .getTasksThisList(listId)
-        //             .then((data) => {
-        //                 if (!data.message) {
-        //                     dispatch(setTasksOfThisList(listId, data))
-        //                 } else {
-        //                     let message = data.message;
-        //                     console.log(message)
-        //                   let action = stopSubmit('ChangeTaskForm', {_error: message})
-        //                     dispatch(action);
-        //                 }
-        //             })
-        //     } else {
-        //       debugger
-        //         let message = data.message;
-        //                                     console.log(message)
-        //       let action = stopSubmit('ChangeTaskForm', {_error: message})
-        //         dispatch(action);
-        //     }
-        // }
-        
-        // )
+                    toDoListAPI
+                        .getTasksThisList(listId)
+                        .then((response) => {
+                            if (!response.message) {
+                                dispatch(setTasksOfThisList(listId, response))
+                            } else {
+                                let message = response.message;
+                                console.log(message)
+                                let action = stopSubmit('ChangeTaskForm', {_error: message})
+                                dispatch(action);
+                            }
+                        })
+                } else {
+                    let message = response.message;
+                    console.log(message)
+                    let action = stopSubmit('ChangeTaskForm', {_error: message})
+                    dispatch(action);
+                }
+            })
+
 }
 
 export const deleteTaskFromList = (todolistId, taskId) => (dispatch) => {
@@ -151,6 +143,19 @@ export const deleteTaskFromList = (todolistId, taskId) => (dispatch) => {
       }
   )
 })
+}
+
+export const reorderedToDoList = (todolistId, putAfterItemId) => (dispatch) => {
+  toDoListAPI.reorderedToDoList(todolistId, putAfterItemId)
+  .then( data => {
+    if (data.resultCode === 0){
+      getAllToDoLists();
+    } 
+    else {
+      console.log(data.messages)
+    }
+  })
+
 }
 
 

@@ -172,10 +172,10 @@ export const toDoListAPI = {
     })
   },
   
-  setNewTask(todolistId, title) {
+  setNewTask(newTask, todolistId) {
 
     return instance.post(`todo-lists/${todolistId}/tasks`, {
-      title: title
+      ...newTask
     })
     .then(response => {
       return response.data;
@@ -190,17 +190,25 @@ export const toDoListAPI = {
       },
 
   changeExistingTask(todolistId, taskId, task) {
-
-    return toDoInstance.put(`todo-lists/${todolistId}/tasks/${taskId}`, {
-      ...task
-    })
-    .then(response => {
-      return response.data;
-    });
+        return toDoInstance.put(`todo-lists/${todolistId}/tasks/${taskId}`, {
+            ...task
+          })
+          .then(response => {
+            return response.data;
+          });
   },
 
   deleteTaskFromList(todolistId, taskId) {
     return toDoInstance.delete(`todo-lists/${todolistId}/tasks/${taskId}`)
+    .then(response => {
+      return response;
+    });
+  },
+
+  reorderedToDoList(todolistId, putAfterItemId = null) {
+    return toDoInstance.put(`todo-lists/${todolistId}/reorder`, {
+      putAfterItemId: putAfterItemId
+    })
     .then(response => {
       return response;
     });

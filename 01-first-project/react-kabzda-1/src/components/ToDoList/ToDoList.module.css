@@ -79,7 +79,8 @@ h1 {
   visibility: visible;
 }
 
-.tasksList .tooltip>img {
+.tasksList .tooltip>img,
+.toDoListItem .tooltip>img {
   width: 20px;
   margin: 0 5px;
 }
@@ -100,4 +101,8 @@ align-items: center;
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.lineThrough{
+  text-decoration: line-through;
 }
