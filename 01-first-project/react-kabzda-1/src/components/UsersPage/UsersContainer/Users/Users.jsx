@@ -13,7 +13,8 @@ const Users = (props) => {
 
   const addToFrends = (frendID) => {
     let frend = props.users.filter(user => user.id === frendID);
-    props.addToFrends(frend[0])
+    props.addToFrends(frend[0]);
+    // localStorage.setItem('frends', JSON.stringify(props.frends));    
   } 
   const deleteFromFrends = (frendID) => {
     let frend = props.users.filter(user => user.id === frendID);

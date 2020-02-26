@@ -30,6 +30,7 @@ import {
   getUsersPerPageCountSelector
 } from "../../../redux/usersSelectors";
 import { getUrlAIGeneratedImageSelector } from '../../../redux/profileSelectors';
+import { getFrendsSelector } from '../../../redux/navBarSelectors';
 
 
 class UsersContainer extends React.Component {
@@ -155,7 +156,8 @@ return {
     isLoading: getIsLoadingSelector(state),
   followInProgress: getFollowInProgressSelector(state),
   isAuth: getIsAuthSelector(state),
-  urlAIGeneratedImage: getUrlAIGeneratedImageSelector(state)
+  urlAIGeneratedImage: getUrlAIGeneratedImageSelector(state),
+  frends: getFrendsSelector(state)
 }
 
 }

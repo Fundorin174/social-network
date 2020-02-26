@@ -5,12 +5,13 @@ import {connect} from 'react-redux';
 import {deleteFromFrends} from './../../../redux/navBarReduser';
 import { fromFriends} from './../../../redux/userReduser';
 import { getUrlAIGeneratedImageSelector } from '../../../redux/profileSelectors';
+import { getFrendsSelector } from '../../../redux/navBarSelectors';
 
 
 
 let mapStateToProps = (state) => {
     return {
-        frends: state.navBar.frends,
+      frends: getFrendsSelector(state),
         urlAIGeneratedImage: getUrlAIGeneratedImageSelector(state),
 
     }

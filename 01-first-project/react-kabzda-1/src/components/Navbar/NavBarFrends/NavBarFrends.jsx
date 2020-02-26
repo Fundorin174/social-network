@@ -6,6 +6,8 @@ import Frend from './frend/Frend';
 
 
 const NavbarFriends = (props) => {
+  
+
   const deleteFromFrends = (frendID) => {
     let frend = props.frends.filter(frend => frend.id === frendID);
     props.deleteFromFrends(frend[0]);
