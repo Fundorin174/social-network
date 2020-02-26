@@ -1,15 +1,25 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import Avatar from './../../../../../../src/img/avatar.png';
+import avatar from './../../../../../../src/img/avatar.png';
 import classes from './User.module.css';
 const User = (props) => {
+
+  const addToFrends = () => {
+    props.toFriends(props.id);
+    props.addToFrends(props.id)
+  }
+  const deleteFromFrends = () => {
+    props.fromFriends(props.id);
+    props.deleteFromFrends(props.id)
+  }
+
     return (
         <div className = {classes.user_wrapper}>
             <div className={classes.left_column}>
               <NavLink to={props.isAuth ? '/profile/' + props.id : '/login'}>
               <img
                   className={classes.img}
-                  src={ props.smallPhotoSrc != null ? props.smallPhotoSrc : props.isFaceGeneratedAvatar ? props.urlAIGeneratedImage : Avatar}
+              src={props.smallPhotoSrc != null ? props.smallPhotoSrc : props.urlAIGeneratedImage ? props.urlAIGeneratedImage : avatar}
                   alt={"avatar"}/>
               </NavLink>
                {
@@ -21,8 +31,8 @@ const User = (props) => {
                }
                {
                     props.isFrend ?
-                   <button onClick = {() => {props.fromFriends (props.id)}} className={classes.btn}>Убрать из друзей </button> :
-                   <button onClick = {() => { props.toFriends (props.id)}} className={classes.btn}>Добавить в друзья </button>
+              <button onClick={deleteFromFrends} className={classes.btn}>Убрать из друзей </button> :
+              <button onClick={addToFrends} className={classes.btn}>Добавить в друзья </button>
                 }  
                
             </div>

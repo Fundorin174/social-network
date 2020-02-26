@@ -14,9 +14,10 @@ import {
   toggleFollowInProgress,
   unFollow
 } from "../../../redux/userReduser";
+import { addToFrends, deleteFromFrends} from './../../../redux/navBarReduser';
 import {connect} from 'react-redux';
 import Users from './Users/Users';
-import Preloader from './../../common/Preloader/Preloader'
+import Preloader from './../../common/Preloader/Preloader';
 import {compose} from 'redux';
 import {getIsAuthSelector} from "../../../redux/authSelectors";
 import {
@@ -28,7 +29,7 @@ import {
   getTotalUsersCountSelector,
   getUsersPerPageCountSelector
 } from "../../../redux/usersSelectors";
-import { getIsFaceGeneratedSelector, getUrlAIGeneratedImageSelector } from '../../../redux/profileSelectors';
+import { getUrlAIGeneratedImageSelector } from '../../../redux/profileSelectors';
 
 
 class UsersContainer extends React.Component {
@@ -50,11 +51,10 @@ changeUserPerPageCount = (e) => {
         .getUsers(this.props.currentPage, numOfUsers);
 }
 
-lastPage = () => {
+toLastPage = () => {
     let pagesCount = Math.ceil(
         this.props.totalUsersCount / this.props.usersPerPageCount
     )
-
     this
         .props
         .lastPage(pagesCount);
@@ -120,16 +120,6 @@ changeActivePage = (p) => {
                 : null
         }
         <Users
-          isAuth = {this.props.isAuth}
-          currentPage = {
-            this.props.currentPage
-        }
-        searchUsers = {
-            this.props.searchUsers
-        }
-        searchUsersText = {
-            this.props.searchUsersText
-        }
         setFirstPage = {
             this.setFirstPage
         }
@@ -139,14 +129,8 @@ changeActivePage = (p) => {
         setNextPage = {
             this.setNextPage
         }
-        lastPage = {
-            this.lastPage
-        }
-        totalUsersCount = {
-            this.props.totalUsersCount
-        }
-        usersPerPageCount = {
-            this.props.usersPerPageCount
+            toLastPage = {
+              this.toLastPage
         }
         changeUserPerPageCount = {
             this.changeUserPerPageCount
@@ -154,31 +138,8 @@ changeActivePage = (p) => {
         changeActivePage = {
             this.changeActivePage
         }
-        users = {
-            this.props.users
-        }
-        follow = {
-            this.props.follow
-        }
-        unFollow = {
-            this.props.unFollow
-        }
-        toFriends = {
-            this.props.toFriends
-        }
-        fromFriends = {
-            this.props.fromFriends
-        }
-            toggleFollowInProgress = {
-              this.props.toggleFollowInProgress
-        }
-        followInProgress = {
-          this.props.followInProgress
-        }
-        isFaceGeneratedAvatar = {this.props.isFaceGeneratedAvatar}
-        urlAIGeneratedImage = {this.props.urlAIGeneratedImage}
-        /> 
-        </ >
+            {...this.props}/> 
+        </>
 
 }
 
@@ -194,7 +155,6 @@ return {
     isLoading: getIsLoadingSelector(state),
   followInProgress: getFollowInProgressSelector(state),
   isAuth: getIsAuthSelector(state),
-  isFaceGeneratedAvatar: getIsFaceGeneratedSelector(state),
   urlAIGeneratedImage: getUrlAIGeneratedImageSelector(state)
 }
 
@@ -203,7 +163,9 @@ return {
 export default compose(
    connect(mapStateToProps, {
     toFriends,
+     addToFrends,
     fromFriends,
+     deleteFromFrends,
     searchUsers,
     changeCurrentPage,
     nextPage,
@@ -214,6 +176,7 @@ export default compose(
     toggleFollowInProgress,
     getUsers,
     unFollow,
-    follow
+    follow,
+
   })
 )(UsersContainer);

@@ -123,7 +123,7 @@ return (
           src={
             props.currentProfile.photos.large != null
               ? props.currentProfile.photos.large
-              : props.isFaceGeneratedAvatar ? props.urlAIGeneratedImage :Avatar
+              : props.urlAIGeneratedImage ? props.urlAIGeneratedImage :Avatar
           }
           alt={"my-ava"}
         />

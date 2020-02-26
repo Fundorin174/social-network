@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from './Users.module.css';
 import User from './User/User';
 import Search from './Search/Search';
@@ -10,6 +10,15 @@ const Users = (props) => {
     for (let i = props.currentPage; i < j + 5; i++) {
         pages.push(i);
     }
+
+  const addToFrends = (frendID) => {
+    let frend = props.users.filter(user => user.id === frendID);
+    props.addToFrends(frend[0])
+  } 
+  const deleteFromFrends = (frendID) => {
+    let frend = props.users.filter(user => user.id === frendID);
+    props.deleteFromFrends(frend[0])
+  } 
     return (
         <div>
             <div className={classes.search_wrapper}>
@@ -29,7 +38,7 @@ const Users = (props) => {
                 props.setNextPage
               }
               lastPage = {
-                props.lastPage
+                props.toLastPage
               }
               totalUsersCount = {
                 props.totalUsersCount
@@ -62,10 +71,11 @@ const Users = (props) => {
                                     unFollow={props.unFollow}
                                     toFriends={props.toFriends}
                                     fromFriends={props.fromFriends}
+                                  addToFrends={addToFrends}
+                                  deleteFromFrends={deleteFromFrends}
                                   toggleFollowInProgress={props.toggleFollowInProgress}
                                   followInProgress = {props.followInProgress}
-                                  isFaceGeneratedAvatar = {props.isFaceGeneratedAvatar}
-          urlAIGeneratedImage = {props.urlAIGeneratedImage}
+                                  urlAIGeneratedImage = {props.urlAIGeneratedImage}
                                   />
 
                         })

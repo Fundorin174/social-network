@@ -15,7 +15,7 @@ import {
 import {withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
-import {getCurrentProfileSelector, getCurrentStatusSelector, getProfileSetErrors, getloadProfileDataSuccess, getIsFaceGeneratedSelector, getUrlAIGeneratedImageSelector, getIsAIAvatarGeneratedSucces, getaVatarNotFoundMsgSelector} from "../../redux/profileSelectors";
+import {getCurrentProfileSelector, getCurrentStatusSelector, getProfileSetErrors, getloadProfileDataSuccess,  getUrlAIGeneratedImageSelector, getIsAIAvatarGeneratedSucces, getaVatarNotFoundMsgSelector} from "../../redux/profileSelectors";
 import {getAutorizedUserIdSelector, getIsAuthSelector} from "../../redux/authSelectors";
 import { getFormSyncErrors } from 'redux-form';
 
@@ -69,7 +69,6 @@ let mapStateToProps = (state) => ({
   autorizedUserId: getAutorizedUserIdSelector(state),
   formError: getProfileSetErrors(state),
   loadProfileDataSuccess: getloadProfileDataSuccess(state),
-  isFaceGeneratedAvatar: getIsFaceGeneratedSelector(state),
   urlAIGeneratedImage: getUrlAIGeneratedImageSelector(state),
   isAIAvatarGeneratedSucces: getIsAIAvatarGeneratedSucces(state),
   aVatarNotFoundMsg: getaVatarNotFoundMsgSelector(state)

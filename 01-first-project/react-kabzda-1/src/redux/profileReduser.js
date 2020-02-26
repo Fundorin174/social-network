@@ -72,23 +72,22 @@ let initialState = {
     loadProfileDataSuccess: false,
     generatedFaces: 
       {faces:[
-        {id:"5e01137a7b1b300007f72ab3",
+        {id:"",
         urls:[
-          {32:"https://images.generated.photos/cDyfGeFdum82G-BvxZwK_7AgiaLlERHm6yZp7oV9X94/rs:fit:32:32/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA5Nzk2OTQuanBn.jpg"},{64:"https://images.generated.photos/eK4R66p9K7vqQSgm0GcIYu1NeNJiVhQH-yP0ayt2p-Y/rs:fit:64:64/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA5Nzk2OTQuanBn.jpg"},{128:"https://images.generated.photos/soqUR--DY0fPpUCXpMulYND_ZZgF1Sv91GrMlFTBo4Y/rs:fit:128:128/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA5Nzk2OTQuanBn.jpg"},{256:"https://images.generated.photos/cv5ccGtHNqHww2wZT5v4ePCsvqo-6-VklAwfKbcsRSA/rs:fit:256:256/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA5Nzk2OTQuanBn.jpg"},{512:"https://images.generated.photos/idbUf1EgZqu9sXfynX08FXUQ5JHuBmF3bK3AH2emqPI/rs:fit:512:512/Z3M6Ly9nZW5lcmF0/ZWQtcGhvdG9zL3Yy/XzA5Nzk2OTQuanBn.jpg"}],
+          {32:""},{64:""},{128:""},{256:""},{512:""}],
         meta:{
           confidence:0.000888282957021147,
-          gender:["male"],
-          age:["young-adult"],
-          ethnicity:["white"],
-          eye_color:["blue"],
-          hair_color:["blond"],
-          hair_length:["medium"],
-          emotion:["joy"]
+          gender:[""],
+          age:[""],
+          ethnicity:[""],
+          eye_color:[""],
+          hair_color:[""],
+          hair_length:[""],
+          emotion:[""]
           }
       }],
       total:6
     },
-    isFaceGeneratedAvatar: false,
     isAIAvatarGeneratedSucces: true,
     aVatarNotFoundMsg: ''
 
@@ -214,8 +213,7 @@ const profileReducer = (state = initialState, action) => {
         
         case SET_AI_GENERATED_PHOTO:
             return {...state, 
-                    generatedFaces: action.data, 
-                    isFaceGeneratedAvatar: true};
+                    generatedFaces: action.data};
  
         case LOAD_PROFILE_DATA_SUCCESS:
             return {...state, loadProfileDataSuccess: action.result};

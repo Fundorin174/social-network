@@ -6,7 +6,14 @@ import Frend from './frend/Frend';
 
 
 const NavbarFriends = (props) => {
-  let allFriends = props.frends.map( frend => <Frend key = {frend.id} name = {frend.name}/>);
+  const deleteFromFrends = (frendID) => {
+    let frend = props.frends.filter(frend => frend.id === frendID);
+    props.deleteFromFrends(frend[0]);
+    props.fromFriends(frendID)
+  } 
+
+  let allFriends = props.frends[0] && props.frends.map(frend => <Frend key={frend.id} id = {frend.id}
+    name={frend.name} photo={frend.photos.small} urlAIGeneratedImage={props.urlAIGeneratedImage} deleteFromFrends={deleteFromFrends}/>);
     return (
 <div className={classes.frends_wrapper}>
   <div className={classes.title}>Друзья</div>

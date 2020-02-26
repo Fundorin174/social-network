@@ -18,7 +18,6 @@ const Profile = React.memo(props => {
           setErrors={props.setErrors}
           isloadProfileDataSuccess= {props.isloadProfileDataSuccess}
           getGeneratedPhoto = {props.getGeneratedPhoto}
-          isFaceGeneratedAvatar = {props.isFaceGeneratedAvatar}
           urlAIGeneratedImage = {props.urlAIGeneratedImage}
           isAIAvatarGeneratedSucces={props.isAIAvatarGeneratedSucces}
           setAIAvatarGeneratedSucces = {props.setAIAvatarGeneratedSucces}
