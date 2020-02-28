@@ -9,12 +9,13 @@ const NavbarFriends = React.memo((props) => {
 
   useEffect(() => {
     let savedFrends = JSON.parse(localStorage.getItem('frends'));
-    savedFrends && props.setFrends(savedFrends);
-
-    return () => {
-      props.frends[0] && localStorage.setItem('frends', JSON.stringify(props.frends));  
-    };
+    savedFrends[0] && props.setFrends(savedFrends);
   }, [])
+
+  useEffect(() => {
+    props.frends.length !== 0 && localStorage.setItem('frends', JSON.stringify(props.frends));  
+
+  }, [props.frends.length])
 
     const deleteFromFrends = (frendID) => {
         let frend = props
@@ -24,7 +25,7 @@ const NavbarFriends = React.memo((props) => {
         props.fromFriends(frendID) //change button on users page
     }
     
-    let allFriends = props.frends[0] ? props
+  let allFriends = props
         .frends
         .map(
             frend => <Frend
@@ -34,13 +35,12 @@ const NavbarFriends = React.memo((props) => {
                 photo={frend.photos.small}
                 urlAIGeneratedImage={props.urlAIGeneratedImage}
                 deleteFromFrends={deleteFromFrends}/>
-        ) : null;
+        );
     return (
         <div className={classes.frends_wrapper}>
             <div className={classes.title}>Друзья</div>
             <div className={classes.frends_items}>
-
-                {allFriends}
+          {props.frends.length !== 0 ? allFriends : null}
 
             </div>
         </div>

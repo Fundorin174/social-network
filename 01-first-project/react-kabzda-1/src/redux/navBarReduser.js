@@ -41,7 +41,7 @@ const navBarReducer = (state = initialState, action) => {
  
       return {
         ...state,
-        frends: [...state.frends, action.frend]
+        frends: [...state.frends].concat(action.frend)
       }
 
       case DELETE_FROM_FRENDS:
