@@ -20,7 +20,6 @@ export const deleteFromFrends = (frend) => ({
 
 export const addToFrends = (frend) => (dispatch) => {
   dispatch(setFrends(frend))
-  dispatch(setFrendsToLocalState())
 }
     // console.log(
     //   JSON.stringify(props.frends)
@@ -30,9 +29,9 @@ export const addToFrends = (frend) => (dispatch) => {
     //   JSON.parse(frendsString)
     // )
 // JSON.parse(localStorage.getItem('frends'))
-
+// .concat(JSON.parse(localStorage.frends))
 let initialState = {
-    frends: [].concat(JSON.parse(localStorage.frends))
+    frends: []
 };
 
 const navBarReducer = (state = initialState, action) => {
@@ -45,10 +44,6 @@ const navBarReducer = (state = initialState, action) => {
         frends: [...state.frends, action.frend]
       }
 
-      case SET_FRENDS_TO_LOCAL_STATE:
-      localStorage.setItem('frends', JSON.stringify(...state.frends));
-      return state;
-    
       case DELETE_FROM_FRENDS:
 
       return {
