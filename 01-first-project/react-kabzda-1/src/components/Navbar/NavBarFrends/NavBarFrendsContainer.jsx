@@ -3,7 +3,7 @@ import NavbarFriends from './NavBarFrends';
 // import StoreContext from './../../../storeContext';
 import {connect} from 'react-redux';
 import {deleteFromFrends, setFrends} from './../../../redux/navBarReduser';
-import { fromFriends} from './../../../redux/userReduser';
+import { fromFriends, toFriends} from './../../../redux/userReduser';
 import { getUrlAIGeneratedImageSelector } from '../../../redux/profileSelectors';
 import { getFrendsSelector } from '../../../redux/navBarSelectors';
 
@@ -18,6 +18,6 @@ let mapStateToProps = (state) => {
 }
 
 
-const NavbarFriendsContainer = connect(mapStateToProps, { deleteFromFrends, fromFriends, setFrends })(NavbarFriends);
+const NavbarFriendsContainer = connect(mapStateToProps, { deleteFromFrends, fromFriends, setFrends, toFriends })(NavbarFriends);
 
 export default NavbarFriendsContainer;

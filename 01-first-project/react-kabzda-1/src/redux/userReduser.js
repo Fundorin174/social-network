@@ -114,6 +114,7 @@ const usersReducer = (state = initialState, action) => {
             }
 
         case FROM_FRIENDS:
+
             return {
                 ...state,
                 users: changeElementInArray(state.users, "id", action.userID, {isFrend: false})

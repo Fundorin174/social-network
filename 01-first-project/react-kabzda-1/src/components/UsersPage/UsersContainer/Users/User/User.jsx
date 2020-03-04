@@ -1,17 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import avatar from './../../../../../../src/img/avatar.png';
 import classes from './User.module.css';
 const User = (props) => {
 
+
+  useEffect(() => {
+    if (props.frends.some(frend => frend.id === props.id)) {
+      props.toFriends(props.id);
+    } //change button state for loading from local storage frends
+  }, [])
+  
+
+
+
   const addToFrends = () => {
-    props.toFriends(props.id);
-    props.addToFrends(props.id)
+    if (props.frends.every(frend => frend.id !== props.id)){
+      props.toFriends(props.id);
+      props.addToFrends(props.id);
+    }
+    else {console.log('уже в друзьях')}
   }
   const deleteFromFrends = () => {
-    props.fromFriends(props.id);
-    props.deleteFromFrends(props.id)
+    if (props.frends.some(frend => frend.id === props.id)){
+      let deletedFrend = props.frends.filter(frend => frend.id === props.id);
+      props.deleteFromFrends(deletedFrend[0]);
+      props.fromFriends(props.id);
+      let newFrends = props.frends.filter(frend => frend.id !== props.id);
+      props.frends.length !== 1 
+      ? 
+      localStorage.setItem('frends', JSON.stringify(newFrends))
+      :
+      localStorage.setItem('frends', JSON.stringify(''));
+    } else { console.log('нет такого') }
   }
+
 
     return (
         <div className = {classes.user_wrapper}>

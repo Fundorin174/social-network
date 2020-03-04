@@ -6,14 +6,17 @@ import Frend from './frend/Frend';
 
 
 const NavbarFriends = React.memo((props) => {
-
+  
+  
   useEffect(() => {
     let savedFrends = JSON.parse(localStorage.getItem('frends'));
     savedFrends[0] && props.setFrends(savedFrends);
+    
+    
   }, [])
 
   useEffect(() => {
-    props.frends.length !== 0 && localStorage.setItem('frends', JSON.stringify(props.frends));  
+    props.frends.length !== 0 ? localStorage.setItem('frends', JSON.stringify(props.frends)) : localStorage.setItem('frends', JSON.stringify(''))
 
   }, [props.frends.length])
 

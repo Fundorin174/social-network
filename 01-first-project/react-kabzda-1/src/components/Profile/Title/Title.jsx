@@ -97,7 +97,6 @@ const upLoadAvatar = (e) => {
 }
 //Upload Profile Data callback
   const loadProfileData = (value) => {
-
     props.loadProfileData(value)
   }
 

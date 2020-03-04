@@ -14,12 +14,8 @@ const Users = (props) => {
   const addToFrends = (frendID) => {
     let frend = props.users.filter(user => user.id === frendID);
     props.addToFrends(frend);
-    // localStorage.setItem('frends', JSON.stringify(props.frends));    
   } 
-  const deleteFromFrends = (frendID) => {
-    let frend = props.users.filter(user => user.id === frendID);
-    props.deleteFromFrends(frend)
-  } 
+
     return (
         <div>
             <div className={classes.search_wrapper}>
@@ -73,7 +69,7 @@ const Users = (props) => {
                                     toFriends={props.toFriends}
                                     fromFriends={props.fromFriends}
                                   addToFrends={addToFrends}
-                                  deleteFromFrends={deleteFromFrends}
+                                  deleteFromFrends={props.deleteFromFrends}
                                   toggleFollowInProgress={props.toggleFollowInProgress}
                                   followInProgress = {props.followInProgress}
                                   urlAIGeneratedImage = {props.urlAIGeneratedImage}

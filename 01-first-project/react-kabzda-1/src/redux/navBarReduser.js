@@ -45,7 +45,6 @@ const navBarReducer = (state = initialState, action) => {
       }
 
       case DELETE_FROM_FRENDS:
-
       return {
         ...state,
         frends: state.frends.filter(frend => frend.id !== action.frend.id)
