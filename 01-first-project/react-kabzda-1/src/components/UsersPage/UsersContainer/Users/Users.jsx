@@ -19,7 +19,11 @@ const Users = (props) => {
     return (
         <div>
             <div className={classes.search_wrapper}>
-                <Search searchUsers={props.searchUsers} />
+          <Search getUsers={props.getUsers} searchUsers={props.searchUsers} currentPage={
+            props.currentPage
+          } usersPerPageCount={
+            props.usersPerPageCount
+          }/>
             </div>
             <Pagination
               currentPage = {

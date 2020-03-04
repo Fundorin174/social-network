@@ -8,7 +8,7 @@ export const getSearchUsersTextSelector = (state) => {
   return state.usersPage.searchUsersText;
 }
 
-
+//this function dublicates on the server site throuth parametr 'term' on getUsers
 export const getSearchingUsersSelector = createSelector(getSearchUsersTextSelector, getUsersSelector, (searchUsersText, users) => {
   let filteredUsers = users ? users.filter( user => (`${user.name}`.toLowerCase().includes(searchUsersText.toLowerCase()))) : null;
   return filteredUsers;

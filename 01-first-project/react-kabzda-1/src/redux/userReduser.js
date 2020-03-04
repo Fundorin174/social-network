@@ -23,9 +23,14 @@ export const toFollow = (userID) => ({type: FOLLOW,
 export const toUnfollow = (userID) => ({type: UNFOLLOW, userID});
 export const toFriends = (userID) => ({type: TO_FRIENDS, userID});
 export const fromFriends = (userID) => ({type: FROM_FRIENDS, userID});
-export const searchUsers = (partOfName) => (
-    {type: SEARCH_USERS, partOfName: partOfName}
-);
+// export const searchUsers = (partOfName) => (
+//     {type: SEARCH_USERS, partOfName: partOfName}
+// );
+
+export const searchUsers = (partOfName) => ({
+  type: SEARCH_USERS,
+  partOfName: partOfName
+});
 export const setUsers = (users) => ({type: SET_USERS, users});
 export const changeCurrentPage = (pageNum) => (
     {type: CHANGE_CURRENT_PAGE, pageNum}
@@ -44,9 +49,9 @@ export const setTotalUsersCount = (totalCount) => (
 export const toggleFollowInProgress = (isFetching, userID) => ({
   type: TOGGLE_FOLLOW_IN_PROGRESS, isFetching, userID
   });
-export const getUsers = (currentPage, usersPerPageCount) => async (dispatch) => {
+export const getUsers = (currentPage, usersPerPageCount, term) => async (dispatch) => {
          dispatch(isloading(true));
-         let data = await usersAPI.getUsers(currentPage, usersPerPageCount);
+         let data = await usersAPI.getUsers(currentPage, usersPerPageCount, term);
              dispatch(isloading(false));
              dispatch(setUsers(data.items));
              dispatch(setTotalUsersCount(data.totalCount));
@@ -69,7 +74,6 @@ export const unFollow = (id) => async (dispatch) => {
   let followinMethod = (id) => {dispatch(toUnfollow(id))};
   followUnFollowToggle(dispatch, id, data, followinMethod);
 }
-
 
 
 

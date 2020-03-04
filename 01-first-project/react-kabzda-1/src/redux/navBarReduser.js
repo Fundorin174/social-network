@@ -21,15 +21,7 @@ export const deleteFromFrends = (frend) => ({
 export const addToFrends = (frend) => (dispatch) => {
   dispatch(setFrends(frend))
 }
-    // console.log(
-    //   JSON.stringify(props.frends)
-    // )
-    // let frendsString = JSON.stringify(props.frends)
-    // console.log(
-    //   JSON.parse(frendsString)
-    // )
-// JSON.parse(localStorage.getItem('frends'))
-// .concat(JSON.parse(localStorage.frends))
+
 let initialState = {
     frends: []
 };

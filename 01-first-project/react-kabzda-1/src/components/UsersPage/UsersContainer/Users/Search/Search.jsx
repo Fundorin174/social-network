@@ -5,6 +5,7 @@ const Search = props => {
   let searchUsers = e => {
     let text = e.target.value;
     props.searchUsers(text);
+    props.getUsers(props.currentPage, props.usersPerPageCount, text)
   };
 
   return (
