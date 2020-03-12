@@ -10,7 +10,7 @@ const NavbarFriends = React.memo((props) => {
   
   useEffect(() => {
     let savedFrends = JSON.parse(localStorage.getItem('frends'));
-    savedFrends[0] && props.setFrends(savedFrends);
+    savedFrends && savedFrends[0] && props.setFrends(savedFrends);
     
     
   }, [])

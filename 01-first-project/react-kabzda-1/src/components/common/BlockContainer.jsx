@@ -27,9 +27,8 @@ let inputType = props.type;
                         {...props}/>
         } </div>
       <div className={classes.spanWrp}>
-        {meta.touched &&  meta.error && <span>{meta.error}</span >} < /div>
-    </>
-)
+        {meta.touched &&  meta.error && <span>{meta.error}</span >} </div>
+    </>)
 };
 
 export const InputDataFieldCreator = ({
@@ -78,14 +77,14 @@ return (
                 {...input}
                 {...props}/>
         )
-} < /div>
+} </div>
       <div className={classes.spanWrp}>
         {meta.touched && meta.error && <span>{meta.error}</span >
 } {
 formError && formError[0] && input
 ? <span>{filteredFormError}</span>
 : null
-} < /div>
+} </div>
     </ >
 );
 };

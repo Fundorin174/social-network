@@ -1,5 +1,5 @@
-import {reset, stopSubmit} from 'redux-form';
-import {toDoListAPI} from './../DAL/api';
+import {stopSubmit} from 'redux-form';
+import {toDoListAPI} from '../DAL/api';
 import {isloading} from './userReduser';
 
 
@@ -10,11 +10,23 @@ SET_TASKS_OF_THIS_LIST = 'SOCIAL-NETWORK/TO_DO_LIST/SET_TASKS_OF_THIS_LIST';
 
     //  ACTION-CREATORS
 
+type SetToDoListActionDataType = {
+  id: null | string
+  title: null | string
+  addedDate: null | string
+  order: number
+}
 
- const setToDoLists = (data) => (
-  {type: SET_ALL_LISTS, data}
+type SetToDoListsActionType = {
+  type: typeof SET_ALL_LISTS,
+  data: Array<SetToDoListActionDataType>
+}
+
+ const setToDoLists = (data:Array<SetToDoListActionDataType>):SetToDoListsActionType => (
+  {type: SET_ALL_LISTS, 
+  data}
 )
- const setTasksOfThisList = (listId, data) => (
+ const setTasksOfThisList = (listId:number, data:any) => (
   {type: SET_TASKS_OF_THIS_LIST, listId, data}
 )
 
@@ -22,13 +34,14 @@ SET_TASKS_OF_THIS_LIST = 'SOCIAL-NETWORK/TO_DO_LIST/SET_TASKS_OF_THIS_LIST';
 
 // THUNKS
 
-export const createNewToDoList = (title) => (dispatch) => {
+export const createNewToDoList = (title:any) => (dispatch:any) => {
   dispatch(isloading(true));
   toDoListAPI.setNewToDoList(title)
   .then(() =>{
     toDoListAPI.getAllToDoLists()
-  .then((data)=>{
+  .then((data:any)=>{
     dispatch(setToDoLists(data))
+    console.log(data);
   })
   })
 
@@ -36,24 +49,24 @@ export const createNewToDoList = (title) => (dispatch) => {
 }
 
 
-export const getAllToDoLists = () => (dispatch) => {
+export const getAllToDoLists = () => (dispatch:any) => {
     toDoListAPI
         .getAllToDoLists()
-        .then((data) => {
+        .then((data:any) => {
             dispatch(setToDoLists(data))
             return data
         })
-        .then((toDoLists) => {
+        .then((toDoLists:any) => {
             dispatch(setAllTaskofAllLists(toDoLists))
         })
 }
 
-const setAllTaskofAllLists = (toDoLists) => (dispatch) => {
-    toDoLists.map(toDoList => {
+const setAllTaskofAllLists = (toDoLists:any) => (dispatch:any) => {
+    toDoLists.map((toDoList:any) => {
         let listId = toDoList.id;
         toDoListAPI
             .getTasksThisList(listId)
-            .then((data) => {
+            .then((data:any) => {
                 if (!data.error) {
                     dispatch(setTasksOfThisList(listId, data))
                 } else {
@@ -67,25 +80,25 @@ const setAllTaskofAllLists = (toDoLists) => (dispatch) => {
 }
 
 
-export const deleteToDoList = (todolistId) => (dispatch) => {
+export const deleteToDoList = (todolistId:any) => (dispatch:any) => {
   toDoListAPI.deleteToDoList(todolistId)
   .then(() => {
     toDoListAPI.getAllToDoLists()
-    .then((data)=>{
+    .then((data:any)=>{
       dispatch(setToDoLists(data))
     })
   })
 
 }
 
-export const loadNewTask = (newTask, listId) => (dispatch) => {
+export const loadNewTask = (newTask:any, listId:any) => (dispatch:any) => {
     toDoListAPI
         .setNewTask(newTask, listId)
-        .then((data) => {
+        .then((data:any) => {
             if (data.resultCode === 0) {
                 toDoListAPI
                     .getTasksThisList(listId)
-                    .then((data) => {
+                    .then((data:any) => {
                         if (!data.error) {
                             dispatch(setTasksOfThisList(listId, data))
                         } else {
@@ -102,15 +115,15 @@ export const loadNewTask = (newTask, listId) => (dispatch) => {
         })
 }
 
-export const changeTask = (task, taskId, listId) => dispatch => {
+export const changeTask = (task:any, taskId:any, listId:any) => (dispatch:any) => {
         toDoListAPI
             .changeExistingTask(listId, taskId, task)
-            .then((response) => {
+            .then((response:any) => {
                 if (!response.message) {
 
                     toDoListAPI
                         .getTasksThisList(listId)
-                        .then((response) => {
+                        .then((response:any) => {
                             if (!response.message) {
                                 dispatch(setTasksOfThisList(listId, response))
                             } else {
@@ -130,12 +143,12 @@ export const changeTask = (task, taskId, listId) => dispatch => {
 
 }
 
-export const deleteTaskFromList = (todolistId, taskId) => (dispatch) => {
+export const deleteTaskFromList = (todolistId:any, taskId:any) => (dispatch:any) => {
   toDoListAPI.deleteTaskFromList(todolistId, taskId)
   .then(()=>{
     toDoListAPI
       .getTasksThisList(todolistId)
-      .then((data) => {
+      .then((data:any) => {
         if (!data.error) {
           dispatch(setTasksOfThisList(todolistId, data))
         } else {
@@ -146,9 +159,9 @@ export const deleteTaskFromList = (todolistId, taskId) => (dispatch) => {
 })
 }
 
-export const reorderedToDoList = (todolistId, putAfterItemId) => (dispatch) => {
+export const reorderedToDoList = (todolistId:any, putAfterItemId:any) => (dispatch:any) => {
   toDoListAPI.reorderedToDoList(todolistId, putAfterItemId)
-  .then( data => {
+  .then( (data:any) => {
     if (data.resultCode === 0){
       dispatch(getAllToDoLists());
     } 
@@ -159,13 +172,13 @@ export const reorderedToDoList = (todolistId, putAfterItemId) => (dispatch) => {
 
 }
 
-export const reorderedTask = (toDoListId, taskId, putAfterItemId) => (dispatch) => {
+export const reorderedTask = (toDoListId:any, taskId:any, putAfterItemId:any) => (dispatch:any) => {
   toDoListAPI.reorderedTask(toDoListId, taskId, putAfterItemId)
-  .then( data => {
+  .then( (data:any) => {
     if (data.resultCode === 0){
       toDoListAPI
         .getTasksThisList(toDoListId)
-        .then((response) => {
+        .then((response:any) => {
           if (!response.message) {
             dispatch(setTasksOfThisList(toDoListId, response))
           } else {
@@ -185,13 +198,13 @@ export const reorderedTask = (toDoListId, taskId, putAfterItemId) => (dispatch) 
 
 
 // INITIAL STATE
-let initialState = {
+let initialState:any = {
   toDoLists: []
 };
 
 
 
-const toDoListReducer = (state = initialState, action) => {
+const toDoListReducer = (state = initialState, action:any) => {
 
   switch (action.type) {
          
@@ -207,7 +220,7 @@ const toDoListReducer = (state = initialState, action) => {
           toDoLists: [...state.toDoLists]
         };
         for(let i = 0; i< stateCopy.toDoLists.length; i++){
-          if (stateCopy.toDoLists[i].id === action.listId){
+          if (stateCopy.toDoLists[i].id && stateCopy.toDoLists[i].id === action.listId){
             stateCopy.toDoLists[i].items = action.data.items
           }
         }
