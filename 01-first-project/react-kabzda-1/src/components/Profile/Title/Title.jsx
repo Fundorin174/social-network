@@ -33,7 +33,6 @@ const [editAvatarMode, setEditAvatarMode] = useState(false);//edit AI Avatar cre
 if (!props.currentProfile) {
     return <Preloader/>
 } else{
-
 let contactsRender = () => {
   let socialIcons = [],
     srcToIcons;
@@ -132,6 +131,7 @@ return (
             onClick={showInput}
             className={classes.changePhotoIcon}
             src={changePhotoIcon}
+            alt='Photo'
           />
         )}
         {inputState && (

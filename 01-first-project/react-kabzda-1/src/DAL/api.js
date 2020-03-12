@@ -1,4 +1,3 @@
-
 import * as axios from 'axios';
 
 
@@ -18,13 +17,6 @@ const instance = axios.create({
     }
   });
 
-  // const generatedPhotoinstance = axios.create({
-  //   baseURL: 'https://api.generated.photos/api/v1',
-  //   withCredentials: true,
-  //     headers: {
-  //       Authorization: 'API-Key 6pydmUJIYJE48FXPqo-E0Q'
-  //     }
-  //   })
 
 export const usersAPI = {
 
@@ -36,7 +28,7 @@ export const usersAPI = {
   },
 
   
-  // Program Files(x86)\ Google\ Chrome\ Application\ chrome.exe”– - allow - file - access - from - files— disable - web - security— user - data - dir— disable - features = CrossSiteDocumentBlockingIfIsolating
+  
 
   toFollow(userID) {
     return instance.post(`follow/${userID}`)
@@ -55,7 +47,7 @@ export const usersAPI = {
   auth() {
     return instance.get('auth/me')
     .then(response => {
-      console.warn('This is old API. Please, use authApi.auth')
+      console.warn('This is old API. Please, use authApi.auth');
       return authAPI.auth(response);
     });
   }
@@ -78,12 +70,12 @@ export const authAPI = {
       password,
       rememberMe,
       captcha
-    })
+    });
       
   },
 
   logout() {
-    return instance.delete('auth/login')
+    return instance.delete('auth/login');
   },
 
   getCaptcha() {
