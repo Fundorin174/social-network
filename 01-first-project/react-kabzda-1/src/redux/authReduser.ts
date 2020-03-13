@@ -1,25 +1,41 @@
 import {authAPI} from '../DAL/api';
 import {stopSubmit} from "redux-form";
+import { AuthDataType } from '../types/types';
 
 const SET_AUTH_DATA = 'SOCIAL-NETWORK/AUTH/SET_AUTH_DATA';
 const DELETE_AUTH_DATA = 'SOCIAL-NETWORK/AUTH/DELETE_AUTH_DATA';
 const SET_CAPTCHA = 'SOCIAL-NETWORK/AUTH/SET_CAPTCHA'
 
-export const authMe = (data) => ({type: SET_AUTH_DATA, data});
 
-const deleteAuthMe = () => ({type: DELETE_AUTH_DATA})
 
-const setCaptcha = (url) => ({
+type AuthMeActionType = {
+  type: typeof SET_AUTH_DATA
+  data: AuthDataType
+}
+
+export const authMe = (data: AuthDataType): AuthMeActionType => ({type: SET_AUTH_DATA, data});
+
+type DeleteAuthMeActionType = {
+  type: typeof DELETE_AUTH_DATA
+}
+
+const deleteAuthMe = (): DeleteAuthMeActionType => ({type: DELETE_AUTH_DATA})
+
+type SetCaptchaActionType = {
+  type: typeof SET_CAPTCHA
+  url: string
+}
+const setCaptcha = (url: string): SetCaptchaActionType => ({
   type: SET_CAPTCHA, 
   url:url
 })
 
 
 
-export const login = (email, password, rememberMe, captcha) => (dispatch) => {
+export const login = (email:string, password:string, rememberMe:boolean, captcha:string) => (dispatch:any) => {
 
   authAPI.login(email, password, rememberMe, captcha)
- .then(response => {
+ .then((response:any) => {
 
     if (response.data.resultCode === 0) {
       dispatch(letAuth());
@@ -29,7 +45,7 @@ export const login = (email, password, rememberMe, captcha) => (dispatch) => {
         _error: message
       });
       authAPI.getCaptcha()
-      .then(response => {        
+      .then((response:any) => {        
         dispatch(setCaptcha(response.url));
         dispatch(action);
       })
@@ -45,9 +61,9 @@ export const login = (email, password, rememberMe, captcha) => (dispatch) => {
 };
 
 
-export const logout = () => (dispatch) => {
+export const logout = () => (dispatch: any) => {
   authAPI.logout()
-  .then(data => {
+  .then((data:any) => {
 
     if (data.data.resultCode === 0) {
       dispatch(deleteAuthMe());
@@ -57,9 +73,9 @@ export const logout = () => (dispatch) => {
   });
 };
 
-export const letAuth = () => dispatch => {
+export const letAuth = () => (dispatch:any) => {
   return authAPI.auth()
-    .then(data => {
+    .then((data:any) => {
       if (data.resultCode === 0) {
         dispatch(authMe(data));
       }
@@ -67,16 +83,18 @@ export const letAuth = () => dispatch => {
 };
 
 let initialState = {
-    id: null,
-    login: null,
-    email: null,
+    id: null as null | number,
+    login: null as null | string,
+    email: null as null | string,
     isAuth: false,
-    capchaUrl: null,
+    capchaUrl: null as null | string,
     isCaptchaNeeded: false
 
 };
 
-const authReducer = (state = initialState, action) => {
+type InitialStateType = typeof initialState
+
+const authReducer = (state = initialState, action:any): InitialStateType => {
 
     switch (action.type) {
 
