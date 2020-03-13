@@ -1,4 +1,5 @@
-import { usersAPI } from "./../DAL/api";
+import { UserType, UsersType } from './../types/types';
+import { usersAPI } from "../DAL/api";
 import {changeElementInArray} from "../components/common/helpFunctions";
 
 const FOLLOW = 'SOCIAL-NETWORK/USERS/FOLLOW',
@@ -17,39 +18,123 @@ const FOLLOW = 'SOCIAL-NETWORK/USERS/FOLLOW',
     TOGGLE_IS_LOADING = 'SOCIAL-NETWORK/USERS/TOGGLE_IS_LOADING',
     TOGGLE_FOLLOW_IN_PROGRESS = 'SOCIAL-NETWORK/USERS/TOGGLE_FOLLOW_IN_PROGRESS';
 
-export const toFollow = (userID) => ({type: FOLLOW,
+type ToFollowActionType = {
+  type: typeof FOLLOW
+  userID: number
+}
+
+export const toFollow = (userID: number): ToFollowActionType => ({type: FOLLOW,
   userID
 });
-export const toUnfollow = (userID) => ({type: UNFOLLOW, userID});
-export const toFriends = (userID) => ({type: TO_FRIENDS, userID});
-export const fromFriends = (userID) => ({type: FROM_FRIENDS, userID});
-// export const searchUsers = (partOfName) => (
-//     {type: SEARCH_USERS, partOfName: partOfName}
-// );
 
-export const searchUsers = (partOfName) => ({
+type UnFollowActionType = {
+  type: typeof UNFOLLOW
+  userID: number
+}
+
+export const toUnfollow = (userID: number): UnFollowActionType => ({type: UNFOLLOW, userID});
+
+type ToFriendsActionType = {
+  type: typeof TO_FRIENDS
+  userID: number
+}
+export const toFriends = (userID: number): ToFriendsActionType => ({type: TO_FRIENDS, userID});
+
+type FromFriendsActionType = {
+  type: typeof FROM_FRIENDS
+  userID: number
+}
+
+export const fromFriends = (userID:number): FromFriendsActionType => ({type: FROM_FRIENDS, userID});
+
+type SearchUsersActionType = {
+  type: typeof SEARCH_USERS
+  partOfName: string
+}
+
+export const searchUsers = (partOfName: string): SearchUsersActionType => ({
   type: SEARCH_USERS,
   partOfName: partOfName
 });
-export const setUsers = (users) => ({type: SET_USERS, users});
-export const changeCurrentPage = (pageNum) => (
+
+type SetUsersActionType = {
+  type: typeof SET_USERS
+  users: UsersType
+}
+
+export const setUsers = (users: UsersType): SetUsersActionType => ({type: SET_USERS, users});
+
+type ChangeCurrentPageActionType = {
+  type: typeof CHANGE_CURRENT_PAGE
+  pageNum: string
+}
+
+export const changeCurrentPage = (pageNum: string) => (
     {type: CHANGE_CURRENT_PAGE, pageNum}
 );
-export const nextPage = () => ({type: NEXT_PAGE});
-export const previosPage = () => ({type: PREVIOS_PAGE});
-export const firstPage = () => ({type: FIRST_PAGE});
-export const isloading = (isLoading) => ({type: TOGGLE_IS_LOADING, isLoading});
-export const lastPage = (pagesCount) => ({type: LAST_PAGE, pagesCount});
-export const changeUsersPerPage = (numOfUsers) => (
+
+type NextPageActionType = {
+  type: typeof NEXT_PAGE
+}
+
+export const nextPage = (): NextPageActionType => ({type: NEXT_PAGE});
+
+type PreviosPageActionType = {
+  type: typeof PREVIOS_PAGE
+}
+
+export const previosPage = (): PreviosPageActionType  => ({type: PREVIOS_PAGE});
+
+type FirstPageActionType = {
+  type: typeof FIRST_PAGE
+}
+
+export const firstPage = (): FirstPageActionType => ({type: FIRST_PAGE});
+
+type IsloadingActionType = {
+  type: typeof TOGGLE_IS_LOADING
+  isLoading: boolean
+}
+
+export const isloading = (isLoading: boolean): IsloadingActionType => ({type: TOGGLE_IS_LOADING, isLoading});
+
+type LastPageActionType = {
+  type: typeof LAST_PAGE
+  pagesCount: number
+}
+
+export const lastPage = (pagesCount: number): LastPageActionType => ({type: LAST_PAGE, pagesCount});
+
+type ChangeUsersPerPageActionType = {
+  type: typeof USERS_PER_PAGE
+  numOfUsers: number
+}
+
+export const changeUsersPerPage = (numOfUsers: number): ChangeUsersPerPageActionType => (
     {type: USERS_PER_PAGE, numOfUsers}
 );
-export const setTotalUsersCount = (totalCount) => (
+
+type SetTotalUsersCountActionType = {
+  type: typeof SET_TOTAL_COUNT
+  totalCount: number
+}
+
+export const setTotalUsersCount = (totalCount: number): SetTotalUsersCountActionType => (
     {type: SET_TOTAL_COUNT, totalCount}
 );
-export const toggleFollowInProgress = (isFetching, userID) => ({
+
+type ToggleFollowInProgressActionType = {
+  type: typeof TOGGLE_FOLLOW_IN_PROGRESS
+  isFetching: boolean
+  userID: number
+}
+
+export const toggleFollowInProgress = (isFetching: boolean, userID: number): ToggleFollowInProgressActionType => ({
   type: TOGGLE_FOLLOW_IN_PROGRESS, isFetching, userID
   });
-export const getUsers = (currentPage, usersPerPageCount, term) => async (dispatch) => {
+
+
+export const getUsers = (currentPage:number, usersPerPageCount:number, term:string | undefined) => async (dispatch: any) => {
          dispatch(isloading(true));
          let data = await usersAPI.getUsers(currentPage, usersPerPageCount, term);
              dispatch(isloading(false));
@@ -57,28 +142,28 @@ export const getUsers = (currentPage, usersPerPageCount, term) => async (dispatc
              dispatch(setTotalUsersCount(data.totalCount));
        };
 
-export const followUnFollowToggle = (dispatch, id, data, followinMethod) => {
+export const followUnFollowToggle = (dispatch: any, id: number, data: any, followinMethod: any) => {
   dispatch(toggleFollowInProgress(true, id));
   if (data.resultCode === 0) {followinMethod(id)}
   dispatch(toggleFollowInProgress(false, id));
 }
 
-export const follow = (id) => async (dispatch) => {
+export const follow = (id:number) => async (dispatch:any) => {
   let data = await usersAPI.toFollow(id);
-  let followinMethod = (id) => {dispatch(toFollow(id))};
+  let followinMethod = (id: number) => {dispatch(toFollow(id))};
   followUnFollowToggle(dispatch, id, data, followinMethod);
 };
 
-export const unFollow = (id) => async (dispatch) => {
+export const unFollow = (id: number) => async (dispatch:any) => {
   let data = await usersAPI.unFollow(id);
-  let followinMethod = (id) => {dispatch(toUnfollow(id))};
+  let followinMethod = (id: number) => {dispatch(toUnfollow(id))};
   followUnFollowToggle(dispatch, id, data, followinMethod);
 }
 
 
 
 let initialState = {
-    users: [],
+    users: [] as Array <UserType>,
     searchUsersText: '',
     totalUsersCount: 0,
     usersPerPageCount: 5,
@@ -86,11 +171,12 @@ let initialState = {
     lastPage: 5,
     pagesCount: 5,
     isLoading: true,
-    followInProgress: []
-
+    followInProgress: [] as Array <number>
 };
 
-const usersReducer = (state = initialState, action) => {
+type InitialStateType = typeof initialState
+
+const usersReducer = (state = initialState, action: any): InitialStateType => {
 
     switch (action.type) {
         case SET_USERS:

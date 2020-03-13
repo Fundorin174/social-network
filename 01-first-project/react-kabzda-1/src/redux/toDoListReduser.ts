@@ -268,7 +268,7 @@ let initialState = {
   toDoLists: [] as Array <ToDoListType>
 };
 
-export type InitialStateType = typeof initialState;
+type InitialStateType = typeof initialState;
 
 
 

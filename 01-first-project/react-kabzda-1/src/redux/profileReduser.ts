@@ -1,5 +1,6 @@
+import { ProfileType, PhotosType, AIGeneratedFacesType } from './../types/types';
 import React from 'react';
-import {profileAPI, generatedFotoAPI} from './../DAL/api';
+import {profileAPI, generatedFotoAPI} from '../DAL/api';
 import {isloading} from './userReduser';
 import {reset} from 'redux-form';
 
@@ -15,41 +16,83 @@ const AD_POST = 'SOCIAL-NETWORK/PROFILE/AD-POST',
     SET_AI_GENERATED_PHOTO = 'SOCIAL-NETWORK/PROFILE/SET_AI_GENERATED_PHOTO',
     AI_AVATAR_GENERATED_SUCCESS = 'SOCIAL-NETWORK/PROFILE/AI_AVATAR_GENERATED_SUCCESS';
 
-export const addPost = (text) => (
+
+
+type AddPostActionType = {
+  type: typeof AD_POST
+  someNewPost: string
+}
+
+export const addPost = (text: string): AddPostActionType => (
     {type: AD_POST, someNewPost: text}
 );
-export const changeNumOfLike = (num, postId) => (
+
+type ChangeNumOfLike = {
+  type: typeof CHANGE_NUM_OF_LIKE
+  newNumOfLikes: number
+  id: number
+}
+
+export const changeNumOfLike = (num: number, postId:number) => (
     {type: CHANGE_NUM_OF_LIKE, newNumOfLikes: num, id: postId}
 );
-export const setUserProfile = (currentProfile) => (
+
+type SetUserProfile = {
+  type: typeof SET_USER_PROFILE
+  currentProfile: ProfileType
+}
+
+export const setUserProfile = (currentProfile: ProfileType): SetUserProfile => (
     {type: SET_USER_PROFILE, currentProfile}
 );
-export const setUserStatus = (status) => (
+
+type SetUserStatus = {
+  type: typeof SET_USER_STATUS
+  status: string
+}
+
+export const setUserStatus = (status: string): SetUserStatus => (
   {type: SET_USER_STATUS, status}
 );
 
-export const upLoadAvatarSuccess = (data) => ({
+type UpLoadAvatarSuccess = {
+  type: typeof UPLOAD_AVATAR_SUCCESS
+  data: PhotosType
+}
+
+export const upLoadAvatarSuccess = (data: PhotosType): UpLoadAvatarSuccess => ({
   type: UPLOAD_AVATAR_SUCCESS,
   data
 });
 
-export const setAIGeneretedPhoto = (data) => ({
+
+type SetAIGeneretedPhoto = {
+  type: typeof SET_AI_GENERATED_PHOTO
+  data: AIGeneratedFacesType
+}
+
+export const setAIGeneretedPhoto = (data: AIGeneratedFacesType): SetAIGeneretedPhoto => ({
   type: SET_AI_GENERATED_PHOTO,
   data
 });
 
-export const isloadProfileDataSuccess = (result) => ({
+
+
+//Доделать TypeScrypt
+
+
+export const isloadProfileDataSuccess = (result:any) => ({
   type: LOAD_PROFILE_DATA_SUCCESS,
   result: result
 })
 
-export const setAIAvatarGeneratedSucces = (state, msg) => ({
+export const setAIAvatarGeneratedSucces = (state: any, msg: any) => ({
   type: AI_AVATAR_GENERATED_SUCCESS,
   state: state,
   msg: msg
 })
 
-export const setErrors = (errors) => ({type: SET_PROFILESET_ERRORS, errors});
+export const setErrors = (errors: any) => ({type: SET_PROFILESET_ERRORS, errors});
 
 
 
@@ -64,7 +107,7 @@ let initialState = {
       msg: 'Привет, народ!)',
       numOfLikes: 0
     }],
-    currentProfile: null,
+    currentProfile: null as null | any,
     newPostText: '',
     newNumOfLikes: '',
     currentStatus: '',
@@ -93,7 +136,9 @@ let initialState = {
 
 };
 
-export const getProfile = (userID) => async (dispatch) => {
+type InitialStateType = typeof initialState
+
+export const getProfile = (userID: any) => async (dispatch: any) => {
   dispatch(isloading(true));
   let data = await profileAPI.getProfile(userID)
       dispatch(setUserProfile(data));
@@ -101,7 +146,7 @@ export const getProfile = (userID) => async (dispatch) => {
 };
 
 
-export const loadProfileData = (profile) => async (dispatch, getState) => {
+export const loadProfileData = (profile: any) => async (dispatch: any, getState: any) => {
   dispatch(isloading(true));
   let data = await profileAPI.setProfile(profile);
   let userID = getState().auth.id;
@@ -118,28 +163,28 @@ export const loadProfileData = (profile) => async (dispatch, getState) => {
 };
 
 
-export const getStatus = (userID) => async (dispatch) => {
+export const getStatus = (userID: any) => async (dispatch: any) => {
   dispatch(isloading(true));
   let data = await profileAPI.getStatus(userID);
       dispatch(setUserStatus(data));
       dispatch(isloading(false));
 };
 
-export const setStatus = (status) => async (dispatch) => {
+export const setStatus = (status: any) => async (dispatch: any) => {
   dispatch(isloading(true));
   let data = await profileAPI.setStatus(status);
       data.resultCode === 0 ? dispatch(setUserStatus(status)) : console.log(data.message);
       dispatch(isloading(false));
 };
 
-export const upLoadAvatar = (avatar) => async (dispatch) => {
+export const upLoadAvatar = (avatar: any) => async (dispatch: any) => {
   dispatch(isloading(true));
   let data = await profileAPI.upLoadAvatar(avatar);
       data.resultCode === 0 ? dispatch(upLoadAvatarSuccess(data.data.photos)) : console.log(data.message);
       dispatch(isloading(false));
 };
 
-export const getGeneratedPhoto = (faceParams, page, per_page, order_by) => async (dispatch) => {
+export const getGeneratedPhoto = (faceParams: any, page: any, per_page: any, order_by: any) => async (dispatch: any) => {
   dispatch(isloading(true));
   let data = await generatedFotoAPI.getGeneratedPhoto(faceParams, page, per_page, order_by);
     if (data.total === 0) {
@@ -151,17 +196,17 @@ export const getGeneratedPhoto = (faceParams, page, per_page, order_by) => async
     }
 };
 
-export const resetForm = (formName) => (dispatch) => {
+export const resetForm = (formName: any) => (dispatch: any) => {
   dispatch(reset(formName));
 }
 
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action: any): InitialStateType => {
 
     switch (action.type) {
         case AD_POST:
             let newItem = {
-                id: (1),
+                id: '1',
                 msg: action.someNewPost,
                 numOfLikes: 0
             };
@@ -169,7 +214,7 @@ const profileReducer = (state = initialState, action) => {
         let newposts = [
           ...state.posts
         ]
-        newposts.map(post => {
+        newposts.map((post:any) => {
           post.id++; 
         })
         newposts.unshift(newItem);
