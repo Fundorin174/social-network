@@ -10,17 +10,50 @@ import {
   setErrors,
   isloadProfileDataSuccess,
   getGeneratedPhoto,
-  setAIAvatarGeneratedSucces
-} from "./../../redux/profileReduser";
+  isSetAIAvatarGeneratedSucces
+} from "../../redux/profileReduser";
 import {withRouter} from 'react-router-dom';
 import {withAuthRedirect} from '../../hoc/withAuthRedirect';
 import {compose} from 'redux';
 import {getCurrentProfileSelector, getCurrentStatusSelector, getProfileSetErrors, getloadProfileDataSuccess,  getUrlAIGeneratedImageSelector, getIsAIAvatarGeneratedSucces, getaVatarNotFoundMsgSelector} from "../../redux/profileSelectors";
 import {getAutorizedUserIdSelector, getIsAuthSelector} from "../../redux/authSelectors";
 import { getFormSyncErrors } from 'redux-form';
+import { ProfileType, AIFaceMetaType} from '../../types/types';
+import { AppStateType } from '../../redux/reduxStore';
 
 
-const ProfileContainerWithHooks = React.memo(props => {
+type ProfileContainerWithHooksMapStatePropsType = {
+  currentProfile: ProfileType | null
+  currentStatus: string | null
+  isAuth: boolean
+  autorizedUserId: number
+  formError: Array < string >
+  loadProfileDataSuccess: boolean
+  urlAIGeneratedImage: null | string
+  isAIAvatarGeneratedSucces: boolean
+  aVatarNotFoundMsg: string
+  match?: any
+}
+
+type ProfileContainerWithHooksMapDispatchPropsType = {
+  getProfile: (userID: number) => void
+  getStatus: (userID: number) => void
+  setStatus: (status: string) => void
+  upLoadAvatar: (avatar: any) => void
+  loadProfileData: (profile: ProfileType) => void
+  setErrors: (errors: Array<string>) => void 
+  isloadProfileDataSuccess: (result: boolean) => void 
+  getGeneratedPhoto: (faceParams: AIFaceMetaType , page: number, perPage: number, orderBy: string) => void
+  setAIAvatarGeneratedSucces: (state: boolean, msg: string) => void
+}
+
+type ProfileContainerWithHooksOwnPropsType = {
+
+}
+
+type ProfileContainerWithHooksPropsType = ProfileContainerWithHooksMapStatePropsType & ProfileContainerWithHooksMapDispatchPropsType & ProfileContainerWithHooksOwnPropsType
+
+const ProfileContainerWithHooks: React.FC<ProfileContainerWithHooksPropsType> = React.memo(props => {
 
     useEffect(() => {
       let userID = props.match.params.userID;
@@ -34,7 +67,7 @@ const ProfileContainerWithHooks = React.memo(props => {
 
 
     return (
-      <Profile {...props} currentStatus = {props.currentStatus} currentProfile={props.currentProfile} setStatus = {props.setStatus}/>
+      <Profile {...props} />
     );
 
 })
@@ -62,7 +95,7 @@ const ProfileContainerWithHooks = React.memo(props => {
 //
 // }
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = (state: AppStateType): ProfileContainerWithHooksMapStatePropsType => ({
   currentProfile: getCurrentProfileSelector(state),
   currentStatus: getCurrentStatusSelector(state),
   isAuth: getIsAuthSelector(state),
@@ -77,7 +110,7 @@ let mapStateToProps = (state) => ({
 
 export default compose(
   withAuthRedirect,
-  connect(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar, loadProfileData, setErrors, isloadProfileDataSuccess, getGeneratedPhoto, setAIAvatarGeneratedSucces}),
+  connect<ProfileContainerWithHooksMapStatePropsType, ProfileContainerWithHooksMapDispatchPropsType, ProfileContainerWithHooksOwnPropsType, AppStateType>(mapStateToProps, { getProfile, getStatus, setStatus, upLoadAvatar, loadProfileData, setErrors, isloadProfileDataSuccess, getGeneratedPhoto, setAIAvatarGeneratedSucces: isSetAIAvatarGeneratedSucces}),
   withRouter
 )(ProfileContainerWithHooks);
 

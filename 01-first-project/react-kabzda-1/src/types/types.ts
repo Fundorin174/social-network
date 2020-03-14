@@ -1,4 +1,3 @@
-import { type } from "os"
 
 export type DialogsType = {
   id: number,
@@ -69,7 +68,7 @@ export type ProfileType = {
   lookingForAJobDescription: string
   fullName: string
   contacts: ProfileContacts
-  photos: PhotosType
+  photos: null | PhotosType
 }
 
 export type AIGeneratedFacesType = {  
@@ -88,8 +87,8 @@ export type AIFaceType = {
   meta: AIFaceMetaType 
 }
 
-type AIFaceMetaType = {
-  confidence: null | number
+export type AIFaceMetaType = {
+  confidence?: null | number
   gender: null | Array <string>
   age: null | Array <string>,
   ethnicity: null | Array <string>,

@@ -13,7 +13,7 @@ import toDoListReducer from './toDoListReduser';
 
 
 
-let reducers = combineReducers({
+let rootReducer = combineReducers({
   navBar: navBarReducer,
   profilePage: profileReducer,
   dialogPage: dialogsReducer,
@@ -24,9 +24,14 @@ let reducers = combineReducers({
   toDoList: toDoListReducer
 });
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)));
+type RootReduserType = typeof rootReducer
 
-window.store = store;
+export type AppStateType = ReturnType<RootReduserType>
+
+//@ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)));
+//@ts-ignore
+window.__store__ = store;
 
 export default store;

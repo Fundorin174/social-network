@@ -13,7 +13,6 @@ const SET_ALL_LISTS = 'SOCIAL-NETWORK/TO_DO_LIST/SET_ALL_LISTS',
   SET_TASKS_OF_THIS_LIST = 'SOCIAL-NETWORK/TO_DO_LIST/SET_TASKS_OF_THIS_LIST';
 
 
-
 //  ACTION-CREATORS
 
 type SetToDoListActionDataType = {
@@ -25,10 +24,10 @@ type SetToDoListActionDataType = {
 
 type SetToDoListsActionType = {
   type: typeof SET_ALL_LISTS,
-  data: Array < SetToDoListActionDataType >
+  data: Array<SetToDoListActionDataType>
 }
 
-const setToDoLists = (data: Array < SetToDoListActionDataType > ): SetToDoListsActionType => ({
+const setToDoLists = (data: Array<SetToDoListActionDataType>): SetToDoListsActionType => ({
   type: SET_ALL_LISTS,
   data
 })
@@ -48,8 +47,8 @@ type SetTasksOfThisListDataITEMSType = {
 }
 
 type SetTasksOfThisListDATAType = {
-  items: Array < SetTasksOfThisListDataITEMSType >
-    length: number | null
+  items: Array<SetTasksOfThisListDataITEMSType>
+  length: number | null
   totalCount: number | null
   error: number | null
 }
@@ -65,7 +64,6 @@ const setTasksOfThisList = (listId: number, data: SetTasksOfThisListDATAType): S
   listId,
   data
 })
-
 
 
 // THUNKS
@@ -238,8 +236,6 @@ export const reorderedTask = (toDoListId: any, taskId: any, putAfterItemId: any)
 }
 
 
-
-
 // INITIAL STATE
 
 export type ToDoListItemsType = {
@@ -257,19 +253,18 @@ export type ToDoListItemsType = {
 }
 
 export type ToDoListType = {
-  id : string
+  id: string
   title: null | string
   addedDate: null | string
   order: number
-  items: Array <ToDoListItemsType>
+  items: Array<ToDoListItemsType>
 }
 
 let initialState = {
-  toDoLists: [] as Array <ToDoListType>
+  toDoLists: [] as Array<ToDoListType>
 };
 
 type InitialStateType = typeof initialState;
-
 
 
 const toDoListReducer = (state = initialState, action: any): InitialStateType => {

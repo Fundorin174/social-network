@@ -66,79 +66,91 @@ export const upLoadAvatarSuccess = (data: PhotosType): UpLoadAvatarSuccess => ({
 });
 
 
-type SetAIGeneretedPhoto = {
+type SetAIGeneretedPhotoActionType = {
   type: typeof SET_AI_GENERATED_PHOTO
   data: AIGeneratedFacesType
 }
 
-export const setAIGeneretedPhoto = (data: AIGeneratedFacesType): SetAIGeneretedPhoto => ({
+export const setAIGeneretedPhoto = (data: AIGeneratedFacesType): SetAIGeneretedPhotoActionType => ({
   type: SET_AI_GENERATED_PHOTO,
   data
 });
 
+type IsloadProfileDataSuccessActionType = {
+  type: typeof LOAD_PROFILE_DATA_SUCCESS
+  result: boolean
+}
 
-
-//Доделать TypeScrypt
-
-
-export const isloadProfileDataSuccess = (result:any) => ({
+export const isloadProfileDataSuccess = (result: boolean): IsloadProfileDataSuccessActionType => ({
   type: LOAD_PROFILE_DATA_SUCCESS,
   result: result
 })
 
-export const setAIAvatarGeneratedSucces = (state: any, msg: any) => ({
+type IsSetAIAvatarGeneratedSuccesActionType = {
+  type: typeof AI_AVATAR_GENERATED_SUCCESS
+  state: boolean
+  msg: string
+}
+
+export const isSetAIAvatarGeneratedSucces = (state: boolean, msg: string): IsSetAIAvatarGeneratedSuccesActionType => ({
   type: AI_AVATAR_GENERATED_SUCCESS,
   state: state,
   msg: msg
 })
 
-export const setErrors = (errors: any) => ({type: SET_PROFILESET_ERRORS, errors});
+type SetErrorsActionType = {
+  type: typeof SET_PROFILESET_ERRORS
+  errors: Array <string>
+}
+
+export const setErrors = (errors: Array<string>): SetErrorsActionType => ({type: SET_PROFILESET_ERRORS, errors});
 
 
 
 
 let initialState = {
   posts: [{
-    id: '1',
+    id: 1,
     msg: 'И снова здрасте-)',
     numOfLikes: 0
   }, {
-      id: '2',
+      id: 2,
       msg: 'Привет, народ!)',
       numOfLikes: 0
     }],
-    currentProfile: null as null | any,
+    currentProfile: null as null | ProfileType,
     newPostText: '',
     newNumOfLikes: '',
     currentStatus: '',
-    profileSetErrors: [],
+    profileSetErrors: [] as Array <string>,
     loadProfileDataSuccess: false,
-    generatedFaces: 
-      {faces:[
-        {id:"",
-        urls:[
-          {32:""},{64:""},{128:""},{256:""},{512:""}],
-        meta:{
-          confidence:0.000888282957021147,
-          gender:[""],
-          age:[""],
-          ethnicity:[""],
-          eye_color:[""],
-          hair_color:[""],
-          hair_length:[""],
-          emotion:[""]
-          }
-      }],
-      total:6
-    },
+    generatedFaces: {} as AIGeneratedFacesType,
     isAIAvatarGeneratedSucces: true,
     aVatarNotFoundMsg: ''
 
 };
 
+
+// {
+//   id: "",
+//     urls: [
+//       { 32: "" }, { 64: "" }, { 128: "" }, { 256: "" }, { 512: "" }],
+//       meta: {
+//     confidence: 0.000888282957021147,
+//       gender: [""],
+//         age: [""],
+//           ethnicity: [""],
+//             eye_color: [""],
+//               hair_color: [""],
+//                 hair_length: [""],
+//                   emotion: [""]
+//   }
+// }
+
+
 type InitialStateType = typeof initialState
 
-export const getProfile = (userID: any) => async (dispatch: any) => {
+export const getProfile = (userID: number) => async (dispatch: any) => {
   dispatch(isloading(true));
   let data = await profileAPI.getProfile(userID)
       dispatch(setUserProfile(data));
@@ -146,7 +158,7 @@ export const getProfile = (userID: any) => async (dispatch: any) => {
 };
 
 
-export const loadProfileData = (profile: any) => async (dispatch: any, getState: any) => {
+export const loadProfileData = (profile: ProfileType) => async (dispatch: any, getState: any) => {
   dispatch(isloading(true));
   let data = await profileAPI.setProfile(profile);
   let userID = getState().auth.id;
@@ -163,14 +175,14 @@ export const loadProfileData = (profile: any) => async (dispatch: any, getState:
 };
 
 
-export const getStatus = (userID: any) => async (dispatch: any) => {
+export const getStatus = (userID: number) => async (dispatch: any) => {
   dispatch(isloading(true));
   let data = await profileAPI.getStatus(userID);
       dispatch(setUserStatus(data));
       dispatch(isloading(false));
 };
 
-export const setStatus = (status: any) => async (dispatch: any) => {
+export const setStatus = (status: string) => async (dispatch: any) => {
   dispatch(isloading(true));
   let data = await profileAPI.setStatus(status);
       data.resultCode === 0 ? dispatch(setUserStatus(status)) : console.log(data.message);
@@ -180,23 +192,23 @@ export const setStatus = (status: any) => async (dispatch: any) => {
 export const upLoadAvatar = (avatar: any) => async (dispatch: any) => {
   dispatch(isloading(true));
   let data = await profileAPI.upLoadAvatar(avatar);
-      data.resultCode === 0 ? dispatch(upLoadAvatarSuccess(data.data.photos)) : console.log(data.message);
+  data.resultCode === 0 ? dispatch(upLoadAvatarSuccess(data.data.photos as PhotosType)) : console.log(data.message);
       dispatch(isloading(false));
 };
 
-export const getGeneratedPhoto = (faceParams: any, page: any, per_page: any, order_by: any) => async (dispatch: any) => {
+export const getGeneratedPhoto = (faceParams: any, page: number, perPage: number, orderBy: string) => async (dispatch: any) => {
   dispatch(isloading(true));
-  let data = await generatedFotoAPI.getGeneratedPhoto(faceParams, page, per_page, order_by);
+  let data = await generatedFotoAPI.getGeneratedPhoto(faceParams, page, perPage, orderBy);
     if (data.total === 0) {
-      dispatch(setAIAvatarGeneratedSucces(false, 'Изображения с выбранными параметрами отсутствуют в базе. Поменяйте условия'));
+      dispatch(isSetAIAvatarGeneratedSucces(false, 'Изображения с выбранными параметрами отсутствуют в базе. Поменяйте условия'));
     } else {
       dispatch(setAIGeneretedPhoto(data));
-      dispatch(setAIAvatarGeneratedSucces(true, ''));
+      dispatch(isSetAIAvatarGeneratedSucces(true, ''));
      dispatch(isloading(false));
     }
 };
 
-export const resetForm = (formName: any) => (dispatch: any) => {
+export const resetForm = (formName: string) => (dispatch: any) => {
   dispatch(reset(formName));
 }
 
@@ -206,7 +218,7 @@ const profileReducer = (state = initialState, action: any): InitialStateType => 
     switch (action.type) {
         case AD_POST:
             let newItem = {
-                id: '1',
+                id: 1,
                 msg: action.someNewPost,
                 numOfLikes: 0
             };
@@ -270,7 +282,7 @@ const profileReducer = (state = initialState, action: any): InitialStateType => 
         case UPLOAD_AVATAR_SUCCESS:
           return {
             ...state,
-            currentProfile: {...state.currentProfile, photos: action.data}
+            currentProfile: { ...state.currentProfile, photos: action.data } as ProfileType 
             }
   
         case SET_USER_STATUS:
