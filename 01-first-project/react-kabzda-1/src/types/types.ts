@@ -98,3 +98,33 @@ export type AIFaceMetaType = {
   emotion: null | Array<string>
 }
 
+
+export type LoginValuesType = {
+  email: string
+  password: string
+  rememberMe: boolean,
+  captcha: undefined | string;
+}
+
+
+export type ToDoListItemsType = {
+  id: string
+  title: string
+  description: null | string
+  completed: boolean
+  todoListId: string
+  order: number
+  status: null | number
+  priority: null | number
+  startDate: null | string
+  deadline: null | string
+  addedDate: null | string
+}
+
+export type ToDoListType = {
+  id: string
+  title: null | string
+  addedDate: null | string
+  order: number
+  items: Array<ToDoListItemsType>
+}

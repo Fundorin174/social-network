@@ -5,11 +5,11 @@ const DELETE_FROM_FRENDS = 'SOCIAL-NETWORK/NAVBAR/DELETE_FROM_FRENDS';
 const SET_FRENDS_TO_LOCAL_STATE = 'SOCIAL-NETWORK/NAVBAR/SET_FRENDS_TO_LOCAL_STATE';
 
 type SetFrendsActionType = {
-    type: typeof SET_FRENDS, frend: FrendType
+    type: typeof SET_FRENDS, frends: Array<FrendType>
 }
 
-export const setFrends = (frend : FrendType): SetFrendsActionType => (
-    {type: SET_FRENDS, frend}
+export const setFrends = (frends : Array<FrendType>): SetFrendsActionType => (
+    {type: SET_FRENDS, frends: frends}
 )
 
 type SetFrendsToLocalStateActionType = {
@@ -28,8 +28,8 @@ export const deleteFromFrends = (frend : FrendType): DeleteFromFrendsActionType 
     {type: DELETE_FROM_FRENDS, frend}
 )
 
-export const addToFrends = (frend : FrendType) => (dispatch : any) => {
-    dispatch(setFrends(frend))
+export const addToFrends = (frends : Array<FrendType>) => (dispatch : any) => {
+    dispatch(setFrends(frends))
 }
 
 
@@ -47,7 +47,7 @@ const navBarReducer = (state = initialState, action : any): InitialStateTYPE => 
 
             return {
                 ...state,
-                frends: [...state.frends].concat(action.frend)
+                frends: [...state.frends].concat(action.frends)
             }
 
         case DELETE_FROM_FRENDS:

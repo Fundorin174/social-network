@@ -8,7 +8,7 @@ export const getAutorizedUserIdSelector = (state) => {
 }
 
 export const getAllAuthDataSelector = (state) => {
-  return state.auth
+  return state.auth;
 }
 
 export const getCapchaUrlSelector = (state) => {

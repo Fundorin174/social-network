@@ -2,14 +2,32 @@ import React from 'react';
 import classes from './Login.module.css';
 import LoginForm from './LoginForm';
 import { connect } from 'react-redux';
-import { login} from './../../redux/authReduser';
+import { login} from '../../redux/authReduser';
 import {Redirect} from "react-router-dom";
 import { getIsAuthSelector, getCapchaUrlSelector, getIsCaptchaNeededSelector} from "../../redux/authSelectors";
+import { AppStateType } from '../../redux/reduxStore';
+import { LoginValuesType } from '../../types/types';
 
-const Login = (props) => {
+type LoginMapStatePropsType = {
+  isAuth: boolean
+  capchaUrl: null | string
+  isCaptchaNeeded: boolean
+}
+
+type LoginMapDispatchPropsType = {
+  login: (email: string, password: string, rememberMe: boolean, captcha: string | undefined) => void
+}
+
+type LoginOwnPropsType = {
+  onSubmit: (values: LoginValuesType) => void
+}
+
+type LoginPropsType = LoginMapStatePropsType & LoginMapDispatchPropsType & LoginOwnPropsType
+
+const Login: React.FC<LoginPropsType> = (props) => {
 
 
-  let onSubmit = values => {
+  let onSubmit = (values: LoginValuesType)  => {
     let email = values.email,
       password = values.password,
       rememberMe = values.rememberMe,
@@ -30,7 +48,7 @@ const Login = (props) => {
 
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType): LoginMapStatePropsType => {
   return {
     isAuth: getIsAuthSelector(state),
     capchaUrl: getCapchaUrlSelector(state),
@@ -39,4 +57,4 @@ let mapStateToProps = (state) => {
 
 }
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect<LoginMapStatePropsType, LoginMapDispatchPropsType, LoginOwnPropsType, AppStateType>(mapStateToProps, { login })(Login);

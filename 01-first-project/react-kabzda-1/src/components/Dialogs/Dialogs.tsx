@@ -2,9 +2,11 @@ import React from 'react';
 import classes from './Dialogs.module.css'; 
 import DialogItems from './DialogItems/DialogItems';
 import Messages from './Messages/Messages';
+import { MainDialoglPropsType } from './DialogsMainContainer';
 
 
-const Dialogs = React.memo(props => {
+
+const Dialogs: React.FC<MainDialoglPropsType> = React.memo(props => {
 
     return (
         <div className={classes.dialogs}>

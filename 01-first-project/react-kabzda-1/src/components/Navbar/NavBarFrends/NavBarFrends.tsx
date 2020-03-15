@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
 import classes from './NavBarFrends.module.css';
 import Frend from './frend/Frend';
+import { NavbarFriendsCOntainerPropsType } from './NavBarFrendsContainer';
+import { FrendType } from '../../../types/types';
 
 
 
 
-const NavbarFriends = React.memo((props) => {
+const NavbarFriends: React.FC<NavbarFriendsCOntainerPropsType> = React.memo((props: NavbarFriendsCOntainerPropsType) => {
   
   
   useEffect(() => {
-    let savedFrends = JSON.parse(localStorage.getItem('frends'));
-    savedFrends && savedFrends[0] && props.setFrends(savedFrends);
-    
-    
+    //@ts-ignore
+    let savedFrends: Array<FrendType> = JSON.parse(localStorage.getItem('frends'));
+    savedFrends && savedFrends[0] && props.setFrends(savedFrends);   
   }, [])
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const NavbarFriends = React.memo((props) => {
 
   }, [props.frends.length])
 
-    const deleteFromFrends = (frendID) => {
+  const deleteFromFrends = (frendID: number) => {
         let frend = props
             .frends
             .filter(frend => frend.id === frendID);

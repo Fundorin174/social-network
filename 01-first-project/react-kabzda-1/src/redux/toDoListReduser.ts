@@ -1,3 +1,4 @@
+import { ToDoListType } from './../types/types';
 import {
   stopSubmit
 } from 'redux-form';
@@ -68,7 +69,7 @@ const setTasksOfThisList = (listId: number, data: SetTasksOfThisListDATAType): S
 
 // THUNKS
 
-export const createNewToDoList = (title: any) => (dispatch: any) => {
+export const createNewToDoList = (title: string) => (dispatch: any) => {
   dispatch(isloading(true));
   toDoListAPI.setNewToDoList(title)
     .then(() => {
@@ -94,7 +95,7 @@ export const getAllToDoLists = () => (dispatch: any) => {
     })
 }
 
-const setAllTaskofAllLists = (toDoLists: any) => (dispatch: any) => {
+const setAllTaskofAllLists = (toDoLists: Array<ToDoListType>) => (dispatch: any) => {
   toDoLists.map((toDoList: any) => {
     let listId = toDoList.id;
     toDoListAPI
@@ -115,7 +116,7 @@ const setAllTaskofAllLists = (toDoLists: any) => (dispatch: any) => {
 }
 
 
-export const deleteToDoList = (todolistId: any) => (dispatch: any) => {
+export const deleteToDoList = (todolistId: number) => (dispatch: any) => {
   toDoListAPI.deleteToDoList(todolistId)
     .then(() => {
       toDoListAPI.getAllToDoLists()
@@ -126,7 +127,7 @@ export const deleteToDoList = (todolistId: any) => (dispatch: any) => {
 
 }
 
-export const loadNewTask = (newTask: any, listId: any) => (dispatch: any) => {
+export const loadNewTask = (newTask: any, listId: number) => (dispatch: any) => {
   toDoListAPI
     .setNewTask(newTask, listId)
     .then((data: any) => {
@@ -155,7 +156,7 @@ export const loadNewTask = (newTask: any, listId: any) => (dispatch: any) => {
     })
 }
 
-export const changeTask = (task: any, taskId: any, listId: any) => (dispatch: any) => {
+export const changeTask = (task: any, taskId: number, listId: number) => (dispatch: any) => {
   toDoListAPI
     .changeExistingTask(listId, taskId, task)
     .then((response: any) => {
@@ -238,27 +239,7 @@ export const reorderedTask = (toDoListId: any, taskId: any, putAfterItemId: any)
 
 // INITIAL STATE
 
-export type ToDoListItemsType = {
-  id: string
-  title: string
-  description: null | string
-  completed: boolean
-  todoListId: string
-  order: number
-  status: null | number
-  priority: null | number
-  startDate: null | string
-  deadline: null | string
-  addedDate: null | string
-}
 
-export type ToDoListType = {
-  id: string
-  title: null | string
-  addedDate: null | string
-  order: number
-  items: Array<ToDoListItemsType>
-}
 
 let initialState = {
   toDoLists: [] as Array<ToDoListType>

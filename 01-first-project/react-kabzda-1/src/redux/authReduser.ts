@@ -32,7 +32,7 @@ const setCaptcha = (url: string): SetCaptchaActionType => ({
 
 
 
-export const login = (email:string, password:string, rememberMe:boolean, captcha:string) => (dispatch:any) => {
+export const login = (email:string, password:string, rememberMe:boolean, captcha:string | undefined) => (dispatch:any) => {
 
   authAPI.login(email, password, rememberMe, captcha)
  .then((response:any) => {
@@ -92,9 +92,9 @@ let initialState = {
 
 };
 
-type InitialStateType = typeof initialState
+export type AuthInitialStateType = typeof initialState
 
-const authReducer = (state = initialState, action:any): InitialStateType => {
+const authReducer = (state = initialState, action:any): AuthInitialStateType => {
 
     switch (action.type) {
 
