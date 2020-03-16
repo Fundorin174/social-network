@@ -22,7 +22,10 @@ let initialState = {
 
 type InitialStateType = typeof initialState
 
-const appReducer = (state = initialState, action:any): InitialStateType => {
+
+
+
+const appReducer = (state = initialState, action:InitializedSuccessActionType): InitialStateType => {
 
     switch (action.type) {
 

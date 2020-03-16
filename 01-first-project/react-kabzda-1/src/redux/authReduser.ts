@@ -30,7 +30,7 @@ const setCaptcha = (url: string): SetCaptchaActionType => ({
   url:url
 })
 
-
+type ActionType = AuthMeActionType | DeleteAuthMeActionType | SetCaptchaActionType;
 
 export const login = (email:string, password:string, rememberMe:boolean, captcha:string | undefined) => (dispatch:any) => {
 
@@ -77,7 +77,7 @@ export const letAuth = () => (dispatch:any) => {
   return authAPI.auth()
     .then((data:any) => {
       if (data.resultCode === 0) {
-        dispatch(authMe(data));
+        dispatch(authMe(data.data));
       }
     });
 };
@@ -94,7 +94,7 @@ let initialState = {
 
 export type AuthInitialStateType = typeof initialState
 
-const authReducer = (state = initialState, action:any): AuthInitialStateType => {
+const authReducer = (state = initialState, action:ActionType): AuthInitialStateType => {
 
     switch (action.type) {
 
@@ -102,7 +102,7 @@ const authReducer = (state = initialState, action:any): AuthInitialStateType => 
 
             return {
                 ...state,
-                ...action.data.data,
+                ...action.data,
                 isAuth: true,
                 isCaptchaNeeded: false
             }

@@ -6,7 +6,6 @@ import {reset} from 'redux-form';
 
 
 const AD_POST = 'SOCIAL-NETWORK/PROFILE/AD-POST',
-    CHANGE_NEW_POST_TEXT = 'SOCIAL-NETWORK/PROFILE/CHANGE-NEW-POST-TEXT',
     CHANGE_NUM_OF_LIKE = 'SOCIAL-NETWORK/PROFILE/CHANGE_NUM_OF_LIKE',
     SET_USER_PROFILE = 'SOCIAL-NETWORK/PROFILE/SET_USER_PROFILE',
     UPLOAD_AVATAR_SUCCESS = 'SOCIAL-NETWORK/PROFILE/UPLOAD_AVATAR_SUCCESS',
@@ -33,7 +32,7 @@ type ChangeNumOfLike = {
   id: number
 }
 
-export const changeNumOfLike = (num: number, postId:number) => (
+export const changeNumOfLike = (num: number, postId:number): ChangeNumOfLike => (
     {type: CHANGE_NUM_OF_LIKE, newNumOfLikes: num, id: postId}
 );
 
@@ -105,7 +104,7 @@ type SetErrorsActionType = {
 
 export const setErrors = (errors: Array<string>): SetErrorsActionType => ({type: SET_PROFILESET_ERRORS, errors});
 
-
+type ActionType = SetErrorsActionType | IsSetAIAvatarGeneratedSuccesActionType | IsloadProfileDataSuccessActionType | SetAIGeneretedPhotoActionType | UpLoadAvatarSuccess | SetUserStatus | SetUserProfile | ChangeNumOfLike | AddPostActionType
 
 
 let initialState = {
@@ -119,8 +118,7 @@ let initialState = {
       numOfLikes: 0
     }],
     currentProfile: null as null | ProfileType,
-    newPostText: '',
-    newNumOfLikes: '',
+    newNumOfLikes: null as null | number,
     currentStatus: '',
     profileSetErrors: [] as Array <string>,
     loadProfileDataSuccess: false,
@@ -213,7 +211,7 @@ export const resetForm = (formName: string) => (dispatch: any) => {
 }
 
 
-const profileReducer = (state = initialState, action: any): InitialStateType => {
+const profileReducer = (state = initialState, action: ActionType): InitialStateType => {
 
     switch (action.type) {
         case AD_POST:
@@ -232,26 +230,18 @@ const profileReducer = (state = initialState, action: any): InitialStateType => 
         newposts.unshift(newItem);
             return {
                 ...state,
-                posts: newposts,
-                newPostText: ''
+                posts: newposts
             }
 
             
-        case CHANGE_NEW_POST_TEXT:
-
-            return {
-                ...state,
-                newPostText: action.newAddedPost
-            }
-
-            
+     
 
         case CHANGE_NUM_OF_LIKE:
 
             let stateCopy = {
                 ...state,
                 posts: [...state.posts],
-                newNumOfLikes: action.newNumOfLikes + 1
+                newNumOfLikes: +action.newNumOfLikes + 1
             }
             
 
@@ -262,7 +252,7 @@ const profileReducer = (state = initialState, action: any): InitialStateType => 
             }
             stateCopy
                 .posts[action.id - 1]
-                .numOfLikes = action.newNumOfLikes;
+                .numOfLikes = +action.newNumOfLikes;
             return stateCopy;
 
         case SET_USER_PROFILE:

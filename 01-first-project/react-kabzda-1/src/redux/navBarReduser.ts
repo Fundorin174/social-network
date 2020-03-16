@@ -32,7 +32,7 @@ export const addToFrends = (frends : Array<FrendType>) => (dispatch : any) => {
     dispatch(setFrends(frends))
 }
 
-
+type ActionType = SetFrendsActionType | SetFrendsToLocalStateActionType | DeleteFromFrendsActionType
 
 let initialState = {
     frends: [] as Array<FrendType>
@@ -40,7 +40,7 @@ let initialState = {
 
 type InitialStateTYPE = typeof initialState
 
-const navBarReducer = (state = initialState, action : any): InitialStateTYPE => {
+const navBarReducer = (state = initialState, action : ActionType): InitialStateTYPE => {
 
     switch (action.type) {
         case SET_FRENDS:

@@ -21,6 +21,8 @@ export const changeNewMsgText = (newMsgText: string): ChangeNewMsgTextActionType
     {type: CHANGE_NEW_MSG_TEXT, newAddedMsg: newMsgText}
 );
 
+type ActionType = AddNewMsgActionType | ChangeNewMsgTextActionType
+
 
 
 let initialState = {
@@ -97,7 +99,7 @@ let initialState = {
 
 type InitialStateType = typeof initialState
 
-const dialogsReducer = (state = initialState, action: any): InitialStateType => {
+const dialogsReducer = (state = initialState, action: ActionType): InitialStateType => {
 
     switch (action.type) {
         case ADD_MSG:
