@@ -1,6 +1,9 @@
 import {authAPI} from '../DAL/api';
 import {stopSubmit} from "redux-form";
 import { AuthDataType } from '../types/types';
+import { AppStateType } from './reduxStore';
+import { Dispatch } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 
 const SET_AUTH_DATA = 'SOCIAL-NETWORK/AUTH/SET_AUTH_DATA';
 const DELETE_AUTH_DATA = 'SOCIAL-NETWORK/AUTH/DELETE_AUTH_DATA';
@@ -25,6 +28,7 @@ type SetCaptchaActionType = {
   type: typeof SET_CAPTCHA
   url: string
 }
+
 const setCaptcha = (url: string): SetCaptchaActionType => ({
   type: SET_CAPTCHA, 
   url:url
@@ -33,12 +37,10 @@ const setCaptcha = (url: string): SetCaptchaActionType => ({
 type ActionType = AuthMeActionType | DeleteAuthMeActionType | SetCaptchaActionType;
 
 export const login = (email:string, password:string, rememberMe:boolean, captcha:string | undefined) => (dispatch:any) => {
-
   authAPI.login(email, password, rememberMe, captcha)
  .then((response:any) => {
-
     if (response.data.resultCode === 0) {
-      dispatch(letAuth());
+      dispatch(letAuth())
     } else if (response.data.resultCode === 10) {
       let message = response.data.messages;
       let action = stopSubmit('LoginForm', {
@@ -61,19 +63,18 @@ export const login = (email:string, password:string, rememberMe:boolean, captcha
 };
 
 
-export const logout = () => (dispatch: any) => {
+export const logout = () => (dispatch: Dispatch<ActionType>, getState: () => AppStateType) => {
   authAPI.logout()
   .then((data:any) => {
 
     if (data.data.resultCode === 0) {
-      dispatch(deleteAuthMe());
-      
+      dispatch(deleteAuthMe());      
     }
 
   });
 };
 
-export const letAuth = () => (dispatch:any) => {
+export const letAuth = () => (dispatch: Dispatch<ActionType>, getState: () => AppStateType) => {
   return authAPI.auth()
     .then((data:any) => {
       if (data.resultCode === 0) {

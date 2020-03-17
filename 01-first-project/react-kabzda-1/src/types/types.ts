@@ -128,3 +128,9 @@ export type ToDoListType = {
   order: number
   items: Array<ToDoListItemsType>
 }
+
+export type FollowType = {
+data: Object
+messages: Array<string>
+resultCode: number
+}
