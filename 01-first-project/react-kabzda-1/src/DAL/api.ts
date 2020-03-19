@@ -1,4 +1,5 @@
-  import * as axios from 'axios';
+  import axios from 'axios';
+import { UsersType, FollowType, LetAuthType, LoginResponseType, ProfileType, ToDoListType } from '../types/types';
 
 
 const instance = axios.create({
@@ -18,10 +19,11 @@ const instance = axios.create({
   });
 
 
+
 export const usersAPI = {
 
   getUsers(currentPage = 1, usersPerPageCount = 5, term = '') {
-    return instance.get(`users?page=${currentPage}&count=${usersPerPageCount}&term=${term}`)
+    return instance.get<UsersType>(`users?page=${currentPage}&count=${usersPerPageCount}&term=${term}`)
     .then(response => {
       return response.data;
     });
@@ -30,81 +32,92 @@ export const usersAPI = {
   
   
 
-  toFollow(userID) {
-    return instance.post(`follow/${userID}`)
+  toFollow(userID:number) {
+    return instance.post<FollowType>(`follow/${userID}`)
       .then(response => {
         return response.data;
       });
   },
 
-  unFollow(userID) {
-    return instance.delete(`follow/${userID}`)
+  unFollow(userID:number) {
+    return instance.delete<FollowType>(`follow/${userID}`)
       .then(response => {
         return response.data;
       });
   },
 
   auth() {
-    return instance.get('auth/me')
+    return instance.get<LetAuthType>('auth/me')
     .then(response => {
       console.warn('This is old API. Please, use authApi.auth');
-      return authAPI.auth(response);
+      return authAPI.auth();
     });
   }
 
+}
+
+type GetCaptchaResponseType = {
+    url: string
 }
 
 export const authAPI = {
 
   auth() {
-    return instance.get('auth/me')
+    return instance.get<LetAuthType>('auth/me')
     .then(response => {
       return response.data;
     });
   },
 
 
-  login(email, password, rememberMe = false, captcha = '') {
-    return instance.post('auth/login', {
+  login(email:string, password:string, rememberMe = false, captcha = '') {
+    return instance.post<LoginResponseType>('auth/login', {
       email,
       password,
       rememberMe,
       captcha
-    });
+    }).then(res => {return res.data});
       
   },
 
   logout() {
-    return instance.delete('auth/login');
+    return instance.delete<LoginResponseType>('auth/login');
   },
 
+
   getCaptcha() {
-    return instance.get('security/get-captcha-url')
+    return instance.get<GetCaptchaResponseType>('security/get-captcha-url')
       .then(response => {
         return response.data;
       });
   }
 }
 
+type SetStatusResponseType = {
+  data: Object
+messages: Array<string>
+resultCode: number
+}
+
 export const profileAPI = {
 
-  getProfile(userID) {
+  getProfile(userID: number) {
 
-    return instance.get(`profile/${userID}`)
+    return instance.get<ProfileType>(`profile/${userID}`)
         .then(response => {
           return response.data;
         });
       },
 
-  getStatus(userID) {
+  getStatus(userID: number) {
 
-    return instance.get(`profile/status/${userID}`)
+    return instance.get<string>(`profile/status/${userID}`)
         .then(response => {
           return response.data;
         });
       },
 
-  setProfile(data) {
+  setProfile(data:any) {
 
     return instance.put('profile', {...data})
     .then(response => {
@@ -112,15 +125,15 @@ export const profileAPI = {
     })
   },
 
-  setStatus(status) {
+  setStatus(status: string) {
 
-    return instance.put('profile/status', {status})
+    return instance.put<SetStatusResponseType>('profile/status', {status})
     .then(response => {
       return response.data;
     })
   },
 
-  upLoadAvatar(avatar) {
+  upLoadAvatar(avatar:any) {
     const formData = new FormData();
     formData.append('image', avatar);
     return instance.put('profile/photo', formData, {
@@ -134,39 +147,79 @@ export const profileAPI = {
   }
 }
 
+type SetToDoListsResponseType = {
+  data: {
+    item: {
+      id: string
+      addedDate: Date
+      order: number
+      title: string
+      }
+    }
+  resultCode: number
+  messages: Array<string>
+}
+
+type DeleteToDoListResponseType = {
+  data: Object
+  messages: Array<string>
+  resultCode: number
+  }
+
+type SetNewTaskResponseType = {
+  data: {
+    item: {
+      description: string
+      title: string
+      completed: boolean
+      status: number
+      priority: number
+      startDate: Date
+      deadline: Date
+      id: string
+      todoListId: string
+      order: number
+      addedDate: Date
+    }
+  }
+resultCode: number
+messages: Array<string>
+}
+
 export const toDoListAPI = {
 
-    setNewToDoList(title) {
+    setNewToDoList(title:string) {
 
-    return instance.post('todo-lists', {
+    return instance.post<SetToDoListsResponseType>('todo-lists', {
       title: title
     })
   },
 
   getAllToDoLists(){
-    return instance.get('todo-lists')
+    return instance.get<Array<ToDoListType>>('todo-lists')
         .then(response => {
           return response.data;
         });
       },
 
-  deleteToDoList(todolistId) {
-    return instance.delete(`todo-lists/${todolistId}`)
+  deleteToDoList(todolistId:string) {
+    return instance.delete<DeleteToDoListResponseType>(`todo-lists/${todolistId}`)
     .then(response => {
       return response.data;
     });
   },
 
-  renameToDoList(todolistId, title) {
+
+  renameToDoList(todolistId:string, title:string) {
 
     return instance.put(`todo-lists/${todolistId}`, {
       title: title
     })
   },
   
-  setNewTask(newTask, todolistId) {
+  setNewTask(newTask:any, todolistId:string) {
 
-    return instance.post(`todo-lists/${todolistId}/tasks`, {
+    return instance.post<SetNewTaskResponseType>(`todo-lists/${todolistId}/tasks`, {
       ...newTask
     })
     .then(response => {
@@ -174,14 +227,15 @@ export const toDoListAPI = {
     });
   },
   
-  getTasksThisList(todolistId, currentPage = 1, tasksPerPageCount = 10){
+  //Здесь закончил!!!!!!!!!!!!!!!!!!!!
+  getTasksThisList(todolistId:string, currentPage = 1, tasksPerPageCount = 10){
     return instance.get(`todo-lists/${todolistId}/tasks?page=${currentPage}&count=${tasksPerPageCount}`)
         .then(response => {
           return response.data;
         });
       },
 
-  changeExistingTask(todolistId, taskId, task) {
+  changeExistingTask(todolistId:string, taskId:string, task:any) {
         return toDoInstance.put(`todo-lists/${todolistId}/tasks/${taskId}`, {
             ...task
           })
@@ -190,14 +244,14 @@ export const toDoListAPI = {
           });
   },
 
-  deleteTaskFromList(todolistId, taskId) {
+  deleteTaskFromList(todolistId:string, taskId:string) {
     return toDoInstance.delete(`todo-lists/${todolistId}/tasks/${taskId}`)
     .then(response => {
       return response;
     });
   },
 
-  reorderedToDoList(todolistId, putAfterItemId = null) {
+  reorderedToDoList(todolistId:string, putAfterItemId: null|string = null ) {
     return toDoInstance.put(`todo-lists/${todolistId}/reorder`, {
       putAfterItemId: putAfterItemId
     })
@@ -206,7 +260,7 @@ export const toDoListAPI = {
     });
   },
 
-  reorderedTask(toDoListId, taskId, putAfterItemId = null) {
+  reorderedTask(toDoListId:string, taskId:string, putAfterItemId: null|string = null) {
     return toDoInstance.put(`todo-lists/${toDoListId}/tasks/${taskId}/reorder`, {
       putAfterItemId: putAfterItemId
     })
@@ -220,12 +274,11 @@ export const toDoListAPI = {
 
 
 export const generatedFotoAPI = {
-    getGeneratedPhoto(faceParams, page = 1, per_page = 1, order_by='random') {
+    getGeneratedPhoto(faceParams:any, page = 1, per_page = 1, order_by='random') {
       let url = `https://api.generated.photos/api/v1/faces?api_key=6pydmUJIYJE48FXPqo-E0Q&page=${page}&per_page=${per_page}`;
       for (let value in faceParams) {
         url = url + '&' + value +'='+ faceParams[value];
       }
-
     return axios.get(url)
         .then(response => {
           return response.data;

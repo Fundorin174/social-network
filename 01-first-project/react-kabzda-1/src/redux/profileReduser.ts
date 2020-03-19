@@ -183,7 +183,7 @@ export const getStatus = (userID: number) => async (dispatch: any) => {
 export const setStatus = (status: string) => async (dispatch: any) => {
   dispatch(isloading(true));
   let data = await profileAPI.setStatus(status);
-      data.resultCode === 0 ? dispatch(setUserStatus(status)) : console.log(data.message);
+      data.resultCode === 0 ? dispatch(setUserStatus(status)) : console.log(data.messages);
       dispatch(isloading(false));
 };
 

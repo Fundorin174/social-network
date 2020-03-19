@@ -56,11 +56,11 @@ type SetTasksOfThisListDATAType = {
 
 type SetTasksOfThisListType = {
   type: typeof SET_TASKS_OF_THIS_LIST,
-  listId: number,
+  listId: string,
   data: SetTasksOfThisListDATAType
 }
 
-const setTasksOfThisList = (listId: number, data: SetTasksOfThisListDATAType): SetTasksOfThisListType => ({
+const setTasksOfThisList = (listId: string, data: SetTasksOfThisListDATAType): SetTasksOfThisListType => ({
   type: SET_TASKS_OF_THIS_LIST,
   listId,
   data
@@ -116,7 +116,7 @@ const setAllTaskofAllLists = (toDoLists: Array<ToDoListType>) => (dispatch: any)
 }
 
 
-export const deleteToDoList = (todolistId: number) => (dispatch: any) => {
+export const deleteToDoList = (todolistId: string) => (dispatch: any) => {
   toDoListAPI.deleteToDoList(todolistId)
     .then(() => {
       toDoListAPI.getAllToDoLists()
@@ -127,7 +127,7 @@ export const deleteToDoList = (todolistId: number) => (dispatch: any) => {
 
 }
 
-export const loadNewTask = (newTask: any, listId: number) => (dispatch: any) => {
+export const loadNewTask = (newTask: any, listId: string) => (dispatch: any) => {
   toDoListAPI
     .setNewTask(newTask, listId)
     .then((data: any) => {
@@ -156,7 +156,7 @@ export const loadNewTask = (newTask: any, listId: number) => (dispatch: any) => 
     })
 }
 
-export const changeTask = (task: any, taskId: number, listId: number) => (dispatch: any) => {
+export const changeTask = (task: any, taskId: string, listId: string) => (dispatch: any) => {
   toDoListAPI
     .changeExistingTask(listId, taskId, task)
     .then((response: any) => {

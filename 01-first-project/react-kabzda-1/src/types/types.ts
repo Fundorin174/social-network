@@ -106,6 +106,25 @@ export type LoginValuesType = {
   captcha: undefined | string;
 }
 
+export type LoginResponseType = {
+      resultCode: number
+      messages: Array<string>,
+      data: {
+        userId: number
+      }
+}
+
+export type LetAuthType = {
+  data: {
+    id: number
+    email: string
+    login: string    
+  }
+resultCode: number
+messages: Array<string>
+
+}
+
 
 export type ToDoListItemsType = {
   id: string
@@ -134,3 +153,5 @@ data: Object
 messages: Array<string>
 resultCode: number
 }
+
+
