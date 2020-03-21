@@ -63,12 +63,21 @@ export type ProfileContacts = {
 }
 
 export type ProfileType = {
-  userId: number
+  userId?: number
   lookingForAJob: boolean
   lookingForAJobDescription: string
   fullName: string
   contacts: ProfileContacts
   photos: null | PhotosType
+  aboutMe?: string
+}
+
+export type UploadAvatarResponseType = {
+  data: {
+    photos: PhotosType
+  }
+resultCode: number
+messages: Array<string>
 }
 
 export type AIGeneratedFacesType = {  
@@ -107,7 +116,7 @@ export type LoginValuesType = {
 }
 
 export type LoginResponseType = {
-      resultCode: number
+      resultCode: ResponseLogin
       messages: Array<string>,
       data: {
         userId: number
@@ -148,10 +157,44 @@ export type ToDoListType = {
   items: Array<ToDoListItemsType>
 }
 
-export type FollowType = {
+export type GetTasksThisListResponseType = {
+  items: Array<ToDoListItemsType>
+  totalCount: number
+  error: string | null
+}
+
+export type ToDoListTaskItemType = {
+  title: string
+description: string
+completed?: boolean
+status?: number
+priority?: number
+startDate?: Date
+deadline?: Date
+}
+
+export type StandartResponseFromServerType = {
 data: Object
 messages: Array<string>
 resultCode: number
+}
+
+export type SetNewTaskResponseType = {
+  data: ToDoListItemsType
+  messages: Array<string>
+  resultCode: number
+  }
+
+
+export enum ResponseLogin {
+  success =  0,
+  error = 1,
+  needCapcha = 10
+}
+
+export enum ResponseEnum {
+  success =  0,
+  error = 1
 }
 
 

@@ -1,5 +1,5 @@
   import axios from 'axios';
-import { UsersType, FollowType, LetAuthType, LoginResponseType, ProfileType, ToDoListType } from '../types/types';
+import { UsersType, LetAuthType, LoginResponseType, ProfileType, ToDoListType, GetTasksThisListResponseType, ToDoListTaskItemType,  StandartResponseFromServerType, UploadAvatarResponseType,  SetNewTaskResponseType, AIGeneratedFacesType } from '../types/types';
 
 
 const instance = axios.create({
@@ -33,14 +33,14 @@ export const usersAPI = {
   
 
   toFollow(userID:number) {
-    return instance.post<FollowType>(`follow/${userID}`)
+    return instance.post<StandartResponseFromServerType>(`follow/${userID}`)
       .then(response => {
         return response.data;
       });
   },
 
   unFollow(userID:number) {
-    return instance.delete<FollowType>(`follow/${userID}`)
+    return instance.delete<StandartResponseFromServerType>(`follow/${userID}`)
       .then(response => {
         return response.data;
       });
@@ -117,7 +117,7 @@ export const profileAPI = {
         });
       },
 
-  setProfile(data:any) {
+  setProfile(data:ProfileType) {
 
     return instance.put('profile', {...data})
     .then(response => {
@@ -136,7 +136,7 @@ export const profileAPI = {
   upLoadAvatar(avatar:any) {
     const formData = new FormData();
     formData.append('image', avatar);
-    return instance.put('profile/photo', formData, {
+    return instance.put<UploadAvatarResponseType>('profile/photo', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -160,31 +160,7 @@ type SetToDoListsResponseType = {
   messages: Array<string>
 }
 
-type DeleteToDoListResponseType = {
-  data: Object
-  messages: Array<string>
-  resultCode: number
-  }
 
-type SetNewTaskResponseType = {
-  data: {
-    item: {
-      description: string
-      title: string
-      completed: boolean
-      status: number
-      priority: number
-      startDate: Date
-      deadline: Date
-      id: string
-      todoListId: string
-      order: number
-      addedDate: Date
-    }
-  }
-resultCode: number
-messages: Array<string>
-}
 
 export const toDoListAPI = {
 
@@ -203,7 +179,7 @@ export const toDoListAPI = {
       },
 
   deleteToDoList(todolistId:string) {
-    return instance.delete<DeleteToDoListResponseType>(`todo-lists/${todolistId}`)
+    return instance.delete<StandartResponseFromServerType>(`todo-lists/${todolistId}`)
     .then(response => {
       return response.data;
     });
@@ -217,7 +193,7 @@ export const toDoListAPI = {
     })
   },
   
-  setNewTask(newTask:any, todolistId:string) {
+  setNewTask(newTask:ToDoListTaskItemType, todolistId:string) {
 
     return instance.post<SetNewTaskResponseType>(`todo-lists/${todolistId}/tasks`, {
       ...newTask
@@ -227,16 +203,16 @@ export const toDoListAPI = {
     });
   },
   
-  //Здесь закончил!!!!!!!!!!!!!!!!!!!!
+
   getTasksThisList(todolistId:string, currentPage = 1, tasksPerPageCount = 10){
-    return instance.get(`todo-lists/${todolistId}/tasks?page=${currentPage}&count=${tasksPerPageCount}`)
+    return instance.get<GetTasksThisListResponseType>(`todo-lists/${todolistId}/tasks?page=${currentPage}&count=${tasksPerPageCount}`)
         .then(response => {
           return response.data;
         });
       },
 
-  changeExistingTask(todolistId:string, taskId:string, task:any) {
-        return toDoInstance.put(`todo-lists/${todolistId}/tasks/${taskId}`, {
+  changeExistingTask(todolistId:string, taskId:string, task:ToDoListTaskItemType) {
+        return toDoInstance.put<SetToDoListsResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`, {
             ...task
           })
           .then(response => {
@@ -245,14 +221,14 @@ export const toDoListAPI = {
   },
 
   deleteTaskFromList(todolistId:string, taskId:string) {
-    return toDoInstance.delete(`todo-lists/${todolistId}/tasks/${taskId}`)
+    return toDoInstance.delete<StandartResponseFromServerType>(`todo-lists/${todolistId}/tasks/${taskId}`)
     .then(response => {
       return response;
     });
   },
 
   reorderedToDoList(todolistId:string, putAfterItemId: null|string = null ) {
-    return toDoInstance.put(`todo-lists/${todolistId}/reorder`, {
+    return toDoInstance.put<StandartResponseFromServerType>(`todo-lists/${todolistId}/reorder`, {
       putAfterItemId: putAfterItemId
     })
     .then(response => {
@@ -260,8 +236,8 @@ export const toDoListAPI = {
     });
   },
 
-  reorderedTask(toDoListId:string, taskId:string, putAfterItemId: null|string = null) {
-    return toDoInstance.put(`todo-lists/${toDoListId}/tasks/${taskId}/reorder`, {
+  reorderedTask(toDoListId:string, taskId:string, putAfterItemId: null |string = null) {
+    return toDoInstance.put<StandartResponseFromServerType>(`todo-lists/${toDoListId}/tasks/${taskId}/reorder`, {
       putAfterItemId: putAfterItemId
     })
     .then(response => {
@@ -279,7 +255,7 @@ export const generatedFotoAPI = {
       for (let value in faceParams) {
         url = url + '&' + value +'='+ faceParams[value];
       }
-    return axios.get(url)
+    return axios.get<AIGeneratedFacesType>(url)
         .then(response => {
           return response.data;
         });

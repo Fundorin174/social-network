@@ -1,6 +1,6 @@
 import {authAPI} from '../DAL/api';
 import {stopSubmit} from "redux-form";
-import { AuthDataType, LetAuthType, LoginResponseType } from '../types/types';
+import { AuthDataType, LetAuthType, LoginResponseType, ResponseLogin, ResponseEnum } from '../types/types';
 import { AppStateType } from './reduxStore';
 import { Dispatch } from 'redux';
 import { ThunkAction } from 'redux-thunk';
@@ -41,7 +41,7 @@ type ThunkResult<R> = ThunkAction<R, AppStateType, undefined, ActionType>
 export const letAuth = ():ThunkResult<void> => (dispatch, getState) => {
   return authAPI.auth()
     .then((data) => {
-      if (data.resultCode === 0) {
+      if (data.resultCode === ResponseEnum.success) {
         dispatch(authMe(data.data));
       }
     });
@@ -50,9 +50,9 @@ export const letAuth = ():ThunkResult<void> => (dispatch, getState) => {
 export const login = (email:string, password:string, rememberMe:boolean, captcha:string | undefined):ThunkResult<void> => (dispatch, getState) => {
   authAPI.login(email, password, rememberMe, captcha)
  .then((data) => {
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResponseLogin.success) {
       dispatch(letAuth());
-    } else if (data.resultCode === 10) {
+    } else if (data.resultCode === ResponseLogin.needCapcha) {
       let message = data.messages;
       let action = stopSubmit('LoginForm', {
         _error: message
@@ -78,7 +78,7 @@ export const logout = () => (dispatch: Dispatch<ActionType>, getState: () => App
   authAPI.logout()
   .then((data:any) => {
 
-    if (data.data.resultCode === 0) {
+    if (data.data.resultCode === ResponseEnum.success) {
       dispatch(deleteAuthMe());      
     }
 

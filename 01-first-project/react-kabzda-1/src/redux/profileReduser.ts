@@ -1,4 +1,4 @@
-import { ProfileType, PhotosType, AIGeneratedFacesType } from './../types/types';
+import { ProfileType, PhotosType, AIGeneratedFacesType, ResponseEnum } from './../types/types';
 import React from 'react';
 import {profileAPI, generatedFotoAPI} from '../DAL/api';
 import {isloading} from './userReduser';
@@ -160,7 +160,7 @@ export const loadProfileData = (profile: ProfileType) => async (dispatch: any, g
   dispatch(isloading(true));
   let data = await profileAPI.setProfile(profile);
   let userID = getState().auth.id;
-  if (data.resultCode === 0)
+  if (data.resultCode === ResponseEnum.success)
   {
    dispatch(getProfile(userID));
   dispatch(isloadProfileDataSuccess(true));
@@ -183,14 +183,14 @@ export const getStatus = (userID: number) => async (dispatch: any) => {
 export const setStatus = (status: string) => async (dispatch: any) => {
   dispatch(isloading(true));
   let data = await profileAPI.setStatus(status);
-      data.resultCode === 0 ? dispatch(setUserStatus(status)) : console.log(data.messages);
+      data.resultCode === ResponseEnum.success ? dispatch(setUserStatus(status)) : console.log(data.messages);
       dispatch(isloading(false));
 };
 
 export const upLoadAvatar = (avatar: any) => async (dispatch: any) => {
   dispatch(isloading(true));
   let data = await profileAPI.upLoadAvatar(avatar);
-  data.resultCode === 0 ? dispatch(upLoadAvatarSuccess(data.data.photos as PhotosType)) : console.log(data.message);
+  data.resultCode === ResponseEnum.success ? dispatch(upLoadAvatarSuccess(data.data.photos as PhotosType)) : console.log(data.messages);
       dispatch(isloading(false));
 };
 

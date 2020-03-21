@@ -1,4 +1,4 @@
-import { UserType, UsersType, FollowType } from './../types/types';
+import { UserType, UsersType, StandartResponseFromServerType, ResponseEnum } from './../types/types';
 import { usersAPI } from "../DAL/api";
 import {changeElementInArray} from "../components/common/helpFunctions";
 import { Dispatch } from 'redux';
@@ -94,7 +94,7 @@ type FirstPageActionType = {
 
 export const firstPage = (): FirstPageActionType => ({type: FIRST_PAGE});
 
-type IsloadingActionType = {
+export type IsloadingActionType = {
   type: typeof TOGGLE_IS_LOADING
   isLoading: boolean
 }
@@ -150,9 +150,9 @@ export const getUsers = (currentPage:number, usersPerPageCount:number, term:stri
              dispatch(setTotalUsersCount(data.totalCount));
        };
 
-export const followUnFollowToggle = (dispatch: DispatchType, getState: StateType, id: number, data: FollowType, followinMethod: FollowinMethodType) => {
+export const followUnFollowToggle = (dispatch: DispatchType, getState: StateType, id: number, data: StandartResponseFromServerType, followinMethod: FollowinMethodType) => {
   dispatch(toggleFollowInProgress(true, id));
-  if (data.resultCode === 0) {followinMethod(id)}
+  if (data.resultCode === ResponseEnum.success) {followinMethod(id)}
   dispatch(toggleFollowInProgress(false, id));
 }
 
