@@ -1,6 +1,9 @@
 import {authAPI} from '../DAL/api';
 import {stopSubmit} from "redux-form";
-import { AuthDataType } from '../types/types';
+import { AuthDataType, LetAuthType, LoginResponseType, ResponseLogin, ResponseEnum } from '../types/types';
+import { AppStateType } from './reduxStore';
+import { Dispatch } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 
 const SET_AUTH_DATA = 'SOCIAL-NETWORK/AUTH/SET_AUTH_DATA';
 const DELETE_AUTH_DATA = 'SOCIAL-NETWORK/AUTH/DELETE_AUTH_DATA';
@@ -25,34 +28,44 @@ type SetCaptchaActionType = {
   type: typeof SET_CAPTCHA
   url: string
 }
+
 const setCaptcha = (url: string): SetCaptchaActionType => ({
-  type: SET_CAPTCHA, 
-  url:url
+  type: SET_CAPTCHA,
+  url
 })
 
 type ActionType = AuthMeActionType | DeleteAuthMeActionType | SetCaptchaActionType;
 
-export const login = (email:string, password:string, rememberMe:boolean, captcha:string | undefined) => (dispatch:any) => {
+type ThunkResult<R> = ThunkAction<R, AppStateType, undefined, ActionType>
 
+export const letAuth = ():ThunkResult<void> => (dispatch, getState) => {
+  return authAPI.auth()
+    .then((data) => {
+      if (data.resultCode === ResponseEnum.success) {
+        dispatch(authMe(data.data));
+      }
+    });
+};
+
+export const login = (email:string, password:string, rememberMe:boolean, captcha:string | undefined):ThunkResult<void> => (dispatch, getState) => {
   authAPI.login(email, password, rememberMe, captcha)
- .then((response:any) => {
-
-    if (response.data.resultCode === 0) {
+ .then((data) => {
+    if (data.resultCode === ResponseLogin.success) {
       dispatch(letAuth());
-    } else if (response.data.resultCode === 10) {
-      let message = response.data.messages;
+    } else if (data.resultCode === ResponseLogin.needCapcha) {
+      let message = data.messages;
       let action = stopSubmit('LoginForm', {
         _error: message
       });
       authAPI.getCaptcha()
-      .then((response:any) => {        
+      .then((response) => {        
         dispatch(setCaptcha(response.url));
         dispatch(action);
       })
     }
     
     else {
-      let message = response.data.messages;
+      let message = data.messages;
       let action = stopSubmit('LoginForm', {_error: message});
       dispatch(action);
     }
@@ -61,26 +74,18 @@ export const login = (email:string, password:string, rememberMe:boolean, captcha
 };
 
 
-export const logout = () => (dispatch: any) => {
+export const logout = () => (dispatch: Dispatch<ActionType>, getState: () => AppStateType) => {
   authAPI.logout()
   .then((data:any) => {
 
-    if (data.data.resultCode === 0) {
-      dispatch(deleteAuthMe());
-      
+    if (data.data.resultCode === ResponseEnum.success) {
+      dispatch(deleteAuthMe());      
     }
 
   });
 };
 
-export const letAuth = () => (dispatch:any) => {
-  return authAPI.auth()
-    .then((data:any) => {
-      if (data.resultCode === 0) {
-        dispatch(authMe(data.data));
-      }
-    });
-};
+
 
 let initialState = {
     id: null as null | number,

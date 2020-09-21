@@ -55,9 +55,8 @@ const Users = (props) => {
               }
             />
             <div className={classes.users_wrapper}>
-                {
-                    props
-                        .users
+                {props.users[0] && 
+                    props.users
                         .map(user => {
                                 return <User
                                     key={user.id}

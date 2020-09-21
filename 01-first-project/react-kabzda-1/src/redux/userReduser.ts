@@ -1,6 +1,9 @@
-import { UserType, UsersType } from './../types/types';
+import { UserType, UsersType, StandartResponseFromServerType, ResponseEnum } from './../types/types';
 import { usersAPI } from "../DAL/api";
 import {changeElementInArray} from "../components/common/helpFunctions";
+import { Dispatch } from 'redux';
+import { AppStateType } from './reduxStore';
+import { ThunkAction } from 'redux-thunk';
 
 const FOLLOW = 'SOCIAL-NETWORK/USERS/FOLLOW',
     UNFOLLOW = 'SOCIAL-NETWORK/USERS/UNFOLLOW',
@@ -59,17 +62,17 @@ export const searchUsers = (partOfName: string): SearchUsersActionType => ({
 
 type SetUsersActionType = {
   type: typeof SET_USERS
-  users: UsersType
+  users: Array<UserType>
 }
 
-export const setUsers = (users: UsersType): SetUsersActionType => ({type: SET_USERS, users});
+export const setUsers = (users: Array<UserType>): SetUsersActionType => ({type: SET_USERS, users});
 
 type ChangeCurrentPageActionType = {
   type: typeof CHANGE_CURRENT_PAGE
-  pageNum: string
+  pageNum: number
 }
 
-export const changeCurrentPage = (pageNum: string) => (
+export const changeCurrentPage = (pageNum: number): ChangeCurrentPageActionType => (
     {type: CHANGE_CURRENT_PAGE, pageNum}
 );
 
@@ -91,7 +94,7 @@ type FirstPageActionType = {
 
 export const firstPage = (): FirstPageActionType => ({type: FIRST_PAGE});
 
-type IsloadingActionType = {
+export type IsloadingActionType = {
   type: typeof TOGGLE_IS_LOADING
   isLoading: boolean
 }
@@ -134,7 +137,12 @@ export const toggleFollowInProgress = (isFetching: boolean, userID: number): Tog
   });
 
 
-export const getUsers = (currentPage:number, usersPerPageCount:number, term:string | undefined) => async (dispatch: any) => {
+type ActionType = ToggleFollowInProgressActionType | SetTotalUsersCountActionType | LastPageActionType | ChangeUsersPerPageActionType | IsloadingActionType | FirstPageActionType | PreviosPageActionType | NextPageActionType | ChangeCurrentPageActionType | SetUsersActionType | SearchUsersActionType | FromFriendsActionType | ToFriendsActionType | UnFollowActionType | ToFollowActionType
+
+type StateType = () => AppStateType
+type DispatchType = Dispatch<ActionType>
+
+export const getUsers = (currentPage:number, usersPerPageCount:number, term:string | undefined):ThunkAction<Promise<void>, AppStateType, unknown, ActionType> => async (dispatch, getState) => {
          dispatch(isloading(true));
          let data = await usersAPI.getUsers(currentPage, usersPerPageCount, term);
              dispatch(isloading(false));
@@ -142,28 +150,30 @@ export const getUsers = (currentPage:number, usersPerPageCount:number, term:stri
              dispatch(setTotalUsersCount(data.totalCount));
        };
 
-export const followUnFollowToggle = (dispatch: any, id: number, data: any, followinMethod: any) => {
+export const followUnFollowToggle = (dispatch: DispatchType, getState: StateType, id: number, data: StandartResponseFromServerType, followinMethod: FollowinMethodType) => {
   dispatch(toggleFollowInProgress(true, id));
-  if (data.resultCode === 0) {followinMethod(id)}
+  if (data.resultCode === ResponseEnum.success) {followinMethod(id)}
   dispatch(toggleFollowInProgress(false, id));
 }
 
-export const follow = (id:number) => async (dispatch:any) => {
+type FollowinMethodType = (id: number) =>void
+
+export const follow = (id:number) => async (dispatch: DispatchType, getState: StateType) => {
   let data = await usersAPI.toFollow(id);
   let followinMethod = (id: number) => {dispatch(toFollow(id))};
-  followUnFollowToggle(dispatch, id, data, followinMethod);
+  followUnFollowToggle(dispatch, getState, id, data, followinMethod);
 };
 
-export const unFollow = (id: number) => async (dispatch:any) => {
+export const unFollow = (id: number) => async (dispatch: Dispatch<ActionType>, getState: StateType) => {
   let data = await usersAPI.unFollow(id);
   let followinMethod = (id: number) => {dispatch(toUnfollow(id))};
-  followUnFollowToggle(dispatch, id, data, followinMethod);
+  followUnFollowToggle(dispatch, getState, id, data, followinMethod);
 }
 
 
 
 let initialState = {
-    users: [] as Array <UserType>,
+    users: [] as Array<UserType>,
     searchUsersText: '',
     totalUsersCount: 0,
     usersPerPageCount: 5,
@@ -176,7 +186,7 @@ let initialState = {
 
 type InitialStateType = typeof initialState
 
-const usersReducer = (state = initialState, action: any): InitialStateType => {
+const usersReducer = (state = initialState, action: ActionType): InitialStateType => {
 
     switch (action.type) {
         case SET_USERS:

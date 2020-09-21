@@ -56,7 +56,7 @@ const ToDoList = props => {
     for (let i = 0; i < props.tasks.length; i++) {
       if (props.tasks[i - 2] && props.tasks[i].id === taskId) {
         putAfterItemId = props.tasks[i - 2].id;
-        props.reorderedTask(taskId, putAfterItemId);
+        props.reorderedTask(toDoListId, taskId, putAfterItemId);
       } else if (props.tasks[1] && props.tasks[1].id === taskId) {
         putAfterItemId = null;
         props.reorderedTask(toDoListId, taskId, putAfterItemId);
